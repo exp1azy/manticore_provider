@@ -2,7 +2,7 @@
 
 namespace ManticoreSearch.Api.Models.Responses
 {
-    public class BulkResponse
+    public class BulkSuccessResponse
     {
         [JsonProperty("items")]
         public List<BulkItem> Items { get; set; }
@@ -15,8 +15,5 @@ namespace ManticoreSearch.Api.Models.Responses
 
         [JsonProperty("errors")]
         public bool Errors { get; set; }
-
-        [JsonProperty("error")]
-        public string Error { get; set; }
     }
 }

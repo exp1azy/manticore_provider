@@ -129,4 +129,10 @@
   <data name="InsertError" xml:space="preserve">
     <value>An error occurred while executing the insert method: {0}</value>
   </data>
+  <data name="BulkError" xml:space="preserve">
+    <value>An error occurred while attempting to perform the bulk method: {0}</value>
+  </data>
+  <data name="DocumentListError" xml:space="preserve">
+    <value>The list of documents must be greater than zero.</value>
+  </data>
 </root>

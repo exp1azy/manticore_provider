@@ -61,6 +61,24 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while attempting to perform the bulk method: {0}.
+        /// </summary>
+        internal static string BulkError {
+            get {
+                return ResourceManager.GetString("BulkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The list of documents must be greater than zero..
+        /// </summary>
+        internal static string DocumentListError {
+            get {
+                return ResourceManager.GetString("DocumentListError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Document is required..
         /// </summary>
         internal static string DocumentRequired {

@@ -5,6 +5,6 @@ namespace ManticoreSearch.Api.Models.Responses
     public class BulkReplaceItem
     {
         [JsonProperty("replace")]
-        public SuccessResponse Replace { get; set; }
+        public InsertResponse Replace { get; set; }
     }
 }
