@@ -1,0 +1,5 @@
+.vs/
+ManticoreSearch.Api/bin/
+ManticoreSearch.Api/obj/
+ManticoreSearch.Api.Tests/bin/
+ManticoreSearch.Api.Tests/obj/
