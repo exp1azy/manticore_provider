@@ -1019,19 +1019,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user41\\.nuget\\packages\\": {}
+    "C:\\Users\\anton\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user41\\source\\repos\\ManticoreSearch\\ManticoreSearch.Api.Test\\ManticoreSearch.Api.Test.csproj",
+      "projectUniqueName": "D:\\projects\\ManticoreSearch\\ManticoreSearch.Api.Test\\ManticoreSearch.Api.Test.csproj",
       "projectName": "ManticoreSearch.Api.Test",
-      "projectPath": "C:\\Users\\user41\\source\\repos\\ManticoreSearch\\ManticoreSearch.Api.Test\\ManticoreSearch.Api.Test.csproj",
-      "packagesPath": "C:\\Users\\user41\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user41\\source\\repos\\ManticoreSearch\\ManticoreSearch.Api.Test\\obj\\",
+      "projectPath": "D:\\projects\\ManticoreSearch\\ManticoreSearch.Api.Test\\ManticoreSearch.Api.Test.csproj",
+      "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
+      "outputPath": "D:\\projects\\ManticoreSearch\\ManticoreSearch.Api.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\user41\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1040,15 +1040,14 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "\\\\host109\\nupkg": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\user41\\source\\repos\\ManticoreSearch\\ManticoreSearch.Api\\ManticoreSearch.Api.csproj": {
-              "projectPath": "C:\\Users\\user41\\source\\repos\\ManticoreSearch\\ManticoreSearch.Api\\ManticoreSearch.Api.csproj"
+            "D:\\projects\\ManticoreSearch\\ManticoreSearch.Api\\ManticoreSearch.Api.csproj": {
+              "projectPath": "D:\\projects\\ManticoreSearch\\ManticoreSearch.Api\\ManticoreSearch.Api.csproj"
             }
           }
         }
