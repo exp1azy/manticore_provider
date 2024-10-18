@@ -4,13 +4,13 @@ namespace ManticoreSearch.Api.Models.Responses
 {
     public class DeleteResponse
     {
-        [JsonProperty("index")]
+        [JsonProperty("_index")]
         public string Index { get; set; }
 
-        [JsonProperty("deleted")]
-        public int Deleted { get; set; }
+        [JsonProperty("found")]
+        public bool Found { get; set; }
 
-        [JsonProperty("id")]
+        [JsonProperty("_id")]
         public long Id { get; set; }
 
         [JsonProperty("result")]

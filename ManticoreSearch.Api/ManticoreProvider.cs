@@ -88,6 +88,9 @@ namespace ManticoreSearch.Api
 
             var stringResponse = await response.Content.ReadAsStringAsync(cancellationToken);
 
+            if (typeof(TResponse) == typeof(string))
+                return (TResponse)(object)stringResponse;
+
             return JsonConvert.DeserializeObject<TResponse>(stringResponse)!;
         }
 
@@ -114,6 +117,9 @@ namespace ManticoreSearch.Api
 
             var stringResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
+            if (typeof(TResponse) == typeof(string))
+                return (TResponse)(object)stringResponse;
+
             return JsonConvert.DeserializeObject<TResponse>(stringResponse)!;
         }
 
@@ -136,7 +142,7 @@ namespace ManticoreSearch.Api
         /// <returns>A string representing the result of the SQL query.</returns>
         /// <exception cref="NullException">Thrown if the provided SQL query is null.</exception>
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
-        public object Sql(string sql)
+        public string Sql(string sql)
         {
             if (sql == null)
                 throw new NullException(nameof(sql));
@@ -145,7 +151,7 @@ namespace ManticoreSearch.Api
             {
                 var content = new StringContent(sql);
 
-                return Send<object>("/cli", HttpMethod.Post, content);
+                return Send<string>("/cli", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -161,7 +167,7 @@ namespace ManticoreSearch.Api
         /// <returns>A task that represents the asynchronous operation. The task result is a string containing the result of the SQL query.</returns>
         /// <exception cref="NullException">Thrown if the provided SQL query is null.</exception>
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
-        public async Task<object> SqlAsync(string sql, CancellationToken cancellationToken = default)
+        public async Task<string> SqlAsync(string sql, CancellationToken cancellationToken = default)
         {
             if (sql == null)
                 throw new NullException(nameof(sql));
@@ -170,7 +176,7 @@ namespace ManticoreSearch.Api
             {
                 var content = new StringContent(sql);
 
-                return await SendAsync<object>("/cli", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<string>("/cli", HttpMethod.Post, content, cancellationToken);
 
             }
             catch (Exception)
@@ -187,7 +193,10 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public InsertResponse Insert(InsertRequest document)
         {
-            if (document == null || document.Document.Count == 0)
+            if (document == null)
+                throw new NullException(nameof(document));
+
+            if (document.Document.Count == 0)
                 throw new InsertException(ProviderError.DocumentRequired);
 
             try
@@ -211,7 +220,10 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public async Task<InsertResponse> InsertAsync(InsertRequest document, CancellationToken cancellationToken = default)
         {
-            if (document == null || document.Document.Count == 0)
+            if (document == null)
+                throw new NullException(nameof(document));
+
+            if (document.Document.Count == 0)
                 throw new InsertException(ProviderError.DocumentRequired);
 
             try
@@ -327,7 +339,7 @@ namespace ManticoreSearch.Api
         /// <returns>Returns the result of the HTTP request as <see cref="BulkSuccessResponse"/> indicating the outcome of the bulk replace operation.</returns>
         /// <exception cref="NullException">Thrown when the provided documents collection is null.</exception>
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
-        public BulkSuccessResponse BulkReplace(IEnumerable<BulkReplaceRequest> documents)
+        public object BulkReplace(IEnumerable<BulkReplaceRequest> documents)
         {
             if (documents == null)
                 throw new NullException(nameof(documents));
@@ -337,7 +349,7 @@ namespace ManticoreSearch.Api
                 var json = string.Join("\n", documents.Select(JsonConvert.SerializeObject));
                 var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
 
-                return Send<BulkSuccessResponse>("/bulk", HttpMethod.Post, content);
+                return Send<object>("/bulk", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -353,7 +365,7 @@ namespace ManticoreSearch.Api
         /// <returns>Returns the result of the HTTP request as <see cref="BulkSuccessResponse"/> indicating the outcome of the bulk replace operation.</returns>
         /// <exception cref="NullException">Thrown when the provided documents collection is null.</exception>
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
-        public async Task<BulkSuccessResponse> BulkReplaceAsync(IEnumerable<BulkReplaceRequest> documents, CancellationToken cancellationToken = default)
+        public async Task<object> BulkReplaceAsync(IEnumerable<BulkReplaceRequest> documents, CancellationToken cancellationToken = default)
         {
             if (documents == null)
                 throw new NullException(nameof(documents));
@@ -363,7 +375,7 @@ namespace ManticoreSearch.Api
                 var json = string.Join("\n", documents.Select(JsonConvert.SerializeObject));
                 var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
 
-                return await SendAsync<BulkSuccessResponse>("/bulk", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<object>("/bulk", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {
@@ -380,9 +392,6 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public UpdateResponse Update(UpdateRequest document)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
@@ -405,9 +414,6 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public async Task<UpdateResponse> UpdateAsync(UpdateRequest document, CancellationToken cancellationToken = default)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
@@ -429,9 +435,6 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public SearchResponse Search(SearchRequest request)
         {
-            if (request == null)
-                throw new NullException(nameof(request));
-
             try
             {
                 var content = CreateStringContentFromJson(request, "application/json");
@@ -454,9 +457,6 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public async Task<SearchResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default)
         {
-            if (request == null)
-                throw new NullException(nameof(request));
-
             try
             {
                 var content = CreateStringContentFromJson(request, "application/json");
@@ -478,9 +478,6 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public DeleteResponse Delete(DeleteRequest document)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
@@ -503,9 +500,6 @@ namespace ManticoreSearch.Api
         /// <exception cref="HttpRequestFailureException">Thrown when the HTTP request fails.</exception>
         public async Task<DeleteResponse> DeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
@@ -584,6 +578,7 @@ namespace ManticoreSearch.Api
 
             if (index == null)
                 throw new NullException(nameof(index));
+
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");

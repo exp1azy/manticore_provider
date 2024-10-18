@@ -338,3 +338,4 @@ D:\projects\ManticoreSearch\ManticoreSearch.Api.Test\obj\Debug\net8.0\refint\Man
 D:\projects\ManticoreSearch\ManticoreSearch.Api.Test\obj\Debug\net8.0\ManticoreSearch.Api.Test.pdb
 D:\projects\ManticoreSearch\ManticoreSearch.Api.Test\obj\Debug\net8.0\ManticoreSearch.Api.Test.genruntimeconfig.cache
 D:\projects\ManticoreSearch\ManticoreSearch.Api.Test\obj\Debug\net8.0\ref\ManticoreSearch.Api.Test.dll
+C:\Users\user41\source\repos\ManticoreSearch\ManticoreSearch.Api.Test\obj\Debug\net8.0\ManticoreSearch.Api.Test.sourcelink.json

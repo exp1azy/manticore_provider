@@ -10,8 +10,8 @@ namespace ManticoreSearch.Api.Models.Responses
         [JsonProperty("updated")]
         public int Updated { get; set; }
 
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        [JsonProperty("_id")]
+        public long Id { get; set; }
 
         [JsonProperty("result")]
         public string Result { get; set; }

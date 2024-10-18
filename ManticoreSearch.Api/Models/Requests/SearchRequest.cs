@@ -5,7 +5,7 @@ namespace ManticoreSearch.Api.Models.Requests
     public class SearchRequest
     {
         [JsonProperty("index")]
-        public string Index { get; set; } = "";
+        public string Index { get; set; } = string.Empty;
 
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public object? Query { get; set; } = null;

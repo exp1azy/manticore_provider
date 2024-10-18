@@ -5,7 +5,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class SqlTests
     {
-        private readonly ManticoreProvider apiInstance = new();
+        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
         public void CreateTableSqlTest()
