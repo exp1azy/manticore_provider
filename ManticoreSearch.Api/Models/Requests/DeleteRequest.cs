@@ -29,8 +29,8 @@ namespace ManticoreSearch.Api.Models.Requests
         /// Gets or sets the unique identifier of the document to be deleted.
         /// This field defaults to 0, which may indicate that it is not set.
         /// </summary>
-        [JsonProperty("id")]
-        public long Id { get; set; } = 0;
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Id { get; set; } = null;
 
         /// <summary>
         /// Gets or sets an optional query that defines the criteria for deleting documents.

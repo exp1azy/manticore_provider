@@ -1,4 +1,5 @@
-﻿using ManticoreSearch.Api.Models.Requests;
+﻿using ManticoreSearch.Api.Exceptions;
+using ManticoreSearch.Api.Models.Requests;
 
 namespace ManticoreSearch.Api.Test
 {
@@ -12,7 +13,6 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Id = 232232332,
                 Index = "products",
                 Document = new Dictionary<string, object>
                 {
@@ -22,12 +22,14 @@ namespace ManticoreSearch.Api.Test
             };
 
             var result = apiInstance.Update(doc);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void UpdateNullRequestTest()
+        public void UpdateRequestTest_Null()
         {
-            var result = apiInstance.Update(null);
+            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Update(null));  
         }
     }
 }

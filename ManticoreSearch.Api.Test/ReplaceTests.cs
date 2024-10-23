@@ -29,7 +29,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestWithWrongIndexTest()
+        public void ReplaceRequestTest_WithWrongIndex()
         {
             var doc = new InsertRequest
             {
@@ -47,13 +47,13 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceNullRequestTest()
+        public void ReplaceRequestTest_Null()
         {
             Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Replace(null));
         }
 
         [TestMethod]
-        public void ReplaceRequestWithWrongIdTest()
+        public void ReplaceRequestTest_WithWrongId()
         {
             var doc = new InsertRequest
             {
@@ -73,7 +73,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestWithNegativeIdTest()
+        public void ReplaceRequestTest_WithNegativeId()
         {
             var doc = new InsertRequest
             {
@@ -91,7 +91,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestWithNullDocumentTest()
+        public void ReplaceRequestTest_WithNullDocument()
         {
             var doc = new InsertRequest
             {
@@ -104,7 +104,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestWithEmptyDocumentTest()
+        public void ReplaceRequestTest_WithEmptyDocument()
         {
             var doc = new InsertRequest
             {

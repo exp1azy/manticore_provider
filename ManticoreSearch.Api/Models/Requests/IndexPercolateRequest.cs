@@ -20,6 +20,14 @@ namespace ManticoreSearch.Api.Models.Requests
         public object Query { get; set; }
 
         /// <summary>
+        /// Gets or sets additional filters that can be applied when indexing the percolation query.
+        /// This property is required and can be used to narrow down the scope of the query 
+        /// by applying specific conditions or constraints.
+        /// </summary>
+        [JsonProperty("filters")]
+        public string Filters { get; set; } = "";
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="IndexPercolateRequest"/> class.
         /// </summary>
         public IndexPercolateRequest() { }
@@ -28,10 +36,12 @@ namespace ManticoreSearch.Api.Models.Requests
         /// Initializes a new instance of the <see cref="IndexPercolateRequest"/> class
         /// with the specified percolation query.
         /// </summary>
-        /// <param name="query">The percolation query to be indexed.</param>
-        public IndexPercolateRequest(object query)
+        /// <param name="query">The percolation query to be indexed.</param>\
+        /// <param name="filters">Filters that can be applied when indexing the percolation query.</param>
+        public IndexPercolateRequest(object query, string filters)
         {
             Query = query;
+            Filters = filters;
         }
     }
 }

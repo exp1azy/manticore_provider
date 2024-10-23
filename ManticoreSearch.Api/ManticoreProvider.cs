@@ -90,11 +90,13 @@ namespace ManticoreSearch.Api
             };
 
             var response = await _httpClient.SendAsync(request, cancellationToken);
+            var stringResponse = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (!response.IsSuccessStatusCode)
-                throw new HttpRequestFailureException(response.ToString()!);
-
-            var stringResponse = await response.Content.ReadAsStringAsync(cancellationToken);
+            {
+                var errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(stringResponse);
+                throw new HttpRequestFailureException(errorMessage!.Error);
+            }
 
             if (typeof(TResponse) == typeof(string))
                 return (TResponse)(object)stringResponse;
@@ -127,11 +129,13 @@ namespace ManticoreSearch.Api
             };
 
             var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
+            var stringResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
             if (!response.IsSuccessStatusCode)
-                throw new HttpRequestFailureException(response.ToString()!);
-
-            var stringResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            {
+                var errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(stringResponse);
+                throw new HttpRequestFailureException(errorMessage!.Error);
+            }
 
             if (typeof(TResponse) == typeof(string))
                 return (TResponse)(object)stringResponse;
@@ -733,7 +737,7 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur due to network issues,
         /// malformed requests, or error responses from the API.
         /// </exception>
-        public BulkResponse BulkDelete(IEnumerable<BulkDeleteRequest> documents)
+        public object BulkDelete(IEnumerable<BulkDeleteRequest> documents)
         {
             if (documents == null)
                 throw new NullException(nameof(documents));
@@ -743,7 +747,7 @@ namespace ManticoreSearch.Api
                 var json = string.Join("\n", documents.Select(JsonConvert.SerializeObject));
                 var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
 
-                return Send<BulkResponse>("/bulk", HttpMethod.Post, content);
+                return Send<object>("/bulk", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -773,7 +777,7 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur due to network issues,
         /// malformed requests, or error responses from the API.
         /// </exception>
-        public async Task<BulkResponse> BulkDeleteAsync(IEnumerable<BulkDeleteRequest> documents, CancellationToken cancellationToken = default)
+        public async Task<object> BulkDeleteAsync(IEnumerable<BulkDeleteRequest> documents, CancellationToken cancellationToken = default)
         {
             if (documents == null)
                 throw new NullException(nameof(documents));
@@ -783,7 +787,7 @@ namespace ManticoreSearch.Api
                 var json = string.Join("\n", documents.Select(JsonConvert.SerializeObject));
                 var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
 
-                return await SendAsync<BulkResponse>("/bulk", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<object>("/bulk", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {
@@ -818,12 +822,6 @@ namespace ManticoreSearch.Api
         /// </exception>
         public SearchResponse IndexPercolate(IndexPercolateRequest document, string index)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
-            if (index == null)
-                throw new NullException(nameof(index));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
@@ -867,12 +865,6 @@ namespace ManticoreSearch.Api
         /// </exception>
         public async Task<SearchResponse> IndexPercolateAsync(IndexPercolateRequest document, string index, CancellationToken cancellationToken = default)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
-            if (index == null)
-                throw new NullException(nameof(index));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
@@ -912,17 +904,11 @@ namespace ManticoreSearch.Api
         /// </exception>
         public SearchResponse Percolate(PercolateRequest document, string index)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
-            if (index == null)
-                throw new NullException(nameof(index));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return Send<SearchResponse>($"/pq/{index}/_search", HttpMethod.Post, content);
+                return Send<SearchResponse>($"/pq/{index}/search", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -960,17 +946,11 @@ namespace ManticoreSearch.Api
         /// </exception>
         public async Task<SearchResponse> PercolateAsync(PercolateRequest document, string index, CancellationToken cancellationToken = default)
         {
-            if (document == null)
-                throw new NullException(nameof(document));
-
-            if (index == null)
-                throw new NullException(nameof(index));
-
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return await SendAsync<SearchResponse>($"/pq/{index}/_search", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<SearchResponse>($"/pq/{index}/search", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {

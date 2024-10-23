@@ -24,7 +24,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestWithWrongIdTest()
+        public void DeleteRequestTest_WithWrongId()
         {
             var doc = new DeleteRequest
             {
@@ -39,7 +39,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestWithNegativeIdTest()
+        public void DeleteRequestTest_WithNegativeId()
         {
             var doc = new DeleteRequest
             {
@@ -51,7 +51,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestWithWrongIndexTest()
+        public void DeleteRequestTest_WithWrongIndex()
         {
             var doc = new DeleteRequest
             {
@@ -63,7 +63,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestWithNullIndexTest()
+        public void DeleteRequestTest_WithNullIndex()
         {
             var doc = new DeleteRequest
             {
@@ -75,7 +75,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestWithEmptyBodyTest()
+        public void DeleteRequestTest_WithEmptyBody()
         {
             var doc = new DeleteRequest();
 
@@ -83,13 +83,13 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteNullRequestTest()
+        public void DeleteRequestTest_Null()
         {
             Assert.ThrowsException<HttpRequestFailureException>(() => apiIstance.Delete(null));
         }
 
         [TestMethod]
-        public void DeleteRequestWithQueryTest()
+        public void DeleteRequestTest_WithQuery()
         {
             var doc = new DeleteRequest
             {

@@ -8,7 +8,7 @@ namespace ManticoreSearch.Api.Test
         private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
-        public void CreateTableSqlTest()
+        public void SqlTest_CreateTable()
         {
             string query = "create table products(title string, price float, count int)";
             var result = apiInstance.Sql(query);
@@ -17,7 +17,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void EmptyQuerySqlTest()
+        public void SqlTest_EmptyQuery()
         {
             string query = string.Empty;
             var result = apiInstance.Sql(query);
@@ -26,7 +26,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void NullQuerySqlTest()
+        public void SqlTest_NullQuery()
         {
             Assert.ThrowsException<NullException>(() => apiInstance.Sql(null));
         }

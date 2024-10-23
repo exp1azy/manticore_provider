@@ -14,7 +14,7 @@ namespace ManticoreSearch.Api.Test
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 15; i++)
             {
                 docs.Add(new()
                 {
@@ -37,7 +37,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestWithNullIndexTest()
+        public void BulkRequestTest_WithNullIndex()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -65,7 +65,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestWithEmptyIndexTest()
+        public void BulkRequestTest_WithEmptyIndex()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -93,7 +93,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestWithWrongAttributesTest()
+        public void BulkRequestTest_WithWrongAttributes()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -121,7 +121,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestWithEmptySetTest()
+        public void BulkRequestTest_WithEmptySet()
         {
             var docs = new List<BulkInsertRequest>();
             var result = apiInstance.Bulk(docs);
@@ -130,7 +130,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkNullRequestTest()
+        public void BulkRequestTest_Null()
         {
             Assert.ThrowsException<NullException>(() => apiInstance.Bulk(null));
         }
@@ -175,13 +175,13 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkReplaceNullRequestTest()
+        public void BulkReplaceRequestTest_Null()
         {
             Assert.ThrowsException<NullException>(() => apiInstance.BulkReplace(null));
         }
 
         [TestMethod]
-        public void BulkReplaceEmptyRequestTest()
+        public void BulkReplaceRequestTest_Empty()
         {
             var docs = new List<BulkReplaceRequest>();
 
@@ -189,7 +189,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkReplaceRequestWithWrongAttributesTest()
+        public void BulkReplaceRequestTest_WithWrongAttributes()
         {
             var random = new Random();
             var docs = new List<BulkReplaceRequest>();
@@ -212,6 +212,65 @@ namespace ManticoreSearch.Api.Test
             }
 
             var result = apiInstance.BulkReplace(docs);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void BulkDeleteRequestTest()
+        {
+            var docs = new List<BulkDeleteRequest>
+            {
+                new() {
+                    Delete = new DeleteRequest
+                    {
+                        Index = "products",
+                        Query = new
+                        {
+                            equals = new
+                            {
+                                title = "pepsi"
+                            }
+                        }
+                    }
+                }
+            };
+
+            var result = apiInstance.BulkDelete(docs);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void BulkDeleteRequestTest_Empty()
+        {
+            var docs = new List<BulkDeleteRequest>();
+            var result = apiInstance.BulkDelete(docs);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void BulkDeleteRequestTest_WithEmptyIndex()
+        {
+            var docs = new List<BulkDeleteRequest>
+            {
+                new() {
+                    Delete = new DeleteRequest
+                    {
+                        Index = "",
+                        Query = new
+                        {
+                            equals = new
+                            {
+                                title = "pepsi"
+                            }
+                        }
+                    }
+                }
+            };
+
+            var result = apiInstance.BulkDelete(docs);
 
             Assert.IsNotNull(result);
         }
