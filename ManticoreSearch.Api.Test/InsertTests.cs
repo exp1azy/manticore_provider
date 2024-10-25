@@ -6,7 +6,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class InsertTests
     {
-        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
+        private readonly ManticoreProvider apiInstance = new();
 
         [TestMethod]
         public void InsertDocumentTest()
@@ -14,12 +14,12 @@ namespace ManticoreSearch.Api.Test
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = 9,
+                Id = 1,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "pepsi" },
+                    { "title", "coca cola" },
                     { "price", 20.0f },
-                    { "count", 1 }
+                    { "count", 2 }
                 }
             };
 

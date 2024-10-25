@@ -6,7 +6,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class UpdateTests
     {
-        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
+        private readonly ManticoreProvider apiInstance = new();
 
         [TestMethod]
         public void UpdateRequestTest()
@@ -14,10 +14,11 @@ namespace ManticoreSearch.Api.Test
             var doc = new UpdateRequest()
             {
                 Index = "products",
+                Id = 1,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "cockey coola" },
-                    { "price", 30 },
+                    { "title", "cock" },
+                    { "price", 50 },
                 }
             };
 
