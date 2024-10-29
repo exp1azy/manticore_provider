@@ -11,12 +11,12 @@ namespace ManticoreSearch.Api.Models.Responses
     public class InsertResponse
     {
         /// <summary>
-        /// Gets or sets the name of the index where the document was inserted.
-        /// This property identifies the specific index within ManticoreSearch 
-        /// that contains the newly added document.
+        /// Gets or sets the name of the index (or table) in which the document was inserted.
+        /// This property specifies the destination index for the document within the ManticoreSearch 
+        /// engine, enabling users to identify and work with documents in the correct index.
         /// </summary>
-        [JsonProperty("_index")]
-        public string Index { get; set; }
+        [JsonProperty("table")]
+        public string Table { get; set; }
 
         /// <summary>
         /// Gets or sets the unique identifier assigned to the inserted document.

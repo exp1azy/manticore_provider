@@ -16,7 +16,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// The query will be evaluated against incoming documents to determine matches.
         /// </summary>
         [JsonProperty("query")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "QueryRequired")]
         public object Query { get; set; }
 
         /// <summary>

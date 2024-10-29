@@ -15,7 +15,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and contains the details of the insert request.
         /// </summary>
         [JsonProperty("insert")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "InsertRequestRequired")]
         public InsertRequest Insert { get; set; }
 
         /// <summary>

@@ -15,7 +15,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and must contain a valid <see cref="PercolateRequestQuery"/> object.
         /// </summary>
         [JsonProperty("query")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "QueryRequired")]
         public PercolateRequestQuery Query { get; set; }
 
         /// <summary>

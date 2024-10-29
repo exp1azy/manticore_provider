@@ -14,7 +14,7 @@ namespace ManticoreSearch.Api.Test
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
 
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 20; i++)
             {
                 docs.Add(new()
                 {
@@ -23,7 +23,7 @@ namespace ManticoreSearch.Api.Test
                         Index = "products",
                         Document = new Dictionary<string, object>
                         {
-                            { "title", "some food" },
+                            { "title", "cock cola" },
                             { "price", random.Next(1, 20) },
                             { "count", random.Next(1, 5) }
                         }
@@ -37,7 +37,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_WithNullIndex()
+        public void BulkRequestTest_NullIndex()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -65,7 +65,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_WithEmptyIndex()
+        public void BulkRequestTest_EmptyIndex()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -93,7 +93,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_WithWrongAttributes()
+        public void BulkRequestTest_WrongAttributes()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -121,7 +121,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_WithEmptySet()
+        public void BulkRequestTest_EmptySet()
         {
             var docs = new List<BulkInsertRequest>();
             var result = apiInstance.Bulk(docs);
@@ -145,7 +145,7 @@ namespace ManticoreSearch.Api.Test
                     Replace = new()
                     {
                         Index = "products",
-                        Id = 8217456661804089403,
+                        Id = 8217476891905359883,
                         Document = new Dictionary<string, object>()
                         {
                             { "title", "pineapple" },
@@ -159,6 +159,7 @@ namespace ManticoreSearch.Api.Test
                     Replace = new()
                     {
                         Index = "products",
+                        Id = 8217476891905359884,
                         Document = new Dictionary<string, object>()
                         {
                             { "title", "mango" },
@@ -186,10 +187,12 @@ namespace ManticoreSearch.Api.Test
             var docs = new List<BulkReplaceRequest>();
 
             var result = apiInstance.BulkReplace(docs);
+
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void BulkReplaceRequestTest_WithWrongAttributes()
+        public void BulkReplaceRequestTest_WrongAttributes()
         {
             var random = new Random();
             var docs = new List<BulkReplaceRequest>();
@@ -229,7 +232,7 @@ namespace ManticoreSearch.Api.Test
                         {
                             equals = new
                             {
-                                title = "pepsi"
+                                title = "cock cola"
                             }
                         }
                     }
@@ -251,7 +254,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkDeleteRequestTest_WithEmptyIndex()
+        public void BulkDeleteRequestTest_EmptyIndex()
         {
             var docs = new List<BulkDeleteRequest>
             {
@@ -263,7 +266,7 @@ namespace ManticoreSearch.Api.Test
                         {
                             equals = new
                             {
-                                title = "pepsi"
+                                title = "cock cola"
                             }
                         }
                     }

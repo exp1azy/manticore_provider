@@ -15,7 +15,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and must contain a valid index name.
         /// </summary>
         [JsonProperty("index")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "IndexRequired")]
         public string Index { get; set; }
 
         /// <summary>
@@ -37,7 +36,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and must contain the document data as key-value pairs.
         /// </summary>
         [JsonProperty("doc")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "DocumentRequired")]
         public Dictionary<string, object> Document { get; set; }
 
         /// <summary>

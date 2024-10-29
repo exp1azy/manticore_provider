@@ -16,7 +16,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This property is required to specify which index the update request targets.
         /// </summary>
         [JsonProperty("index")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "IndexRequired")]
         public string Index { get; set; }
 
         /// <summary>
@@ -31,7 +30,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This property is required to specify the new values for the document's fields.
         /// </summary>
         [JsonProperty("doc")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "DocumentRequired")]
         public Dictionary<string, object> Document { get; set; }
 
         /// <summary>

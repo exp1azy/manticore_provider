@@ -6,7 +6,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class ReplaceTests
     {
-        private readonly ManticoreProvider apiInstance = new();
+        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
         public void ReplaceRequestTest()
@@ -14,10 +14,10 @@ namespace ManticoreSearch.Api.Test
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = 8217460083752177578,
+                Id = 8217476891905359885,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "coca cola" },
+                    { "title", "pepsi" },
                     { "price", 26.0f },
                     { "count", 2 }
                 }
@@ -29,12 +29,12 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WithWrongIndex()
+        public void ReplaceRequestTest_WrongIndex()
         {
             var doc = new InsertRequest
             {
                 Index = "",
-                Id = 8217460083752177578,
+                Id = 105,
                 Document = new Dictionary<string, object>
                 {
                     { "title", "coca cola" },
@@ -43,26 +43,30 @@ namespace ManticoreSearch.Api.Test
                 }
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Replace(doc));
+            var result = apiInstance.Replace(doc);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
         public void ReplaceRequestTest_Null()
         {
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Replace(null));
+            var result = apiInstance.Replace(null);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WithWrongId()
+        public void ReplaceRequestTest_WrongId()
         {
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = 10,
+                Id = 105,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "fanta" },
-                    { "price", 25.0f },
+                    { "title", "pepsi" },
+                    { "price", 20.0f },
                     { "count", 1 }
                 }
             };
@@ -73,7 +77,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WithNegativeId()
+        public void ReplaceRequestTest_NegativeId()
         {
             var doc = new InsertRequest
             {
@@ -87,33 +91,35 @@ namespace ManticoreSearch.Api.Test
                 }
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Replace(doc));
+            var result = apiInstance.Replace(doc);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WithNullDocument()
+        public void ReplaceRequestTest_NullDocument()
         {
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = -1,
+                Id = 1,
                 Document = null
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Replace(doc));
+            Assert.ThrowsException<NullException>(() => apiInstance.Replace(doc));
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WithEmptyDocument()
+        public void ReplaceRequestTest_EmptyDocument()
         {
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = -1,
+                Id = 3,
                 Document = []
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Replace(doc));
+            Assert.ThrowsException<ReplaceException>(() => apiInstance.Replace(doc));
         }
     }
 }

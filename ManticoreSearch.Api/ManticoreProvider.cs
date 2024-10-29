@@ -92,13 +92,7 @@ namespace ManticoreSearch.Api
             var response = await _httpClient.SendAsync(request, cancellationToken);
             var stringResponse = await response.Content.ReadAsStringAsync(cancellationToken);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(stringResponse);
-                throw new HttpRequestFailureException(errorMessage!.Error);
-            }
-
-            if (typeof(TResponse) == typeof(string))
+            if (typeof(TResponse) == typeof(string) || !response.IsSuccessStatusCode)
                 return (TResponse)(object)stringResponse;
 
             return JsonConvert.DeserializeObject<TResponse>(stringResponse)!;
@@ -131,13 +125,7 @@ namespace ManticoreSearch.Api
             var response = _httpClient.SendAsync(request).GetAwaiter().GetResult();
             var stringResponse = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                var errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(stringResponse);
-                throw new HttpRequestFailureException(errorMessage!.Error);
-            }
-
-            if (typeof(TResponse) == typeof(string))
+            if (typeof(TResponse) == typeof(string) || !response.IsSuccessStatusCode)
                 return (TResponse)(object)stringResponse;
 
             return JsonConvert.DeserializeObject<TResponse>(stringResponse)!;
@@ -239,19 +227,19 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur if the server is unreachable,
         /// the request is malformed, or the API returns an error status code.
         /// </exception>
-        public InsertResponse Insert(InsertRequest document)
+        public object Insert(InsertRequest document)
         {
-            if (document == null)
+            if (document.Document == null)
                 throw new NullException(nameof(document));
 
-            if (document.Document.Count == 0)
-                throw new InsertException(ProviderError.DocumentRequired);
+            if (document.Document.Count <= 0)
+                throw new InsertException(ProviderError.InsertError);
 
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return Send<InsertResponse>("/insert", HttpMethod.Post, content);
+                return Send<object>("/insert", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -281,7 +269,7 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur if the server is unreachable,
         /// the request is malformed, or the API returns an error status code.
         /// </exception>
-        public async Task<InsertResponse> InsertAsync(InsertRequest document, CancellationToken cancellationToken = default)
+        public async Task<object> InsertAsync(InsertRequest document, CancellationToken cancellationToken = default)
         {
             if (document == null)
                 throw new NullException(nameof(document));
@@ -293,7 +281,7 @@ namespace ManticoreSearch.Api
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return await SendAsync<InsertResponse>("/insert", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<object>("/insert", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {
@@ -398,13 +386,19 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur if the server is unreachable,
         /// the request is malformed, or the API returns an error status code.
         /// </exception>
-        public InsertResponse Replace(InsertRequest document)
+        public object Replace(InsertRequest document)
         {
+            if (document == null || document.Document == null)
+                throw new NullException();
+
+            if (document.Document.Count == 0)
+                throw new ReplaceException();
+
             try
             {
                 var content = CreateStringContentFromJson(document, "application/x-ndjson");
 
-                return Send<InsertResponse>("/replace", HttpMethod.Post, content);
+                return Send<object>("/replace", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -435,13 +429,19 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur if the server is unreachable,
         /// the request is malformed, or the API returns an error status code.
         /// </exception>
-        public async Task<InsertResponse> ReplaceAsync(InsertRequest document, CancellationToken cancellationToken = default)
+        public async Task<object> ReplaceAsync(InsertRequest document, CancellationToken cancellationToken = default)
         {
+            if (document == null)
+                throw new NullException();
+
+            if (document.Document.Count == 0)
+                throw new ReplaceException();
+
             try
             {
                 var content = CreateStringContentFromJson(document, "application/x-ndjson");
 
-                return await SendAsync<InsertResponse>("/replace", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<object>("/replace", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {
@@ -547,13 +547,13 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur due to network issues,
         /// malformed requests, or error responses from the API.
         /// </exception>
-        public UpdateResponse Update(UpdateRequest document)
+        public object Update(UpdateRequest document)
         {
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return Send<UpdateResponse>("/update", HttpMethod.Post, content);
+                return Send<object>("/update", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -580,13 +580,13 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur due to network issues,
         /// malformed requests, or error responses from the API.
         /// </exception>
-        public async Task<UpdateResponse> UpdateAsync(UpdateRequest document, CancellationToken cancellationToken = default)
+        public async Task<object> UpdateAsync(UpdateRequest document, CancellationToken cancellationToken = default)
         {
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return await SendAsync<UpdateResponse>("/update", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<object>("/update", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {
@@ -671,13 +671,13 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur due to network issues,
         /// malformed requests, or error responses from the API.
         /// </exception>
-        public DeleteResponse Delete(DeleteRequest document)
+        public object Delete(DeleteRequest document)
         {
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return Send<DeleteResponse>("/delete", HttpMethod.Post, content);
+                return Send<object>("/delete", HttpMethod.Post, content);
             }
             catch (Exception)
             {
@@ -703,13 +703,13 @@ namespace ManticoreSearch.Api
         /// Thrown when the HTTP request to the Manticore Search API fails. This can occur due to network issues,
         /// malformed requests, or error responses from the API.
         /// </exception>
-        public async Task<DeleteResponse> DeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default)
+        public async Task<object> DeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default)
         {
             try
             {
                 var content = CreateStringContentFromJson(document, "application/json");
 
-                return await SendAsync<DeleteResponse>("/delete", HttpMethod.Post, content, cancellationToken);
+                return await SendAsync<object>("/delete", HttpMethod.Post, content, cancellationToken);
             }
             catch (Exception)
             {

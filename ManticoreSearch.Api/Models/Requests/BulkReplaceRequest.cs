@@ -14,7 +14,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and contains the details of the replace request.
         /// </summary>
         [JsonProperty("replace")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "InsertRequestRequired")]
         public InsertRequest Replace { get; set; }
 
         /// <summary>

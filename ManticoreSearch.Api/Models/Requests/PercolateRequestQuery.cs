@@ -16,7 +16,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// The structure of the percolate object should conform to ManticoreSearch requirements for percolation queries.
         /// </summary>
         [JsonProperty("percolate")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "PercolateRequired")]
         public object Percolate { get; set; }
     }
 }

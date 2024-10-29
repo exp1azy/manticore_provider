@@ -10,7 +10,16 @@ namespace ManticoreSearch.Api.Test
         [TestMethod]
         public void SqlTest_CreateTable()
         {
-            string query = "create table products(title string, price float, count int)";
+            string query = "create table temp(title string, price float, count int)";
+            var result = apiInstance.Sql(query);
+
+            Assert.IsTrue(result.Contains("ok", StringComparison.OrdinalIgnoreCase));
+        }
+
+        [TestMethod]    
+        public void SqlTest_SelectRequest()
+        {
+            string query = "select * from products";
             var result = apiInstance.Sql(query);
 
             Assert.IsNotNull(result);
@@ -22,7 +31,7 @@ namespace ManticoreSearch.Api.Test
             string query = string.Empty;
             var result = apiInstance.Sql(query);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Contains("error"));
         }
 
         [TestMethod]

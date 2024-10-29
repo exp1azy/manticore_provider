@@ -15,7 +15,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and must not be null or empty.
         /// </summary>
         [JsonProperty("index")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "IndexRequired")]
         public string Index { get; set; }
 
         /// <summary>

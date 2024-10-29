@@ -14,8 +14,8 @@ namespace ManticoreSearch.Api.Models.Responses
         /// This property indicates the specific index involved in the delete operation,
         /// which is useful for tracking and auditing actions performed on various indexes.
         /// </summary>
-        [JsonProperty("_index")]
-        public string Index { get; set; }
+        [JsonProperty("table")]
+        public string Table { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the document was found and deleted.

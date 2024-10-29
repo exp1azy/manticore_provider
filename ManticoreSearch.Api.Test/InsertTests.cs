@@ -14,12 +14,11 @@ namespace ManticoreSearch.Api.Test
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = 9,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "pepsi" },
-                    { "price", 20.0f },
-                    { "count", 1 }
+                    { "title", "cock cola" },
+                    { "price", 19.0f },
+                    { "count", 3 }
                 }
             };
 
@@ -29,7 +28,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void InsertRequestTest_WithNullIndex()
+        public void InsertRequestTest_NullIndex()
         {
             var doc = new InsertRequest
             {
@@ -42,11 +41,13 @@ namespace ManticoreSearch.Api.Test
                 }
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Insert(doc));
+            var result = apiInstance.Insert(doc);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
-        public void InsertRequestTest_WithEmptyIndex()
+        public void InsertRequestTest_EmptyIndex()
         {
             var doc = new InsertRequest
             {
@@ -59,11 +60,13 @@ namespace ManticoreSearch.Api.Test
                 }
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Insert(doc));
+            var result =  apiInstance.Insert(doc);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
-        public void InsertRequestTest_WithWrongAttributes()
+        public void InsertRequestTest_WrongAttributes()
         {
             var doc = new InsertRequest
             {
@@ -76,17 +79,21 @@ namespace ManticoreSearch.Api.Test
                 }
             };
 
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Insert(doc));
+            var result = apiInstance.Insert(doc);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
         public void InsertRequestTest_Null()
         {
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Insert(null));
+            var result = apiInstance.Insert(null);
+
+            Assert.IsTrue(result.ToString()!.Contains("error"));
         }
 
         [TestMethod]
-        public void InsertRequestTest_WithNullDocument()
+        public void InsertRequestTest_NullDocument()
         {
             var doc = new InsertRequest
             {
@@ -94,13 +101,11 @@ namespace ManticoreSearch.Api.Test
                 Document = null
             };
 
-            var result = apiInstance.Insert(doc);
-
-            Assert.IsNotNull(result);
+            Assert.ThrowsException<NullException>(() => apiInstance.Insert(doc));
         }
 
         [TestMethod]
-        public void InsertRequestTest_WithEmptyDocument()
+        public void InsertRequestTest_EmptyDocument()
         {
             var doc = new InsertRequest
             {
@@ -108,9 +113,7 @@ namespace ManticoreSearch.Api.Test
                 Document = []
             };
 
-            var result = apiInstance.Insert(doc);
-
-            Assert.IsNotNull(result);
+            Assert.ThrowsException<InsertException>(() => apiInstance.Insert(doc));
         }
     }
 }

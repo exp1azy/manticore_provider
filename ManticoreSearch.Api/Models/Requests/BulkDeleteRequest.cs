@@ -15,7 +15,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This field is required and contains the details of the delete request.
         /// </summary>
         [JsonProperty("delete")]
-        [Required(ErrorMessageResourceType = typeof(ModelError), ErrorMessageResourceName = "InsertRequestRequired")]
         public DeleteRequest Delete { get; set; }
 
         /// <summary>
