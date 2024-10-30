@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InsertRequestRequired" xml:space="preserve">
-    <value>InsertRequest is required.</value>
+  <data name="InsertError" xml:space="preserve">
+    <value>An error occurred while executing the insert request: '{0}'</value>
   </data>
-  <data name="IndexRequired" xml:space="preserve">
-    <value>Index is required.</value>
+  <data name="SqlError" xml:space="preserve">
+    <value>An error occurred while trying to execute the SQL query: '{0}'</value>
   </data>
-  <data name="IdRequired" xml:space="preserve">
-    <value>Id is required.</value>
+  <data name="BulkError" xml:space="preserve">
+    <value>An error occurred while executing the bulk request: '{0}'</value>
   </data>
-  <data name="DocumentRequired" xml:space="preserve">
-    <value>Document is required.</value>
-  </data>
-  <data name="DeleteRequestRequired" xml:space="preserve">
-    <value>DeleteRequest is required.</value>
-  </data>
-  <data name="QueryRequired" xml:space="preserve">
-    <value>Query is required.</value>
-  </data>
-  <data name="PercolateRequired" xml:space="preserve">
-    <value>Percolate is required.</value>
+  <data name="ReplaceError" xml:space="preserve">
+    <value>An error occurred while executing the replace request: '{0}'</value>
   </data>
 </root>

@@ -61,56 +61,38 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на An error occurred while attempting to perform the bulk method: {0}.
+        ///   Ищет локализованную строку, похожую на Argument named &apos;{0}&apos; has a null value..
         /// </summary>
-        internal static string BulkError {
+        internal static string ArgumentNull {
             get {
-                return ResourceManager.GetString("BulkError", resourceCulture);
+                return ResourceManager.GetString("ArgumentNull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на The list of documents must be greater than zero..
+        ///   Ищет локализованную строку, похожую на The number of elements in a document cannot be zero..
         /// </summary>
-        internal static string DocumentListError {
+        internal static string DocumentCount {
             get {
-                return ResourceManager.GetString("DocumentListError", resourceCulture);
+                return ResourceManager.GetString("DocumentCount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Document is required..
+        ///   Ищет локализованную строку, похожую на Documents cannot be null..
         /// </summary>
-        internal static string DocumentRequired {
+        internal static string DocumentsNull {
             get {
-                return ResourceManager.GetString("DocumentRequired", resourceCulture);
+                return ResourceManager.GetString("DocumentsNull", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на An error occurred while executing your request: {0}.
+        ///   Ищет локализованную строку, похожую на SQL query cannot be null..
         /// </summary>
-        internal static string HttpRequestFailure {
+        internal static string SqlNull {
             get {
-                return ResourceManager.GetString("HttpRequestFailure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на An error occurred while executing the insert method: {0}.
-        /// </summary>
-        internal static string InsertError {
-            get {
-                return ResourceManager.GetString("InsertError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на A parameter containing a null value was passed: {0}.
-        /// </summary>
-        internal static string Null {
-            get {
-                return ResourceManager.GetString("Null", resourceCulture);
+                return ResourceManager.GetString("SqlNull", resourceCulture);
             }
         }
     }

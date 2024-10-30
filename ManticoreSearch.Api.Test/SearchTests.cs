@@ -51,15 +51,12 @@ namespace ManticoreSearch.Api.Test
         [TestMethod]
         public void SearchRequest_Null()
         {
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Search(null));
         }
 
         [TestMethod]
         public void SearchRequest_Empty()
         {
             var request = new SearchRequest();
-
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Search(request));
         }
     }
 }

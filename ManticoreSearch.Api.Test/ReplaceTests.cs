@@ -14,18 +14,18 @@ namespace ManticoreSearch.Api.Test
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = 8217476891905359885,
+                Id = 1,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "pepsi" },
-                    { "price", 26.0f },
-                    { "count", 2 }
+                    { "title", "coca cola" },
+                    { "price", 100.0f },
+                    { "count", 25 }
                 }
             };
 
             var result = apiInstance.Replace(doc);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -45,15 +45,13 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Replace(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
         public void ReplaceRequestTest_Null()
         {
-            var result = apiInstance.Replace(null);
-
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.ThrowsException<ReplaceException>(() => apiInstance.Replace(null));
         }
 
         [TestMethod]
@@ -62,7 +60,7 @@ namespace ManticoreSearch.Api.Test
             var doc = new InsertRequest
             {
                 Index = "products",
-                Id = 105,
+                Id = 101,
                 Document = new Dictionary<string, object>
                 {
                     { "title", "pepsi" },
@@ -73,7 +71,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Replace(doc);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -93,7 +91,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Replace(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -106,7 +104,7 @@ namespace ManticoreSearch.Api.Test
                 Document = null
             };
 
-            Assert.ThrowsException<NullException>(() => apiInstance.Replace(doc));
+            Assert.ThrowsException<ReplaceException>(() => apiInstance.Replace(doc));
         }
 
         [TestMethod]

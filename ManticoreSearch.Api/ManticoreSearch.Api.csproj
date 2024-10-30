@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\ModelError.Designer.cs">
+    <Compile Update="Resources\ExceptionError.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ModelError.resx</DependentUpon>
+      <DependentUpon>ExceptionError.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\ProviderError.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\ModelError.resx">
+    <EmbeddedResource Update="Resources\ExceptionError.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ModelError.Designer.cs</LastGenOutput>
+      <LastGenOutput>ExceptionError.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ProviderError.resx">
       <Generator>ResXFileCodeGenerator</Generator>

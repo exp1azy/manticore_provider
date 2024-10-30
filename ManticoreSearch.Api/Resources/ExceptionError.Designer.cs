@@ -22,14 +22,14 @@ namespace ManticoreSearch.Api.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ModelError {
+    public class ExceptionError {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ModelError() {
+        internal ExceptionError() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ManticoreSearch.Api.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ManticoreSearch.Api.Resources.ModelError", typeof(ModelError).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ManticoreSearch.Api.Resources.ExceptionError", typeof(ExceptionError).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,38 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на DeleteRequest is required..
+        ///   Ищет локализованную строку, похожую на An error occurred while executing the bulk request: &apos;{0}&apos;.
         /// </summary>
-        public static string DeleteRequestRequired {
+        public static string BulkError {
             get {
-                return ResourceManager.GetString("DeleteRequestRequired", resourceCulture);
+                return ResourceManager.GetString("BulkError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Document is required..
+        ///   Ищет локализованную строку, похожую на An error occurred while executing the insert request: &apos;{0}&apos;.
         /// </summary>
-        public static string DocumentRequired {
+        public static string InsertError {
             get {
-                return ResourceManager.GetString("DocumentRequired", resourceCulture);
+                return ResourceManager.GetString("InsertError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Id is required..
+        ///   Ищет локализованную строку, похожую на An error occurred while executing the replace request: &apos;{0}&apos;.
         /// </summary>
-        public static string IdRequired {
+        public static string ReplaceError {
             get {
-                return ResourceManager.GetString("IdRequired", resourceCulture);
+                return ResourceManager.GetString("ReplaceError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Index is required..
+        ///   Ищет локализованную строку, похожую на An error occurred while trying to execute the SQL query: &apos;{0}&apos;.
         /// </summary>
-        public static string IndexRequired {
+        public static string SqlError {
             get {
-                return ResourceManager.GetString("IndexRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на InsertRequest is required..
-        /// </summary>
-        public static string InsertRequestRequired {
-            get {
-                return ResourceManager.GetString("InsertRequestRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Percolate is required..
-        /// </summary>
-        public static string PercolateRequired {
-            get {
-                return ResourceManager.GetString("PercolateRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Query is required..
-        /// </summary>
-        public static string QueryRequired {
-            get {
-                return ResourceManager.GetString("QueryRequired", resourceCulture);
+                return ResourceManager.GetString("SqlError", resourceCulture);
             }
         }
     }

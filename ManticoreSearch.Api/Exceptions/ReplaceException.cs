@@ -4,6 +4,6 @@
     {
         public ReplaceException() : base() { }
         public ReplaceException(string message) : base(message) { }
-        public ReplaceException(string message, Exception innerException) : base(message, innerException) { }
+        public ReplaceException(string message, Exception innerException) : base(string.Format(message, innerException.Message)) { }
     }
 }

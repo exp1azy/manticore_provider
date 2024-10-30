@@ -6,7 +6,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class InsertTests
     {
-        private readonly ManticoreProvider apiInstance = new();
+        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
         public void InsertDocumentTest()
@@ -14,26 +14,58 @@ namespace ManticoreSearch.Api.Test
             var doc = new InsertRequest
             {
                 Index = "products",
-<<<<<<< HEAD
                 Document = new Dictionary<string, object>
                 {
                     { "title", "cock cola" },
                     { "price", 19.0f },
                     { "count", 3 }
-=======
-                Id = 1,
-                Document = new Dictionary<string, object>
-                {
-                    { "title", "coca cola" },
-                    { "price", 20.0f },
-                    { "count", 2 }
->>>>>>> 1be2342db8d749d20af59a54738cfa351af4f905
                 }
             };
 
             var result = apiInstance.Insert(doc);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
+        }
+
+        [TestMethod]
+        public void InsertDocumentTest_ErrorTableName()
+        {
+            var doc = new InsertRequest
+            {
+                Index = "error",
+                Document = new Dictionary<string, object>
+                {
+                    { "title", "cock cola" },
+                    { "price", 19.0f },
+                    { "count", 3 }
+                }
+            };
+
+            var result = apiInstance.Insert(doc);
+
+            Assert.IsTrue(result.IsSuccess);
+        }
+
+        [TestMethod]
+        public void InsertDocumentTest_ManyElementsInDocument()
+        {
+            var doc = new InsertRequest
+            {
+                Index = "error",
+                Document = new Dictionary<string, object>
+                {
+                    { "title", "cock cola" },
+                    { "price", 19.0f },
+                    { "count", 3 },
+                    { "123", "cock cola" },
+                    { "456", 19.0f },
+                    { "789", 3 }
+                }
+            };
+
+            var result = apiInstance.Insert(doc);
+
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -52,7 +84,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Insert(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -71,7 +103,7 @@ namespace ManticoreSearch.Api.Test
 
             var result =  apiInstance.Insert(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -90,15 +122,13 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Insert(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
         public void InsertRequestTest_Null()
         {
-            var result = apiInstance.Insert(null);
-
-            Assert.IsTrue(result.ToString()!.Contains("error"));
+            Assert.ThrowsException<InsertException>(() => apiInstance.Insert(null));
         }
 
         [TestMethod]
@@ -110,7 +140,7 @@ namespace ManticoreSearch.Api.Test
                 Document = null
             };
 
-            Assert.ThrowsException<NullException>(() => apiInstance.Insert(doc));
+            Assert.ThrowsException<InsertException>(() =>  apiInstance.Insert(doc));
         }
 
         [TestMethod]

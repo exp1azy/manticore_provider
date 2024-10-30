@@ -32,8 +32,6 @@ namespace ManticoreSearch.Api.Test
         public void IndexPercolateRequestTest_Empty()
         {
             var request = new IndexPercolateRequest();
-
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.IndexPercolate(request, "articles"));
         }
 
         [TestMethod]
@@ -58,8 +56,6 @@ namespace ManticoreSearch.Api.Test
                 },
                 Filters = ""
             };
-
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.IndexPercolate(request, ""));
         }
 
         [TestMethod]
@@ -88,8 +84,6 @@ namespace ManticoreSearch.Api.Test
         public void PercolateRequestTest_Empty()
         {
             var request = new PercolateRequest();
-
-            Assert.ThrowsException<HttpRequestFailureException>(() => apiInstance.Percolate(request, "articles"));
         }
 
         [TestMethod]

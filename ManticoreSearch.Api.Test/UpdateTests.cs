@@ -17,14 +17,9 @@ namespace ManticoreSearch.Api.Test
                 Id = 1,
                 Document = new Dictionary<string, object>
                 {
-<<<<<<< HEAD
                     { "title", "cock cola" },
                     { "price", 30.0f },
                     { "count", 1 }
-=======
-                    { "title", "cock" },
-                    { "price", 50 },
->>>>>>> 1be2342db8d749d20af59a54738cfa351af4f905
                 }
             };
 

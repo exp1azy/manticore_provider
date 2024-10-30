@@ -21,9 +21,10 @@ namespace ManticoreSearch.Api.Test
                     Insert = new InsertRequest
                     {
                         Index = "products",
+                        Id = i + 1,
                         Document = new Dictionary<string, object>
                         {
-                            { "title", "cock cola" },
+                            { "title", "pepsi" },
                             { "price", random.Next(1, 20) },
                             { "count", random.Next(1, 5) }
                         }
@@ -33,7 +34,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Bulk(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -61,7 +62,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Bulk(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -89,7 +90,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Bulk(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -117,7 +118,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Bulk(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -126,13 +127,13 @@ namespace ManticoreSearch.Api.Test
             var docs = new List<BulkInsertRequest>();
             var result = apiInstance.Bulk(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
         public void BulkRequestTest_Null()
         {
-            Assert.ThrowsException<NullException>(() => apiInstance.Bulk(null));
+            Assert.ThrowsException<BulkException>(() => apiInstance.Bulk(null));
         }
 
         [TestMethod]
@@ -145,7 +146,7 @@ namespace ManticoreSearch.Api.Test
                     Replace = new()
                     {
                         Index = "products",
-                        Id = 8217476891905359883,
+                        Id = 100,
                         Document = new Dictionary<string, object>()
                         {
                             { "title", "pineapple" },
@@ -159,7 +160,7 @@ namespace ManticoreSearch.Api.Test
                     Replace = new()
                     {
                         Index = "products",
-                        Id = 8217476891905359884,
+                        Id = 101,
                         Document = new Dictionary<string, object>()
                         {
                             { "title", "mango" },
@@ -172,13 +173,13 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.BulkReplace(docs); 
             
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
         public void BulkReplaceRequestTest_Null()
         {
-            Assert.ThrowsException<NullException>(() => apiInstance.BulkReplace(null));
+            Assert.ThrowsException<BulkException>(() => apiInstance.BulkReplace(null));
         }
 
         [TestMethod]
@@ -188,7 +189,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.BulkReplace(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -197,13 +198,14 @@ namespace ManticoreSearch.Api.Test
             var random = new Random();
             var docs = new List<BulkReplaceRequest>();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 20; i++)
             {
                 docs.Add(new()
                 {
                     Replace = new InsertRequest
                     {
                         Index = "products",
+                        Id = i + 1,
                         Document = new Dictionary<string, object>
                         {
                             { "", "some food" },
@@ -216,7 +218,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.BulkReplace(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]

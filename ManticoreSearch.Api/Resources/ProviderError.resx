@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HttpRequestFailure" xml:space="preserve">
-    <value>An error occurred while executing your request: {0}</value>
+  <data name="ArgumentNull" xml:space="preserve">
+    <value>Argument named '{0}' has a null value.</value>
   </data>
-  <data name="Null" xml:space="preserve">
-    <value>A parameter containing a null value was passed: {0}</value>
+  <data name="DocumentCount" xml:space="preserve">
+    <value>The number of elements in a document cannot be zero.</value>
   </data>
-  <data name="DocumentRequired" xml:space="preserve">
-    <value>Document is required.</value>
+  <data name="SqlNull" xml:space="preserve">
+    <value>SQL query cannot be null.</value>
   </data>
-  <data name="InsertError" xml:space="preserve">
-    <value>An error occurred while executing the insert method: {0}</value>
-  </data>
-  <data name="BulkError" xml:space="preserve">
-    <value>An error occurred while attempting to perform the bulk method: {0}</value>
-  </data>
-  <data name="DocumentListError" xml:space="preserve">
-    <value>The list of documents must be greater than zero.</value>
+  <data name="DocumentsNull" xml:space="preserve">
+    <value>Documents cannot be null.</value>
   </data>
 </root>

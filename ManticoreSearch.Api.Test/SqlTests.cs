@@ -5,7 +5,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class SqlTests
     {
-        private readonly ManticoreProvider apiInstance = new();
+        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
         public void SqlTest_CreateTable()
@@ -26,18 +26,27 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
+        public void SqlTest_SelectToNonExistentTable()
+        {
+            string query = "select * from asd";
+            var result = apiInstance.Sql(query);
+
+            Assert.IsTrue(result.Contains("error", StringComparison.OrdinalIgnoreCase));
+        }
+
+        [TestMethod]
         public void SqlTest_EmptyQuery()
         {
             string query = string.Empty;
             var result = apiInstance.Sql(query);
 
-            Assert.IsTrue(result.Contains("error"));
+            Assert.IsTrue(result.Contains("error", StringComparison.OrdinalIgnoreCase));
         }
 
         [TestMethod]
         public void SqlTest_NullQuery()
         {
-            Assert.ThrowsException<NullException>(() => apiInstance.Sql(null));
+            Assert.ThrowsException<SqlException>(() => apiInstance.Sql(null));
         }
     }
 }
