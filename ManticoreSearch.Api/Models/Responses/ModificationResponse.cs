@@ -6,7 +6,7 @@ namespace ManticoreSearch.Api.Models.Responses
     {
         public ModificationSuccess? Response { get; set; }
 
-        public ModificationError? Error { get; set; }
+        public ErrorResponse? Error { get; set; }
     }
 
     public class ModificationSuccess
@@ -25,26 +25,5 @@ namespace ManticoreSearch.Api.Models.Responses
 
         [JsonProperty("status")]
         public int Status { get; set; }
-    }
-
-    public class ModificationError
-    {
-        [JsonProperty("error")]
-        public ModificationErrorMessage Message { get; set; }
-
-        [JsonProperty("status")]
-        public int Status { get; set; }
-    }
-
-    public class ModificationErrorMessage
-    {
-        [JsonProperty("type")]
-        public string Type { get; set; }
-
-        [JsonProperty("reason")]
-        public string Reason { get; set; }
-
-        [JsonProperty("table")]
-        public string? Table { get; set; }
     }
 }

@@ -7,7 +7,16 @@ namespace ManticoreSearch.Api.Models.Responses
     /// This class contains information about the status of the delete operation,
     /// including whether the document was found and removed successfully.
     /// </summary>
-    public class DeleteResponse
+    public class DeleteResponse : BaseResponse
+    {
+        public DeleteSuccess? Response { get; set; }
+
+        public DeleteByQuerySuccess? ResponseIfQuery { get; set; }
+
+        public ErrorResponse? Error { get; set; }
+    }
+
+    public class DeleteSuccess
     {
         /// <summary>
         /// Gets or sets the name of the index from which the document was deleted.
@@ -40,5 +49,14 @@ namespace ManticoreSearch.Api.Models.Responses
         /// </summary>
         [JsonProperty("result")]
         public string Result { get; set; }
+    }
+
+    public class DeleteByQuerySuccess
+    {
+        [JsonProperty("table")]
+        public string Table { get; set; }
+
+        [JsonProperty("deleted")]
+        public int Deleted { get; set; }
     }
 }

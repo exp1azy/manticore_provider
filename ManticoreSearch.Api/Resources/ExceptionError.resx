@@ -129,4 +129,13 @@
   <data name="ReplaceError" xml:space="preserve">
     <value>An error occurred while executing the replace request: '{0}'</value>
   </data>
+  <data name="UpdateError" xml:space="preserve">
+    <value>An error occurred while executing the update request: '{0}'</value>
+  </data>
+  <data name="SearchError" xml:space="preserve">
+    <value>An error occurred while executing the search request: '{0}'</value>
+  </data>
+  <data name="DeleteError" xml:space="preserve">
+    <value>An error occurred while attempting to execute the delete request: '{0}'</value>
+  </data>
 </root>

@@ -4,10 +4,7 @@ using ManticoreSearch.Api.Models.Responses;
 using ManticoreSearch.Api.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Reflection.Metadata;
 using System.Text;
-using System.Threading;
-using System.Xml.Linq;
 
 namespace ManticoreSearch.Api
 {
@@ -68,6 +65,36 @@ namespace ManticoreSearch.Api
         public async Task<BulkResponse> BulkReplaceAsync(IEnumerable<BulkReplaceRequest> documents, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(documents, cancellationToken);
 
+        public UpdateResponse Update(UpdateRequest document) =>
+            ProcessUpdateAsync(document).GetAwaiter().GetResult();
+
+        public async Task<UpdateResponse> UpdateAsync(UpdateRequest document, CancellationToken cancellationToken = default) =>
+            await ProcessUpdateAsync(document, cancellationToken);
+
+        public BulkResponse BulkUpdate(IEnumerable<UpdateRequest> documents) =>
+            ProcessBulkAsync(documents).GetAwaiter().GetResult();
+
+        public async Task<BulkResponse> BulkUpdateAsync(IEnumerable<UpdateRequest> documents, CancellationToken cancellationToken = default) =>
+            await ProcessBulkAsync(documents, cancellationToken);
+
+        public SearchResponse Search(SearchRequest document) =>
+            ProcessSearchAsync(document).GetAwaiter().GetResult();
+
+        public async Task<SearchResponse> SearchAsync(SearchRequest document, CancellationToken cancellationToken = default) =>
+            await ProcessSearchAsync(document, cancellationToken);
+
+        public DeleteResponse Delete(DeleteRequest document) =>
+            ProcessDeleteAsync(document).GetAwaiter().GetResult();
+
+        public async Task<DeleteResponse> DeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default) =>
+            await ProcessDeleteAsync(document, cancellationToken);
+
+        public BulkResponse BulkDelete(IEnumerable<BulkDeleteRequest> documents) =>
+            ProcessBulkAsync(documents).GetAwaiter().GetResult();
+
+        public async Task<BulkResponse> BulkDeleteAsync(IEnumerable<BulkDeleteRequest> documents, CancellationToken cancellationToken = default) =>
+            await ProcessBulkAsync(documents, cancellationToken);
+
         private void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -98,21 +125,24 @@ namespace ManticoreSearch.Api
             return await response.Content.ReadAsStringAsync(cancellationToken);
         }
 
-        private async Task<ModificationResponse> ProcessRequiredAsync(string endpoint, InsertRequest document, CancellationToken cancellationToken = default)
+        private async Task<ModificationResponse> ProcessModificationAsync(string endpoint, InsertRequest document, CancellationToken cancellationToken = default)
         {
             var content = CreateStringContent(document, "application/x-ndjson");
-            var response = await SendAsync(endpoint, HttpMethod.Post, content, cancellationToken);
-            var jsonResponse = JObject.Parse(response);
-            var result = new ModificationResponse();
+            var response = await SendAsync(endpoint, HttpMethod.Post, content, cancellationToken);            
+            var result = new ModificationResponse()
+            {
+                RawResponse = response
+            };
 
+            var jsonResponse = JObject.Parse(response);
             if (jsonResponse.ContainsKey("error"))
             {
-                result.Error = jsonResponse.ToObject<ModificationError>();
+                result.Error = JsonConvert.DeserializeObject<ErrorResponse>(response);
                 result.IsSuccess = false;
             }
             else
             {
-                result.Response = jsonResponse.ToObject<ModificationSuccess>();
+                result.Response = JsonConvert.DeserializeObject<ModificationSuccess>(response);
                 result.IsSuccess = true;
             }
 
@@ -130,7 +160,7 @@ namespace ManticoreSearch.Api
 
             try
             {
-                return await ProcessRequiredAsync("/insert", document, cancellationToken);
+                return await ProcessModificationAsync("/insert", document, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -165,7 +195,10 @@ namespace ManticoreSearch.Api
                 var json = string.Join("\n", documents.Select(d => JsonConvert.SerializeObject(d)));
                 var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
                 string response = await SendAsync("/bulk", HttpMethod.Post, content, cancellationToken);
-                var result = new BulkResponse();
+                var result = new BulkResponse()
+                {
+                    RawResponse = response
+                };
 
                 try
                 {
@@ -197,7 +230,7 @@ namespace ManticoreSearch.Api
 
             try
             {
-                return await ProcessRequiredAsync("/replace", document, cancellationToken);
+                return await ProcessModificationAsync("/replace", document, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -205,153 +238,124 @@ namespace ManticoreSearch.Api
             }
         } 
 
-        public object Update(UpdateRequest document)
-        {
-            //try
-            //{
-            //    var content = CreateStringContent(document, "application/json");
-
-            //    return Send("/update", HttpMethod.Post, content);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
-        }
-
-        public async Task<object> UpdateAsync(UpdateRequest document, CancellationToken cancellationToken = default)
+        public async Task<UpdateResponse> ProcessUpdateAsync(UpdateRequest document, CancellationToken cancellationToken = default)
         {
             try
             {
                 var content = CreateStringContent(document, "application/json");
+                var response = await SendAsync("/update", HttpMethod.Post, content, cancellationToken);               
+                var result = new UpdateResponse
+                {
+                    RawResponse = response
+                };
 
-                return await SendAsync("/update", HttpMethod.Post, content, cancellationToken);
+                var jsonResponse = JObject.Parse(response);
+                if (jsonResponse.ContainsKey("error"))
+                {
+                    result.Error = JsonConvert.DeserializeObject<ErrorResponse>(response);
+                    result.IsSuccess = false;
+                }
+                else
+                {
+                    result.Response = JsonConvert.DeserializeObject<UpdateSuccess>(response);
+                    result.IsSuccess = true;
+                }
+
+                return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new UpdateException(ExceptionError.UpdateError, ex);
             }
         }
 
-        public SearchResponse Search(SearchRequest request)
+        public async Task<SearchResponse> ProcessSearchAsync(SearchRequest request, CancellationToken cancellationToken = default)
         {
-            //try
-            //{
-            //    var content = CreateStringContent(request, "application/json");
+            try
+            {
+                var content = CreateStringContent(request, "application/json");
+                var response = await SendAsync("/search", HttpMethod.Post, content, cancellationToken);
+                var result = new SearchResponse
+                {
+                    RawResponse = response
+                };
 
-            //    return Send("/search", HttpMethod.Post, content);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
+                try
+                {
+                    result.Response = JsonConvert.DeserializeObject<SearchSuccess>(response);
+                    result.IsSuccess = true;
+                }
+                catch
+                {
+                    result.Error = JsonConvert.DeserializeObject<SearchError>(response);
+                    result.IsSuccess = false;
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new SearchException(ExceptionError.SearchError, ex);
+            }
         }
 
-        public async Task<SearchResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default)
-        {
-            //try
-            //{
-            //    var content = CreateStringContent(request, "application/json");
-
-            //    return await SendAsync("/search", HttpMethod.Post, content, cancellationToken);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
-        }
-
-        public object Delete(DeleteRequest document)
-        {
-            //try
-            //{
-            //    var content = CreateStringContent(document, "application/json");
-
-            //    return Send("/delete", HttpMethod.Post, content);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
-        }
-
-        public async Task<object> DeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default)
+        public async Task<DeleteResponse> ProcessDeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default)
         {
             try
             {
                 var content = CreateStringContent(document, "application/json");
+                var response = await SendAsync("/delete", HttpMethod.Post, content, cancellationToken);
+                var result = new DeleteResponse()
+                {
+                    RawResponse = response
+                };
 
-                return await SendAsync("/delete", HttpMethod.Post, content, cancellationToken);
+                var jsonResponse = JObject.Parse(response);
+                if (jsonResponse.ContainsKey("error"))
+                {
+                    result.Error = JsonConvert.DeserializeObject<ErrorResponse>(response);
+                    result.IsSuccess = false;
+                }
+                else if (jsonResponse.ContainsKey("deleted"))
+                {
+                    result.ResponseIfQuery = JsonConvert.DeserializeObject<DeleteByQuerySuccess>(response);
+                    result.IsSuccess = true;
+                }
+                else
+                {
+                    result.Response = JsonConvert.DeserializeObject<DeleteSuccess>(response);
+                    result.IsSuccess = true;              
+                }
+
+                return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new DeleteException(ExceptionError.DeleteError, ex);
             }
         }
 
-        public object BulkDelete(IEnumerable<BulkDeleteRequest> documents)
-        {
-            //try
-            //{
-            //    var json = string.Join("\n", documents.Select(JsonConvert.SerializeObject));
-            //    var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
+        public SearchResponse IndexPercolate(IndexPercolateRequest document, string index) =>
+            ProcessPercolateAsync(document, $"/pq/{index}/doc/", HttpMethod.Put).GetAwaiter().GetResult();
 
-            //    return Send("/bulk", HttpMethod.Post, content);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
-        }
+        public async Task<SearchResponse> IndexPercolateAsync(IndexPercolateRequest document, string index, CancellationToken cancellationToken = default) =>
+            await ProcessPercolateAsync(document, $"/pq/{index}/doc/", HttpMethod.Put, cancellationToken);
 
-        public async Task<object> BulkDeleteAsync(IEnumerable<BulkDeleteRequest> documents, CancellationToken cancellationToken = default)
+        public async Task<SearchResponse> ProcessPercolateAsync(IndexPercolateRequest document, string endpoint, HttpMethod httpMethod, CancellationToken cancellationToken = default)
         {
             try
             {
-                var json = string.Join("\n", documents.Select(JsonConvert.SerializeObject));
-                var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
+                var content = CreateStringContent(document, "application/json");
+                var response = await SendAsync(endpoint, httpMethod, content, cancellationToken);
 
-                return await SendAsync("/bulk", HttpMethod.Post, content, cancellationToken);
+                var result = JsonConvert.DeserializeObject<SearchResponse>(response);
+
+                return result;
             }
             catch (Exception)
             {
                 throw;
             }
-        }
-
-        public SearchResponse IndexPercolate(IndexPercolateRequest document, string index)
-        {
-            //try
-            //{
-            //    var content = CreateStringContent(document, "application/json");
-
-            //    return Send($"/pq/{index}/doc/", HttpMethod.Put, content);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
-        }
-
-        public async Task<SearchResponse> IndexPercolateAsync(IndexPercolateRequest document, string index, CancellationToken cancellationToken = default)
-        {
-            //try
-            //{
-            //    var content = CreateStringContent(document, "application/json");
-
-            //    return await SendAsync<SearchResponse>($"/pq/{index}/doc/", HttpMethod.Put, content, cancellationToken);
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
-            return new();
         }
 
         public SearchResponse Percolate(PercolateRequest document, string index)
@@ -360,7 +364,7 @@ namespace ManticoreSearch.Api
             //{
             //    var content = CreateStringContent(document, "application/json");
 
-            //    return Send<SearchResponse>($"/pq/{index}/search", HttpMethod.Post, content);
+            //    return Send<SearchResponse>(, HttpMethod.Post, content);
             //}
             //catch (Exception)
             //{

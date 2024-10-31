@@ -8,7 +8,14 @@ namespace ManticoreSearch.Api.Models.Responses
     /// This class encapsulates the total time taken for the search, 
     /// whether the search timed out, and the resulting hits from the query.
     /// </summary>
-    public class SearchResponse
+    public class SearchResponse : BaseResponse
+    {
+        public SearchSuccess? Response { get; set; }
+
+        public SearchError? Error { get; set; }
+    }
+
+    public class SearchSuccess
     {
         /// <summary>
         /// Gets or sets the total time, in milliseconds, that the search took to complete.
@@ -32,5 +39,11 @@ namespace ManticoreSearch.Api.Models.Responses
         /// </summary>
         [JsonProperty("hits")]
         public HitsObject Hits { get; set; }
+    }
+
+    public class SearchError 
+    {
+        [JsonProperty("error")]
+        public string Message { get; set; }
     }
 }

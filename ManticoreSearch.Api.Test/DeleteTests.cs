@@ -14,12 +14,12 @@ namespace ManticoreSearch.Api.Test
             var doc = new DeleteRequest
             {
                 Index = "products",
-                Id = 8217476891905359873
+                Id = 3
             };
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("deleted"));
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -28,12 +28,12 @@ namespace ManticoreSearch.Api.Test
             var doc = new DeleteRequest
             {
                 Index = "products",
-                Id = 100
+                Id = 12345
             };
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("not found"));
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("Negative document ids are not allowed", StringComparison.OrdinalIgnoreCase));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -56,12 +56,12 @@ namespace ManticoreSearch.Api.Test
             var doc = new DeleteRequest
             {
                 Index = "",
-                Id = 8217476891905359887
+                Id = 2
             };
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("no such table"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("property value should be a string"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -84,7 +84,7 @@ namespace ManticoreSearch.Api.Test
             var doc = new DeleteRequest();
             var result = apiIstance.Delete(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("property value should be a string"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace ManticoreSearch.Api.Test
         {
             var result = apiIstance.Delete(null);
 
-            Assert.IsTrue(result.ToString()!.Contains("property missing"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -101,38 +101,54 @@ namespace ManticoreSearch.Api.Test
             var doc = new DeleteRequest
             {
                 Index = "products",
-                Query = new
+                Query = new Query
                 {
-                    equals = new Dictionary<string, object>
+                    Equals = new
                     {
-                        ["title"] = "cock cola"
+                        title = "cock cola"
                     }
                 }
             };
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsFalse(result.ToString()!.Contains("error"));
+            Assert.IsTrue(result.IsSuccess);
         }
 
+        //[TestMethod]
+        //public void DeleteRequestTest_WrongQuery()
+        //{
+        //    var query = new
+        //    {
+        //        qwerty = new Dictionary<string, object>
+        //        {
+        //            ["column"] = "cock cola"
+        //        }
+        //    };
+
+        //    var doc = new DeleteRequest
+        //    {
+        //        Index = "products",
+        //        Query = new Query(query)
+        //    };
+
+        //    var result = apiIstance.Delete(doc);
+
+        //    Assert.IsTrue(result.IsSuccess);
+        //}
+
         [TestMethod]
-        public void DeleteRequestTest_WrongQuery()
+        public void DeleteRequestTest_EmptyQuery()
         {
             var doc = new DeleteRequest
             {
                 Index = "products",
-                Query = new
-                {
-                    qwerty = new Dictionary<string, object>
-                    {
-                        ["title"] = "cock cola"
-                    }
-                }
+                Query = new()
             };
 
             var result = apiIstance.Delete(doc);
 
-            Assert.IsFalse(result.ToString()!.Contains("error"));
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

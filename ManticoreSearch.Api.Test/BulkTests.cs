@@ -24,7 +24,7 @@ namespace ManticoreSearch.Api.Test
                         Id = i + 1,
                         Document = new Dictionary<string, object>
                         {
-                            { "title", "pepsi" },
+                            { "title", "burger" },
                             { "price", random.Next(1, 20) },
                             { "count", random.Next(1, 5) }
                         }
@@ -226,15 +226,16 @@ namespace ManticoreSearch.Api.Test
         {
             var docs = new List<BulkDeleteRequest>
             {
-                new() {
+                new()
+                {
                     Delete = new DeleteRequest
                     {
                         Index = "products",
-                        Query = new
+                        Query = new Query
                         {
-                            equals = new
+                            Range = new Dictionary<string, QueryRange>
                             {
-                                title = "cock cola"
+                                { "id", new QueryRange { Gt = 10 } }
                             }
                         }
                     }
@@ -243,7 +244,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.BulkDelete(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -252,7 +253,7 @@ namespace ManticoreSearch.Api.Test
             var docs = new List<BulkDeleteRequest>();
             var result = apiInstance.BulkDelete(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -264,11 +265,11 @@ namespace ManticoreSearch.Api.Test
                     Delete = new DeleteRequest
                     {
                         Index = "",
-                        Query = new
+                        Query = new Query
                         {
-                            equals = new
+                            Equals = new
                             {
-                                title = "cock cola"
+                                title = "burger"
                             }
                         }
                     }
@@ -277,7 +278,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.BulkDelete(docs);
 
-            Assert.IsNotNull(result);
+            Assert.IsFalse(result.IsSuccess);
         }
     }
 }

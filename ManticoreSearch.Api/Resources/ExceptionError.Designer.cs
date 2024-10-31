@@ -70,6 +70,15 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while attempting to execute the delete request: &apos;{0}&apos;.
+        /// </summary>
+        public static string DeleteError {
+            get {
+                return ResourceManager.GetString("DeleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на An error occurred while executing the insert request: &apos;{0}&apos;.
         /// </summary>
         public static string InsertError {
@@ -88,11 +97,29 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while executing the search request: &apos;{0}&apos;.
+        /// </summary>
+        public static string SearchError {
+            get {
+                return ResourceManager.GetString("SearchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на An error occurred while trying to execute the SQL query: &apos;{0}&apos;.
         /// </summary>
         public static string SqlError {
             get {
                 return ResourceManager.GetString("SqlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while executing the update request: &apos;{0}&apos;.
+        /// </summary>
+        public static string UpdateError {
+            get {
+                return ResourceManager.GetString("UpdateError", resourceCulture);
             }
         }
     }

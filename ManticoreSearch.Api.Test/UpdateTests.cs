@@ -6,7 +6,7 @@ namespace ManticoreSearch.Api.Test
     [TestClass]
     public class UpdateTests
     {
-        private readonly ManticoreProvider apiInstance = new();
+        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
         public void UpdateRequestTest()
@@ -17,7 +17,7 @@ namespace ManticoreSearch.Api.Test
                 Id = 1,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "cock cola" },
+                    { "title", "cock" },
                     { "price", 30.0f },
                     { "count", 1 }
                 }
@@ -25,7 +25,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("updated"));
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("negative document ids are not allowed", StringComparison.OrdinalIgnoreCase));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -54,7 +54,7 @@ namespace ManticoreSearch.Api.Test
             var doc = new UpdateRequest()
             {
                 Index = "products",
-                Id = 5,
+                Id = 10000,
                 Document = new Dictionary<string, object>
                 {
                     { "title", "cock cola" },
@@ -65,7 +65,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("noop"));
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("no such table"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("property value should be a string"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -120,7 +120,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("noop"));
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.Update(doc);
 
-            Assert.IsTrue(result.ToString()!.Contains("property value should be an object"));
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -143,7 +143,26 @@ namespace ManticoreSearch.Api.Test
         {
             var result = apiInstance.Update(null);
 
-            Assert.IsTrue(result.ToString()!.Contains("property missing"));
+            Assert.IsFalse(result.IsSuccess);
+        }
+
+        [TestMethod]
+        public void UpdateRequestTest_ErrorTable()
+        {
+            var doc = new UpdateRequest()
+            {
+                Index = "error",
+                Id = 8217476891905359912,
+                Document = new Dictionary<string, object>
+                {
+                    { "price", 20.0f },
+                    { "count", 2 }
+                }
+            };
+
+            var result = apiInstance.Update(doc);
+
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

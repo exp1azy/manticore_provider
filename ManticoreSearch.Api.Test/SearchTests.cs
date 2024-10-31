@@ -11,15 +11,13 @@ namespace ManticoreSearch.Api.Test
         [TestMethod]
         public void SearchRequest()
         {
-            var request = new SearchRequest()
+            object query = new
             {
-                Index = "articles",
-                Limit = 1000,
-                Query = new
+                index = "articles",
+                limit = 1000,
+                @bool = new
                 {
-                    @bool = new
-                    {
-                        must = new[]
+                    must = new[]
                         {
                             new
                             {
@@ -29,7 +27,7 @@ namespace ManticoreSearch.Api.Test
                                 }
                             }
                         },
-                        must_not = new[]
+                    must_not = new[]
                         {
                             new
                             {
@@ -39,24 +37,28 @@ namespace ManticoreSearch.Api.Test
                                 }
                             }
                         }
-                    }
                 }
             };
 
+            var request = new SearchRequest(query);
+
             var result = apiInstance.Search(request);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
+            Assert.IsTrue(result.Response!.Hits.Total > 0);
         }
 
         [TestMethod]
         public void SearchRequest_Null()
         {
+            var result = apiInstance.Search(null);
         }
 
         [TestMethod]
         public void SearchRequest_Empty()
         {
             var request = new SearchRequest();
+            var result = apiInstance.Search(request);
         }
     }
 }
