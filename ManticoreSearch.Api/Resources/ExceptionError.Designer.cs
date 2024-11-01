@@ -61,6 +61,15 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while attempting to execute the autocomplete request: &apos;{0}&apos;.
+        /// </summary>
+        public static string AutocompleteError {
+            get {
+                return ResourceManager.GetString("AutocompleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на An error occurred while executing the bulk request: &apos;{0}&apos;.
         /// </summary>
         public static string BulkError {
@@ -84,6 +93,15 @@ namespace ManticoreSearch.Api.Resources {
         public static string InsertError {
             get {
                 return ResourceManager.GetString("InsertError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while executing the percolate request: &apos;{0}&apos;.
+        /// </summary>
+        public static string PercolateError {
+            get {
+                return ResourceManager.GetString("PercolateError", resourceCulture);
             }
         }
         

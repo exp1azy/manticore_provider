@@ -4,11 +4,11 @@ namespace ManticoreSearch.Api.Models.Requests
 {
     public class UpdateRequest
     {
-        [JsonProperty("index")]
-        public string Index { get; set; }
+        [JsonProperty("table")]
+        public string Table { get; set; }
 
-        [JsonProperty("id")]
-        public long Id { get; set; } = 0;
+        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Id { get; set; }
 
         [JsonProperty("doc")]
         public Dictionary<string, object> Document { get; set; }
@@ -20,7 +20,7 @@ namespace ManticoreSearch.Api.Models.Requests
 
         public UpdateRequest(string index, Dictionary<string, object> document, long id = 0, Query? query = null)
         {
-            Index = index;
+            Table = index;
             Id = id;
             Document = document;
             Query = query;

@@ -8,7 +8,7 @@ namespace ManticoreSearch.Api.Models.Requests
         public string Index { get; set; }
 
         [JsonProperty("id")]
-        public long Id { get; set; } = 0;
+        public long Id { get; set; }
 
         [JsonProperty("cluster", NullValueHandling = NullValueHandling.Ignore)]
         public string? Cluster { get; set; }

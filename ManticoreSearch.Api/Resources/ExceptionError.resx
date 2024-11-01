@@ -138,4 +138,10 @@
   <data name="DeleteError" xml:space="preserve">
     <value>An error occurred while attempting to execute the delete request: '{0}'</value>
   </data>
+  <data name="PercolateError" xml:space="preserve">
+    <value>An error occurred while executing the percolate request: '{0}'</value>
+  </data>
+  <data name="AutocompleteError" xml:space="preserve">
+    <value>An error occurred while attempting to execute the autocomplete request: '{0}'</value>
+  </data>
 </root>

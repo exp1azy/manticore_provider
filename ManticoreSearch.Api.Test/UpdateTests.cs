@@ -13,7 +13,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "products",
+                Table = "products",
                 Id = 1,
                 Document = new Dictionary<string, object>
                 {
@@ -33,7 +33,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "products",
+                Table = "products",
                 Id = -1,
                 Document = new Dictionary<string, object>
                 {
@@ -53,7 +53,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "products",
+                Table = "products",
                 Id = 10000,
                 Document = new Dictionary<string, object>
                 {
@@ -73,7 +73,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "",
+                Table = "",
                 Id = 1,
                 Document = new Dictionary<string, object>
                 {
@@ -93,7 +93,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = null,
+                Table = null,
                 Id = 1,
                 Document = new Dictionary<string, object>
                 {
@@ -113,7 +113,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "products",
+                Table = "products",
                 Id = 1,
                 Document = []
             };
@@ -128,7 +128,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "products",
+                Table = "products",
                 Id = 1,
                 Document = null
             };
@@ -151,7 +151,7 @@ namespace ManticoreSearch.Api.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "error",
+                Table = "error",
                 Id = 8217476891905359912,
                 Document = new Dictionary<string, object>
                 {

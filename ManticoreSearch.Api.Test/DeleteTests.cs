@@ -103,9 +103,9 @@ namespace ManticoreSearch.Api.Test
                 Index = "products",
                 Query = new Query
                 {
-                    Equals = new
+                    Equals = new Dictionary<string, object>
                     {
-                        title = "cock cola"
+                        { "title", "cock cola" }
                     }
                 }
             };
@@ -114,28 +114,6 @@ namespace ManticoreSearch.Api.Test
 
             Assert.IsTrue(result.IsSuccess);
         }
-
-        //[TestMethod]
-        //public void DeleteRequestTest_WrongQuery()
-        //{
-        //    var query = new
-        //    {
-        //        qwerty = new Dictionary<string, object>
-        //        {
-        //            ["column"] = "cock cola"
-        //        }
-        //    };
-
-        //    var doc = new DeleteRequest
-        //    {
-        //        Index = "products",
-        //        Query = new Query(query)
-        //    };
-
-        //    var result = apiIstance.Delete(doc);
-
-        //    Assert.IsTrue(result.IsSuccess);
-        //}
 
         [TestMethod]
         public void DeleteRequestTest_EmptyQuery()

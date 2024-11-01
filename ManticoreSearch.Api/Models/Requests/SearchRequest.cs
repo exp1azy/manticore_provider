@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace ManticoreSearch.Api.Models.Requests
 {
@@ -15,7 +16,10 @@ namespace ManticoreSearch.Api.Models.Requests
         public object? QueryByObject { get; set; }
 
         [JsonProperty("_source", NullValueHandling = NullValueHandling.Ignore)]
-        public object? Source { get; set; }
+        public string? Source { get; set; }
+
+        [JsonProperty("_source", NullValueHandling = NullValueHandling.Ignore)]
+        public SourceOptions? SourceByOptions { get; set; }
 
         [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Profile { get; set; }
@@ -32,6 +36,9 @@ namespace ManticoreSearch.Api.Models.Requests
         [JsonProperty("size", NullValueHandling = NullValueHandling.Ignore)]
         public int? Size { get; set; }
 
+        [JsonProperty("from", NullValueHandling = NullValueHandling.Ignore)]
+        public int? From { get; set; }
+
         [JsonProperty("max_matches", NullValueHandling = NullValueHandling.Ignore)]
         public int? MaxMatches { get; set; }
 
@@ -45,7 +52,7 @@ namespace ManticoreSearch.Api.Models.Requests
         public object? Expressions { get; set; }
 
         [JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
-        public object? Options { get; set; }
+        public Dictionary<string, object>? Options { get; set; }
 
         [JsonProperty("highlight", NullValueHandling = NullValueHandling.Ignore)]
         public HighlightOptions? Highlight { get; set; }
@@ -57,7 +64,7 @@ namespace ManticoreSearch.Api.Models.Requests
         public List<SearchJoin>? Join { get; set; }
 
         [JsonProperty("knn", NullValueHandling = NullValueHandling.Ignore)]
-        public object? Knn { get; set; }
+        public KnnOptions? Knn { get; set; }
 
         public SearchRequest() { }
 
@@ -65,6 +72,162 @@ namespace ManticoreSearch.Api.Models.Requests
         {
             QueryByObject = search;
         }
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum CountryCode
+    {
+        [EnumMember(Value = "be")]
+        BE,
+
+        [EnumMember(Value = "bg")]
+        BG,
+
+        [EnumMember(Value = "br")]
+        BR,
+
+        [EnumMember(Value = "ch")]
+        CH,
+
+        [EnumMember(Value = "de")]
+        DE,
+
+        [EnumMember(Value = "dk")]
+        DK,
+
+        [EnumMember(Value = "es")]
+        ES,
+
+        [EnumMember(Value = "fr")]
+        FR,
+
+        [EnumMember(Value = "uk")]
+        UK,
+
+        [EnumMember(Value = "gr")]
+        GR,
+
+        [EnumMember(Value = "it")]
+        IT,
+
+        [EnumMember(Value = "no")]
+        NO,
+
+        [EnumMember(Value = "pt")]
+        PT,
+
+        [EnumMember(Value = "ru")]
+        RU,
+
+        [EnumMember(Value = "se")]
+        SE,
+
+        [EnumMember(Value = "ua")]
+        UA,
+
+        [EnumMember(Value = "us")]
+        US
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum SortMode
+    {
+        [EnumMember(Value = "min")]
+        Min,
+
+        [EnumMember(Value = "max")]
+        Max
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum SortOrder
+    {
+        [EnumMember(Value = "asc")]
+        Asc,
+
+        [EnumMember(Value = "desc")]
+        Desc
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum Encoder
+    {
+        [EnumMember(Value = "default")]
+        Default,
+
+        [EnumMember(Value = "html")]
+        Html
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum SnippetBoundary
+    {
+        [EnumMember(Value = "sentence")]
+        Sentence,
+
+        [EnumMember(Value = "paragraph")]
+        Paragraph,
+
+        [EnumMember(Value = "zone")]
+        Zone
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum HtmlStripMode
+    {
+        [EnumMember(Value = "none")]
+        None,
+
+        [EnumMember(Value = "strip")]
+        Strip,
+
+        [EnumMember(Value = "index")]
+        Index,
+
+        [EnumMember(Value = "retain")]
+        Retain
+    }
+
+    public class KnnOptions
+    {
+        [JsonProperty("field")]
+        public string Field { get; set; }
+
+        [JsonProperty("query_vector")]
+        public List<float> QueryVector { get; set; }
+
+        [JsonProperty("k")]
+        public int K { get; set; }
+
+        [JsonProperty("ef", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Ef { get; set; }
+
+        [JsonProperty("doc_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? DocId { get; set; }
+
+        [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
+        public Query? Filter { get; set; }
+    }
+
+    public class OptionDetails
+    {
+        [JsonProperty("fuzzy")]
+        public bool Fuzzy { get; set; }
+
+        [JsonProperty("layouts")]
+        public List<CountryCode> Layouts { get; set; }
+
+        [JsonProperty("distance", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Distance { get; set; }
+    }
+
+    public class SourceOptions
+    {
+        [JsonProperty("includes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string>? Includes { get; set; }
+
+        [JsonProperty("excludes", NullValueHandling = NullValueHandling.Ignore)]
+        public List<string>? Excludes { get; set; }
     }
 
     public class HighlightOptions
@@ -154,30 +317,6 @@ namespace ManticoreSearch.Api.Models.Requests
         public int? NumberOfFragments { get; set; }
     }
 
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum Encoder
-    {
-        @default,
-        html
-    }
-
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum SnippetBoundary
-    {
-        sentence,
-        paragraph,
-        zone
-    }
-
-    [JsonConverter(typeof(StringEnumConverter))]
-    public enum HtmlStripMode
-    {
-        none,
-        strip,
-        index,
-        retain
-    }
-
     public class SearchJoin
     {
         [JsonProperty("type")]
@@ -190,7 +329,7 @@ namespace ManticoreSearch.Api.Models.Requests
         public List<JoinOn> On { get; set; }
 
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
-        public Query? Query { get; set; } = null;
+        public Query? Query { get; set; }
     }
 
     public class JoinOn
@@ -212,5 +351,8 @@ namespace ManticoreSearch.Api.Models.Requests
 
         [JsonProperty("field")]
         public string Field { get; set; }
+
+        [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string? Type { get; set; }
     }
 }

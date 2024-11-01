@@ -11,109 +11,40 @@ namespace ManticoreSearch.Api.Test
         [TestMethod]
         public void IndexPercolateRequestTest()
         {
-            var request = new IndexPercolateRequest()
+            var percolate = new IndexPercolateRequest
             {
-                Query = new
+                Query = new Query
                 {
-                    match = new
+                    Match = new Dictionary<string, object>
                     {
-                        title = "Путин"
-                    }
-                },
-                Filters = ""
-            };
-
-            var result = apiInstance.IndexPercolate(request, "articles");
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void IndexPercolateRequestTest_Empty()
-        {
-            var request = new IndexPercolateRequest();
-        }
-
-        [TestMethod]
-        public void IndexPercolateRequestTest_Null()
-        {
-            var request = apiInstance.IndexPercolate(null, "articles");
-
-            Assert.IsNotNull(request);
-        }
-
-        [TestMethod]
-        public void IndexPercolateRequestTest_EmptyIndex()
-        {
-            var request = new IndexPercolateRequest()
-            {
-                Query = new
-                {
-                    match = new
-                    {
-                        title = "Путин"
-                    }
-                },
-                Filters = ""
-            };
-        }
-
-        [TestMethod]
-        public void PercolateRequestTest()
-        {
-            var request = new PercolateRequest()
-            {
-                Query = new PercolateRequestQuery
-                {
-                    Percolate = new
-                    {
-                        document = new
-                        {
-                            title = "Путин"
-                        }
+                        { "title", "Трамп" }
                     }
                 }
             };
 
-            var result = apiInstance.Percolate(request, "articles");
+            var result = apiInstance.IndexPercolate(percolate, "pqtable", 1);
 
-            Assert.IsNotNull(request);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
-        public void PercolateRequestTest_Empty()
+        public void IndexPercolateRequestTest_NullFilter()
         {
-            var request = new PercolateRequest();
-        }
-
-        [TestMethod]
-        public void PercolateRequestTest_Null()
-        {
-            var result = apiInstance.Percolate(null, "articles");
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void PercolateRequestTest_EmptyIndex()
-        {
-            var request = new PercolateRequest()
+            var percolate = new IndexPercolateRequest
             {
-                Query = new PercolateRequestQuery
+                Query = new Query
                 {
-                    Percolate = new
+                    Match = new Dictionary<string, object>
                     {
-                        document = new
-                        {
-                            title = "Путин"
-                        }
+                        { "title", "Трамп" }
                     }
-                }
+                },
+                Filters = null
             };
 
-            var result = apiInstance.Percolate(request, "");
+            var result = apiInstance.IndexPercolate(percolate, "pqtable", 2);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

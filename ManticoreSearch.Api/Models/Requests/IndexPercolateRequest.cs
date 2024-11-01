@@ -4,21 +4,22 @@ namespace ManticoreSearch.Api.Models.Requests
 {
     public class IndexPercolateRequest
     {
-        [JsonProperty("query")]
-        public object Query { get; set; }
+        [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
+        public Query? Query { get; set; }
 
-        [JsonProperty("filters")]
-        public string Filters { get; set; } = string.Empty;
+        [JsonProperty("filters", NullValueHandling = NullValueHandling.Ignore)]
+        public string Filters { get; set; } = "";
 
         [JsonProperty("tags", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string> Tags { get; set; } = null;
+        public List<string>? Tags { get; set; }
 
         public IndexPercolateRequest() { }
 
-        public IndexPercolateRequest(object query, string filters = "", List<string> tags = null)
+        public IndexPercolateRequest(Query? query = null, string filters = "", List<string>? tags = null)
         {
             Query = query;
             Filters = filters;
+            Tags = tags;
         }
     }
 }

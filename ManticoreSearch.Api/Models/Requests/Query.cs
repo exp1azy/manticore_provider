@@ -5,13 +5,13 @@ namespace ManticoreSearch.Api.Models.Requests
     public class Query
     {
         [JsonProperty("match", NullValueHandling = NullValueHandling.Ignore)]
-        public object? Match { get; set; }
+        public Dictionary<string, object>? Match { get; set; }
 
         [JsonProperty("match_all", NullValueHandling = NullValueHandling.Ignore)]
         public object? MatchAll { get; set; }
 
         [JsonProperty("match_phrase", NullValueHandling = NullValueHandling.Ignore)]
-        public object? MatchPhrase { get; set; }
+        public Dictionary<string, string>? MatchPhrase { get; set; }
 
         [JsonProperty("query_string", NullValueHandling = NullValueHandling.Ignore)]
         public string? QueryString { get; set; }
@@ -20,7 +20,7 @@ namespace ManticoreSearch.Api.Models.Requests
         public QueryBool? Bool { get; set; }
 
         [JsonProperty("equals", NullValueHandling = NullValueHandling.Ignore)]
-        public new object? Equals { get; set; }
+        public new Dictionary<string, object>? Equals { get; set; }
 
         [JsonProperty("in", NullValueHandling = NullValueHandling.Ignore)]
         public object? In { get; set; }
@@ -30,6 +30,9 @@ namespace ManticoreSearch.Api.Models.Requests
 
         [JsonProperty("geo_distance", NullValueHandling = NullValueHandling.Ignore)]
         public QueryGeoDistance? GeoDistance { get; set; }
+
+        [JsonProperty("ql", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Ql { get; set; }
     }
 
     public class QueryRange
@@ -86,13 +89,13 @@ namespace ManticoreSearch.Api.Models.Requests
     public class BoolMust
     {
         [JsonProperty("match", NullValueHandling = NullValueHandling.Ignore)]
-        public object? Match { get; set; }
+        public Dictionary<string, object>? Match { get; set; }
 
         [JsonProperty("range", NullValueHandling = NullValueHandling.Ignore)]
         public object? Range { get; set; }
 
         [JsonProperty("equals", NullValueHandling = NullValueHandling.Ignore)]
-        public new object? Equals { get; set; }
+        public new Dictionary<string, object>? Equals { get; set; }
 
         [JsonProperty("bool", NullValueHandling = NullValueHandling.Ignore)]
         public QueryBool? Bool { get; set; }

@@ -267,9 +267,9 @@ namespace ManticoreSearch.Api.Test
                         Index = "",
                         Query = new Query
                         {
-                            Equals = new
+                            Equals = new Dictionary<string, object>
                             {
-                                title = "burger"
+                                { "title", "burger" }
                             }
                         }
                     }
@@ -279,6 +279,54 @@ namespace ManticoreSearch.Api.Test
             var result = apiInstance.BulkDelete(docs);
 
             Assert.IsFalse(result.IsSuccess);
+        }
+
+        [TestMethod]
+        public void BulkUpdateRequestTest()
+        {
+            var docs = new List<BulkUpdateRequest>
+            {
+                new()
+                {
+                    Update = new()
+                    {
+                        Table = "products",
+                        Query = new Query
+                        {
+                            Match = new Dictionary<string, object>
+                            {
+                                { "title", "burger" }
+                            }
+                        },
+                        Document = new Dictionary<string, object>
+                        {
+                            { "title", "kit kat" }
+                        }
+                    }
+                },
+                new()
+                {
+                    Update = new()
+                    {
+                        Table = "products",
+                        Query = new Query
+                        {
+                            Range = new Dictionary<string, QueryRange>
+                            {
+                                { "price", new QueryRange { Gte = 10 } }
+                            }
+                        },
+                        Document = new Dictionary<string, object>
+                        {
+                            { "price", 1 }
+                        }
+                    }
+                }
+            };
+
+            var result = apiInstance.BulkUpdate(docs);
+
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

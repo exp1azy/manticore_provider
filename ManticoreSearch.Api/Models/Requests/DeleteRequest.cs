@@ -8,13 +8,13 @@ namespace ManticoreSearch.Api.Models.Requests
         public string Index { get; set; }
 
         [JsonProperty("cluster", NullValueHandling = NullValueHandling.Ignore)]
-        public string? Cluster { get; set; } = null;
+        public string? Cluster { get; set; }
 
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Id { get; set; } = null;
+        public long? Id { get; set; }
 
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
-        public Query? Query { get; set; } = null;
+        public Query? Query { get; set; }
 
         public DeleteRequest() { }
 
