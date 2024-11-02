@@ -508,12 +508,12 @@ namespace ManticoreSearch.Provider
                     RawResponse = response.Response
                 };
 
-                try
+                if (response.IsSuccessStatusCode)
                 {
                     result.Response = JsonConvert.DeserializeObject<UpdateSuccess>(response.Response);
                     result.IsSuccess = true;                    
                 }
-                catch
+                else
                 {
                     result.Error = JsonConvert.DeserializeObject<ErrorResponse>(response.Response);
                     result.IsSuccess = false;

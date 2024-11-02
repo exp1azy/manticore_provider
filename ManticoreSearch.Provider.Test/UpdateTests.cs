@@ -6,20 +6,24 @@ namespace ManticoreSearch.Provider.Test
     [TestClass]
     public class UpdateTests
     {
-        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
+        private readonly ManticoreProvider apiInstance = new();
 
         [TestMethod]
         public void UpdateTest()
         {
-            var doc = new UpdateRequest()
+            var doc = new UpdateRequest
             {
                 Index = "products",
-                Id = 1,
                 Document = new Dictionary<string, object>
                 {
-                    { "title", "goida" },
-                    { "price", 30.0f },
-                    { "count", 1 }
+                    { "price", 100 }
+                },
+                Query = new Query
+                {
+                    Equals = new Dictionary<string, object>
+                    {
+                        { "price", 0 }
+                    }
                 }
             };
 
@@ -169,8 +173,8 @@ namespace ManticoreSearch.Provider.Test
         {
             var doc = new UpdateRequest()
             {
-                Index = "error",
-                Id = 8217476891905359912,
+                Index = "products",
+                Id = 1,
                 Document = new Dictionary<string, object>
                 {
                     { "123", 20 },
