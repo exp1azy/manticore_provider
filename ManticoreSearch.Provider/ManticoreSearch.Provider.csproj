@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>ManticoreSearch.Provider</Title>
+    <Authors>explazy</Authors>
+    <Description>The ManticoreSearch .NET Client Library provides a simple, efficient API for interacting with ManticoreSearch, allowing you to seamlessly index, search, and manage data within Manticore's powerful search engine. Designed for .NET developers, this library offers robust support for autocomplete, full-text search, and percolate queries, among other core features, making it an ideal choice for creating search-driven applications with minimal setup.</Description>
+    <PackageProjectUrl>https://github.com/exp1azy/ManticoreSearch.Api</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/exp1azy/ManticoreSearch.Api</RepositoryUrl>
+    <PackageTags>ManticoreSearch;Search;Provider;FullTextSearch;TextSearch;Manticore;SearchAPI;FuzzySearch;Autocomplete;Database;OpenSource;CSharp;DotNet;DistributedSearch;NoSQL</PackageTags>
+    <PackageReleaseNotes>Initial release of ManticoreSearch.Provider providing API integration with ManticoreSearch for .NET applications. This version includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify ManticoreSearch integration in .NET projects.</PackageReleaseNotes>
+    <PackAsTool>True</PackAsTool>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <PackageLicenseFile>LICENCE.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ExceptionError.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExceptionError.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\ProviderError.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ProviderError.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ExceptionError.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionError.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ProviderError.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProviderError.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LICENCE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

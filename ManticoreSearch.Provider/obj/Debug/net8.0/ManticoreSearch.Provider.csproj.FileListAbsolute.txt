@@ -1,0 +1,16 @@
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\ManticoreSearch.Provider.deps.json
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\ManticoreSearch.Provider.dll
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\ManticoreSearch.Provider.pdb
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.csproj.AssemblyReference.cache
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.Resources.ExceptionError.resources
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.Resources.ProviderError.resources
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.csproj.GenerateResource.cache
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.GeneratedMSBuildEditorConfig.editorconfig
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.AssemblyInfoInputs.cache
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.AssemblyInfo.cs
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.csproj.CoreCompileInputs.cache
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.sourcelink.json
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.dll
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\refint\ManticoreSearch.Provider.dll
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ManticoreSearch.Provider.pdb
+D:\projects\ManticoreSearch\ManticoreSearch.Provider\obj\Debug\net8.0\ref\ManticoreSearch.Provider.dll
