@@ -2,7 +2,7 @@
 
 [Manticore Search](https://manticoresearch.com/) – easy-to-use open-source fast database for search 
 
-`ManticoreProvider` is a library for interacting with Manticore Search, providing convenient methods for executing SQL queries, inserting, updating, and deleting documents, as well as working with percolators.
+Initial release of `ManticoreSearch.Provider` providing API integration with `ManticoreSearch` for .NET applications. This version includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify `ManticoreSearch` integration in .NET projects.
 
 **Note:** If you find errors or bugs in the library, please write to the email `anton.panin75@gmail.com`
 
@@ -375,12 +375,3 @@ Remember to release resources by calling the `Dispose` method when you are done 
 ```csharp
 provider.Dispose();
 ```
-
-## Building the Library
-
-To build the library and obtain the DLL, use the following command:
-```bash
-cd your_directory
-dotnet build
-```
-After building, you can find the DLL in the bin folder of your project and add a reference to it in your own project.

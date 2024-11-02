@@ -1,4 +1,0 @@
-D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\publish\ManticoreSearch.Provider.dll
-D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\publish\ManticoreSearch.Provider.deps.json
-D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\publish\ManticoreSearch.Provider.pdb
-D:\projects\ManticoreSearch\ManticoreSearch.Provider\bin\Debug\net8.0\publish\Newtonsoft.Json.dll

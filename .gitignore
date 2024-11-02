@@ -1,5 +1,5 @@
 .vs/
-ManticoreSearch.Api/bin/
-ManticoreSearch.Api/obj/
-ManticoreSearch.Api.Tests/bin/
-ManticoreSearch.Api.Tests/obj/
+ManticoreSearch.Provider/bin/Debug/
+ManticoreSearch.Provider/obj/
+ManticoreSearch.Provider.Test/bin/Debug/net8.0
+ManticoreSearch.Provider.Test/obj/
