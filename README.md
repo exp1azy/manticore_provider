@@ -198,7 +198,7 @@ var request = new List<BulkUpdateRequest>
 
 var result = provider.BulkUpdate(request);
 // or
-var resultAsync = await provider.BulkUpdate(request);
+var resultAsync = await provider.BulkUpdateAsync(request);
 ```
 
 ### Search by Documents
