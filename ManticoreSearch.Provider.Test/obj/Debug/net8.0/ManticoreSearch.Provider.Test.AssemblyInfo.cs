@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ManticoreSearch.Provider.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9267b29ff94bd7f146282a7710b6dff63591d7cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06c415d5dbec3b3ca534729122bd117bfbf2aca4")]
 [assembly: System.Reflection.AssemblyProductAttribute("ManticoreSearch.Provider.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ManticoreSearch.Provider.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

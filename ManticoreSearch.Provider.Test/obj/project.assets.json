@@ -390,7 +390,7 @@
           }
         }
       },
-      "ManticoreSearch.Provider/1.0.0": {
+      "ManticoreSearch.Provider/1.0.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -1003,7 +1003,7 @@
         "version.txt"
       ]
     },
-    "ManticoreSearch.Provider/1.0.0": {
+    "ManticoreSearch.Provider/1.0.1": {
       "type": "project",
       "path": "../ManticoreSearch.Provider/ManticoreSearch.Provider.csproj",
       "msbuildProject": "../ManticoreSearch.Provider/ManticoreSearch.Provider.csproj"
@@ -1013,7 +1013,7 @@
     "net8.0": [
       "MSTest.TestAdapter >= 3.1.1",
       "MSTest.TestFramework >= 3.1.1",
-      "ManticoreSearch.Provider >= 1.0.0",
+      "ManticoreSearch.Provider >= 1.0.1",
       "Microsoft.NET.Test.Sdk >= 17.8.0",
       "coverlet.collector >= 6.0.0"
     ]
