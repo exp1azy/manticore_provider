@@ -4,7 +4,7 @@
 
 `ManticoreProvider` is a library for interacting with Manticore Search, providing convenient methods for executing SQL queries, inserting, updating, and deleting documents, as well as working with percolators.
 
-**Note:** This library is currently in development and testing. It will be available on NuGet in the future. If you wish, you can build the library using `dotnet build`, extract the DLL from the `bin` folder, and add a reference to this DLL in your project.
+**Note:** If you find errors or bugs in the library, please write to the email `anton.panin75@gmail.com`
 
 ## Usage
 ### Creating an Instance
