@@ -52,13 +52,13 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// Gets or sets the single document to be percolated.
         /// </summary>
         [JsonProperty("document", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public object? Document { get; set; }
+        public Dictionary<string, object>? Document { get; set; }
 
         /// <summary>
         /// Gets or sets a list of documents to be percolated.
         /// This property can be used when matching multiple documents at once.
         /// </summary>
         [JsonProperty("documents", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<object>? Documents { get; set; }
+        public List<Dictionary<string, object>>? Documents { get; set; }
     }
 }

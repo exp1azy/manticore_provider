@@ -6,7 +6,7 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// Represents a request to index a percolation query. 
     /// This class allows the definition of the query, filters, and tags to be associated with the percolation.
     /// </summary>
-    public class IndexPercolateRequest
+    public class PercolationActionRequest
     {
         /// <summary>
         /// Gets or sets the query that will be used for percolation. 
@@ -30,18 +30,18 @@ namespace ManticoreSearch.Provider.Models.Requests
         public List<string>? Tags { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IndexPercolateRequest"/> class.
+        /// Initializes a new instance of the <see cref="PercolationActionRequest"/> class.
         /// </summary>
-        public IndexPercolateRequest() { }
+        public PercolationActionRequest() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IndexPercolateRequest"/> class with 
+        /// Initializes a new instance of the <see cref="PercolationActionRequest"/> class with 
         /// specified parameters to configure the percolate indexing operation.
         /// </summary>
         /// <param name="query">The query to be indexed for percolation (optional).</param>
         /// <param name="filters">The filters to apply to the query (optional).</param>
         /// <param name="tags">The list of tags associated with the query (optional).</param>
-        public IndexPercolateRequest(Query? query = null, string filters = "", List<string>? tags = null)
+        public PercolationActionRequest(Query? query = null, string filters = "", List<string>? tags = null)
         {
             Query = query;
             Filters = filters;

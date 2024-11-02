@@ -10,7 +10,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// <summary>
         /// The name of the table (index) where the document is located.
         /// </summary>
-        [JsonProperty("table")]
+        [JsonProperty("index")]
         public string Index { get; set; }
 
         /// <summary>

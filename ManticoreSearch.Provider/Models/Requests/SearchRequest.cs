@@ -15,7 +15,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// Gets or sets the name of the index to search in. 
         /// This is a required field.
         /// </summary>
-        [JsonProperty("table")]
+        [JsonProperty("index")]
         public string Index { get; set; }
 
         /// <summary>

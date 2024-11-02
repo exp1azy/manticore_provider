@@ -6,23 +6,52 @@ namespace ManticoreSearch.Provider.Test
     [TestClass]
     public class PercolateTests
     {
-        private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
+        private readonly ManticoreProvider apiInstance = new();
+
+        [TestMethod]
+        public void PercolateTest()
+        {
+            var percolate = new PercolateRequest
+            {
+                Query = new PercolateRequestQuery
+                {
+                    Percolate = new PercolateDocument
+                    {
+                        Documents = new List<Dictionary<string, object>>
+                        {
+                            new Dictionary<string, object>
+                            {
+                                { "title", "water" }
+                            },
+                            new Dictionary<string, object>
+                            {
+                                { "title", "soda" }
+                            }
+                        }
+                    }
+                }
+            };
+
+            var result = apiInstance.Percolate(percolate, "mypq");
+
+            Assert.IsTrue(result.IsSuccess);
+        }
 
         [TestMethod]
         public void IndexPercolateTest()
         {
-            var percolate = new IndexPercolateRequest
+            var percolate = new PercolationActionRequest
             {
                 Query = new Query
                 {
                     Match = new Dictionary<string, object>
                     {
-                        { "title", "Ким Чен Ын" }
+                        { "title", "soda" }
                     }
                 }
             };
 
-            var result = apiInstance.IndexPercolate(percolate, "pqtable", 5);
+            var result = apiInstance.IndexPercolate(percolate, "mypq", 2);
 
             Assert.IsTrue(result.IsSuccess);
         }
@@ -30,7 +59,7 @@ namespace ManticoreSearch.Provider.Test
         [TestMethod]
         public void IndexPercolateTest_Empty()
         {
-            var percolate = new IndexPercolateRequest();
+            var percolate = new PercolationActionRequest();
 
             var result = apiInstance.IndexPercolate(percolate, "pqtable", 6);
 
@@ -40,7 +69,7 @@ namespace ManticoreSearch.Provider.Test
         [TestMethod]
         public void IndexPercolateTest_WrongAttributes()
         {
-            var percolate = new IndexPercolateRequest
+            var percolate = new PercolationActionRequest
             {
                 Query = new Query
                 {
@@ -83,7 +112,7 @@ namespace ManticoreSearch.Provider.Test
         [TestMethod]
         public void UpdatePercolateTest()
         {
-            var request = new IndexPercolateRequest
+            var request = new PercolationActionRequest
             {
                 Query = new Query
                 {

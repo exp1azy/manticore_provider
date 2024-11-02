@@ -119,7 +119,7 @@ namespace ManticoreSearch.Provider
         /// <returns>A task that represents the asynchronous replace operation, containing the response with the result and errors.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
         public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> ReplaceAsync(ModificationRequest replace, CancellationToken cancellationToken = default) =>
-            await ProcessModificationAsync(replace, "/insert", cancellationToken);
+            await ProcessModificationAsync(replace, "/replace", cancellationToken);
 
         /// <summary>
         /// Replaces multiple existing documents in the Manticore Search index synchronously based on the provided bulk replace requests.
@@ -235,7 +235,7 @@ namespace ManticoreSearch.Provider
         /// <param name="percolate">The request containing the document to be percolated, which will be evaluated against the queries in the specified index.</param>
         /// <param name="index">The name of the index where the percolation queries are stored.</param>
         /// <returns>A response indicating the result of the percolate operation, including details of matches found.</returns>
-        public PercolateResponse IndexPercolate(IndexPercolateRequest percolate, string index) =>
+        public PercolateResponse IndexPercolate(PercolationActionRequest percolate, string index) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/doc/", HttpMethod.Put).GetAwaiter().GetResult();
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous percolate operation, containing the response with the result of the percolate operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
-        public async Task<PercolateResponse> IndexPercolateAsync(IndexPercolateRequest percolate, string index, CancellationToken cancellationToken = default) =>
+        public async Task<PercolateResponse> IndexPercolateAsync(PercolationActionRequest percolate, string index, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/doc/", HttpMethod.Put, cancellationToken);
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace ManticoreSearch.Provider
         /// <param name="index">The name of the index where the percolate request will be stored.</param>
         /// <param name="id">The unique identifier for the document being indexed.</param>
         /// <returns>A response indicating the success or failure of the indexing operation.</returns>
-        public PercolateResponse IndexPercolate(IndexPercolateRequest percolate, string index, long id) =>
+        public PercolateResponse IndexPercolate(PercolationActionRequest percolate, string index, long id) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}", HttpMethod.Put).GetAwaiter().GetResult();
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous indexing operation, containing the response indicating success or failure.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
-        public async Task<PercolateResponse> IndexPercolateAsync(IndexPercolateRequest percolate, string index, long id, CancellationToken cancellationToken = default) =>
+        public async Task<PercolateResponse> IndexPercolateAsync(PercolationActionRequest percolate, string index, long id, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}", HttpMethod.Put, cancellationToken);
 
         /// <summary>
@@ -298,7 +298,7 @@ namespace ManticoreSearch.Provider
         /// <param name="index">The name of the index where the percolate request is stored.</param>
         /// <param name="id">The unique identifier for the document being updated.</param>
         /// <returns>A response indicating the success or failure of the update operation.</returns>
-        public PercolateResponse UpdatePercolate(IndexPercolateRequest percolate, string index, int id) =>
+        public PercolateResponse UpdatePercolate(PercolationActionRequest percolate, string index, int id) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}?refresh=1", HttpMethod.Put).GetAwaiter().GetResult();
 
         /// <summary>
@@ -310,7 +310,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous update operation, containing the response indicating success or failure.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
-        public async Task<PercolateResponse> UpdatePercolateAsync(IndexPercolateRequest percolate, string index, int id, CancellationToken cancellationToken = default) =>
+        public async Task<PercolateResponse> UpdatePercolateAsync(PercolationActionRequest percolate, string index, int id, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}?refresh=1", HttpMethod.Put, cancellationToken);
 
         /// <summary>
