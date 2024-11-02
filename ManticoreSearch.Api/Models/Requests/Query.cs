@@ -36,7 +36,7 @@ namespace ManticoreSearch.Api.Models.Requests
         /// Gets or sets the boolean query that combines multiple query conditions.
         /// </summary>
         [JsonProperty("bool", NullValueHandling = NullValueHandling.Ignore)]
-        public QueryBool? Bool { get; set; }
+        public Bool? Bool { get; set; }
 
         /// <summary>
         /// Gets or sets a dictionary for equality checks on fields.
@@ -55,13 +55,13 @@ namespace ManticoreSearch.Api.Models.Requests
         /// Gets or sets a dictionary defining range queries on numeric or date fields.
         /// </summary>
         [JsonProperty("range", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, QueryRange>? Range { get; set; }
+        public Dictionary<string, Range>? Range { get; set; }
 
         /// <summary>
         /// Gets or sets the geographic distance query for spatial filtering.
         /// </summary>
         [JsonProperty("geo_distance", NullValueHandling = NullValueHandling.Ignore)]
-        public QueryGeoDistance? GeoDistance { get; set; }
+        public GeoDistance? GeoDistance { get; set; }
 
         /// <summary>
         /// Gets or sets the query language for the query, if applicable.
@@ -74,7 +74,7 @@ namespace ManticoreSearch.Api.Models.Requests
     /// Represents a range query with minimum and maximum value constraints.
     /// This class can be used to specify inclusive or exclusive bounds.
     /// </summary>
-    public class QueryRange
+    public class Range
     {
         /// <summary>
         /// Gets or sets the lower bound for the range, inclusive.
@@ -110,7 +110,7 @@ namespace ManticoreSearch.Api.Models.Requests
     /// This class allows specifying a location anchor, a source location,
     /// the type of distance measurement, and the distance itself.
     /// </summary>
-    public class QueryGeoDistance
+    public class GeoDistance
     {
         /// <summary>
         /// Gets or sets the geographic anchor location for the distance query.
@@ -171,7 +171,7 @@ namespace ManticoreSearch.Api.Models.Requests
     /// using logical operators in a query language. This class allows combining 
     /// multiple conditions using 'must', 'must_not', and 'should' clauses.
     /// </summary>
-    public class QueryBool
+    public class Bool
     {
         /// <summary>
         /// Gets or sets the list of conditions that must be satisfied 
@@ -179,20 +179,19 @@ namespace ManticoreSearch.Api.Models.Requests
         /// evaluate to true for the overall query to be considered a match.
         /// </summary>
         [JsonProperty("must", NullValueHandling = NullValueHandling.Ignore)]
-        public List<BoolMust>? Must { get; set; }
+        public List<Must>? Must { get; set; }
 
         /// <summary>
-        /// Gets or sets the condition that must not be satisfied 
+        /// Gets or sets the list of condition that must not be satisfied 
         /// for the query to match. If this condition is true, the 
         /// overall query will not match.
         /// </summary>
         [JsonProperty("must_not", NullValueHandling = NullValueHandling.Ignore)]
-        public BoolMust? MustNot { get; set; }
+        public List<Must>? MustNot { get; set; }
 
         /// <summary>
-        /// Gets or sets the list of conditions that should be satisfied 
-        /// for the query to match. These conditions are optional; 
-        /// if at least one of them is true, the overall query will match.
+        /// Gets or sets the list of conditions that must not be met for the query to be considered valid.
+        /// This property allows specifying exclusion criteria in a boolean query, where the provided.
         /// </summary>
         [JsonProperty("should", NullValueHandling = NullValueHandling.Ignore)]
         public List<object>? Should { get; set; }
@@ -203,7 +202,7 @@ namespace ManticoreSearch.Api.Models.Requests
     /// This class defines various types of conditions that can be combined 
     /// to create complex query logic.
     /// </summary>
-    public class BoolMust
+    public class Must
     {
         /// <summary>
         /// Gets or sets a dictionary defining the match condition. 
@@ -233,7 +232,7 @@ namespace ManticoreSearch.Api.Models.Requests
         /// This allows for nesting of boolean conditions.
         /// </summary>
         [JsonProperty("bool", NullValueHandling = NullValueHandling.Ignore)]
-        public QueryBool? Bool { get; set; }
+        public Bool? Bool { get; set; }
 
         /// <summary>
         /// Gets or sets a query string condition that must be satisfied. 

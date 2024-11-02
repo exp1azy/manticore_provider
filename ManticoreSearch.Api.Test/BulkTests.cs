@@ -233,9 +233,9 @@ namespace ManticoreSearch.Api.Test
                         Index = "products",
                         Query = new Query
                         {
-                            Range = new Dictionary<string, QueryRange>
+                            Range = new Dictionary<string, Models.Requests.Range>
                             {
-                                { "id", new QueryRange { Lt = 5 } }
+                                { "id", new Models.Requests.Range { Lt = 5 } }
                             }
                         }
                     }
@@ -247,9 +247,9 @@ namespace ManticoreSearch.Api.Test
                         Index = "products",
                         Query = new Query
                         {
-                            Range = new Dictionary<string, QueryRange>
+                            Range = new Dictionary<string, Models.Requests.Range>
                             {
-                                { "price", new QueryRange { Gt = 10 } }
+                                { "price", new Models.Requests.Range { Gt = 10 } }
                             }
                         }
                     }
@@ -326,9 +326,9 @@ namespace ManticoreSearch.Api.Test
                         Index = "products",
                         Query = new Query
                         {
-                            Range = new Dictionary<string, QueryRange>
+                            Range = new Dictionary<string, Models.Requests.Range>
                             {
-                                { "price", new QueryRange { Lt = 10 } }
+                                { "price", new Models.Requests.Range { Lt = 10 } }
                             }
                         },
                         Document = new Dictionary<string, object>

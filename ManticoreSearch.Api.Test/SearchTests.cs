@@ -11,36 +11,37 @@ namespace ManticoreSearch.Api.Test
         [TestMethod]
         public void SearchRequest()
         {
-            object query = new
+            var request = new SearchRequest
             {
-                index = "articles",
-                limit = 1000,
-                @bool = new
+                Index = "articles",
+                Limit = 1000,
+                Query = new Query
                 {
-                    must = new[]
+                    Bool = new Bool
+                    {
+                        Must = new List<Must>
                         {
-                            new
+                            new Must
                             {
-                                match = new
+                                Match = new Dictionary<string, object>
                                 {
-                                    body = "Путин"
+                                    { "body", "Путин" }
                                 }
                             }
                         },
-                    must_not = new[]
+                        MustNot = new List<Must>
                         {
-                            new
+                            new Must 
                             {
-                                match = new
+                                Match = new Dictionary<string, object>
                                 {
-                                    body = "Трамп"
+                                    { "body", "Трамп" }
                                 }
                             }
                         }
+                    }
                 }
             };
-
-            var request = new SearchRequest(query);
 
             var result = apiInstance.Search(request);
 
@@ -52,6 +53,8 @@ namespace ManticoreSearch.Api.Test
         public void SearchRequest_Null()
         {
             var result = apiInstance.Search(null);
+
+            Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
@@ -59,6 +62,8 @@ namespace ManticoreSearch.Api.Test
         {
             var request = new SearchRequest();
             var result = apiInstance.Search(request);
+
+            Assert.IsFalse(result.IsSuccess);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace ManticoreSearch.Api.Models.Requests
         /// Gets or sets the name of the index to search in. 
         /// This is a required field.
         /// </summary>
-        [JsonProperty("index")]
+        [JsonProperty("table")]
         public string Index { get; set; }
 
         /// <summary>
@@ -24,20 +24,6 @@ namespace ManticoreSearch.Api.Models.Requests
         /// </summary>
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Query { get; set; }
-
-        /// <summary>
-        /// Gets or sets an alternative query representation as an object. 
-        /// This allows for flexibility in query formulation.
-        /// </summary>
-        [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
-        public object? QueryByObject { get; set; }
-
-        /// <summary>
-        /// Gets or sets a comma-separated list of fields to include in the response. 
-        /// This allows for selective fetching of fields.
-        /// </summary>
-        [JsonProperty("_source", NullValueHandling = NullValueHandling.Ignore)]
-        public string? Source { get; set; }
 
         /// <summary>
         /// Gets or sets options for specifying which fields to include in the response. 
@@ -157,15 +143,6 @@ namespace ManticoreSearch.Api.Models.Requests
         public SearchRequest() { }
 
         /// <summary>
-        /// Initializes a new instance of the SearchRequest class with a specified search object.
-        /// </summary>
-        /// <param name="search">The search object to use for the query.</param>
-        public SearchRequest(object search)
-        {
-            QueryByObject = search;
-        }
-
-        /// <summary>
         /// Initializes a new instance of the SearchRequest class with specified parameters.
         /// </summary>
         /// <param name="index">The index to search.</param>
@@ -191,8 +168,6 @@ namespace ManticoreSearch.Api.Models.Requests
         public SearchRequest(
             string index,
             Query? query = null,
-            object? queryByObject = null,
-            string? source = null,
             SourceOptions? sourceByOptions = null,
             bool? profile = null,
             object? aggs = null,
@@ -212,8 +187,6 @@ namespace ManticoreSearch.Api.Models.Requests
         {
             Index = index;
             Query = query;
-            QueryByObject = queryByObject;
-            Source = source;
             SourceByOptions = sourceByOptions;
             Profile = profile;
             Aggs = aggs;
