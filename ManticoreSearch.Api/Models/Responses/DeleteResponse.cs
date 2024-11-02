@@ -3,59 +3,62 @@
 namespace ManticoreSearch.Api.Models.Responses
 {
     /// <summary>
-    /// Represents the response returned from the ManticoreSearch engine after a delete operation.
-    /// This class contains information about the status of the delete operation,
-    /// including whether the document was found and removed successfully.
+    /// Represents the response structure for delete operations in ManticoreSearch API.
+    /// Inherits from <see cref="ManticoreResponse{DeleteSuccess, ErrorResponse}"/> to handle both success and error responses.
     /// </summary>
-    public class DeleteResponse : BaseResponse
+    public class DeleteResponse : ManticoreResponse<DeleteSuccess, ErrorResponse>
     {
-        public DeleteSuccess? Response { get; set; }
-
+        /// <summary>
+        /// Contains the details of the response if the delete operation was performed via a query.
+        /// This is optional and may be null if the operation was not a query-based deletion.
+        /// </summary>
         public DeleteByQuerySuccess? ResponseIfQuery { get; set; }
-
-        public ErrorResponse? Error { get; set; }
     }
 
+    /// <summary>
+    /// Represents the details of a successful delete operation in ManticoreSearch.
+    /// </summary>
     public class DeleteSuccess
     {
         /// <summary>
-        /// Gets or sets the name of the index from which the document was deleted.
-        /// This property indicates the specific index involved in the delete operation,
-        /// which is useful for tracking and auditing actions performed on various indexes.
+        /// The name of the table from which the record was deleted.
         /// </summary>
         [JsonProperty("table")]
         public string Table { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the document was found and deleted.
-        /// This property returns true if the document with the specified ID was located
-        /// in the index and successfully removed; otherwise, it returns false.
+        /// Indicates whether the specified record was found and deleted.
         /// </summary>
         [JsonProperty("found")]
         public bool Found { get; set; }
 
         /// <summary>
-        /// Gets or sets the unique identifier of the document that was deleted.
-        /// This ID is essential for identifying which document was affected by the delete operation,
-        /// allowing developers to confirm actions performed on specific records.
+        /// The unique identifier of the deleted record.
         /// </summary>
         [JsonProperty("_id")]
         public long Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the result of the delete operation.
-        /// This property provides a message indicating the outcome of the operation,
-        /// which can be useful for logging and debugging purposes.
+        /// The result message of the delete operation, indicating the status of the deletion.
         /// </summary>
         [JsonProperty("result")]
         public string Result { get; set; }
     }
 
+    /// <summary>
+    /// Represents the details of a successful delete operation performed via a query in ManticoreSearch.
+    /// </summary>
     public class DeleteByQuerySuccess
     {
+        /// <summary>
+        /// The name of the table from which records were deleted using a query.
+        /// </summary>
         [JsonProperty("table")]
         public string Table { get; set; }
 
+        /// <summary>
+        /// The total number of records that were deleted as a result of the query.
+        /// </summary>
         [JsonProperty("deleted")]
         public int Deleted { get; set; }
     }

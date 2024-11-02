@@ -9,7 +9,7 @@ namespace ManticoreSearch.Api.Test
         private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
-        public void BulkRequestTest()
+        public void BulkTest()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -18,7 +18,7 @@ namespace ManticoreSearch.Api.Test
             {
                 docs.Add(new()
                 {
-                    Insert = new InsertRequest
+                    Insert = new ModificationRequest
                     {
                         Index = "products",
                         Id = i + 1,
@@ -38,7 +38,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_NullIndex()
+        public void BulkTest_NullIndex()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -47,7 +47,7 @@ namespace ManticoreSearch.Api.Test
             {
                 docs.Add(new()
                 {
-                    Insert = new InsertRequest
+                    Insert = new ModificationRequest
                     {
                         Index = null,
                         Document = new Dictionary<string, object>
@@ -66,7 +66,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_EmptyIndex()
+        public void BulkTest_EmptyIndex()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -75,7 +75,7 @@ namespace ManticoreSearch.Api.Test
             {
                 docs.Add(new()
                 {
-                    Insert = new InsertRequest
+                    Insert = new ModificationRequest
                     {
                         Index = "",
                         Document = new Dictionary<string, object>
@@ -94,7 +94,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_WrongAttributes()
+        public void BulkTest_WrongAttributes()
         {
             var random = new Random();
             var docs = new List<BulkInsertRequest>();
@@ -103,7 +103,7 @@ namespace ManticoreSearch.Api.Test
             {
                 docs.Add(new()
                 {
-                    Insert = new InsertRequest
+                    Insert = new ModificationRequest
                     {
                         Index = "products",
                         Document = new Dictionary<string, object>
@@ -122,7 +122,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_EmptySet()
+        public void BulkTest_Empty()
         {
             var docs = new List<BulkInsertRequest>();
             var result = apiInstance.Bulk(docs);
@@ -131,13 +131,13 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkRequestTest_Null()
+        public void BulkTest_Null()
         {
             Assert.ThrowsException<BulkException>(() => apiInstance.Bulk(null));
         }
 
         [TestMethod]
-        public void BulkReplaceRequestTest()
+        public void BulkReplaceTest()
         {
             var docs = new List<BulkReplaceRequest>()
             {
@@ -146,7 +146,7 @@ namespace ManticoreSearch.Api.Test
                     Replace = new()
                     {
                         Index = "products",
-                        Id = 100,
+                        Id = 9,
                         Document = new Dictionary<string, object>()
                         {
                             { "title", "pineapple" },
@@ -160,7 +160,7 @@ namespace ManticoreSearch.Api.Test
                     Replace = new()
                     {
                         Index = "products",
-                        Id = 101,
+                        Id = 100,
                         Document = new Dictionary<string, object>()
                         {
                             { "title", "mango" },
@@ -177,13 +177,13 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkReplaceRequestTest_Null()
+        public void BulkReplaceTest_Null()
         {
             Assert.ThrowsException<BulkException>(() => apiInstance.BulkReplace(null));
         }
 
         [TestMethod]
-        public void BulkReplaceRequestTest_Empty()
+        public void BulkReplaceTest_Empty()
         {
             var docs = new List<BulkReplaceRequest>();
 
@@ -193,7 +193,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkReplaceRequestTest_WrongAttributes()
+        public void BulkReplaceTest_WrongAttributes()
         {
             var random = new Random();
             var docs = new List<BulkReplaceRequest>();
@@ -202,7 +202,7 @@ namespace ManticoreSearch.Api.Test
             {
                 docs.Add(new()
                 {
-                    Replace = new InsertRequest
+                    Replace = new ModificationRequest
                     {
                         Index = "products",
                         Id = i + 1,
@@ -222,7 +222,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkDeleteRequestTest()
+        public void BulkDeleteTest()
         {
             var docs = new List<BulkDeleteRequest>
             {
@@ -235,7 +235,21 @@ namespace ManticoreSearch.Api.Test
                         {
                             Range = new Dictionary<string, QueryRange>
                             {
-                                { "id", new QueryRange { Gt = 10 } }
+                                { "id", new QueryRange { Lt = 5 } }
+                            }
+                        }
+                    }
+                },
+                new()
+                {
+                    Delete = new DeleteRequest
+                    {
+                        Index = "products",
+                        Query = new Query
+                        {
+                            Range = new Dictionary<string, QueryRange>
+                            {
+                                { "price", new QueryRange { Gt = 10 } }
                             }
                         }
                     }
@@ -248,7 +262,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkDeleteRequestTest_Empty()
+        public void BulkDeleteTest_Empty()
         {
             var docs = new List<BulkDeleteRequest>();
             var result = apiInstance.BulkDelete(docs);
@@ -257,19 +271,20 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void BulkDeleteRequestTest_EmptyIndex()
+        public void BulkDeleteTest_WrongAttributes()
         {
             var docs = new List<BulkDeleteRequest>
             {
-                new() {
+                new()
+                {
                     Delete = new DeleteRequest
                     {
-                        Index = "",
+                        Index = "products",
                         Query = new Query
                         {
                             Equals = new Dictionary<string, object>
                             {
-                                { "title", "burger" }
+                                { "123", "burger" }
                             }
                         }
                     }
@@ -278,11 +293,11 @@ namespace ManticoreSearch.Api.Test
 
             var result = apiInstance.BulkDelete(docs);
 
-            Assert.IsFalse(result.IsSuccess);
+            Assert.IsTrue(result.IsSuccess);
         }
 
         [TestMethod]
-        public void BulkUpdateRequestTest()
+        public void BulkUpdateTest()
         {
             var docs = new List<BulkUpdateRequest>
             {
@@ -290,10 +305,10 @@ namespace ManticoreSearch.Api.Test
                 {
                     Update = new()
                     {
-                        Table = "products",
+                        Index = "products",
                         Query = new Query
                         {
-                            Match = new Dictionary<string, object>
+                            Equals = new Dictionary<string, object>
                             {
                                 { "title", "burger" }
                             }
@@ -308,17 +323,17 @@ namespace ManticoreSearch.Api.Test
                 {
                     Update = new()
                     {
-                        Table = "products",
+                        Index = "products",
                         Query = new Query
                         {
                             Range = new Dictionary<string, QueryRange>
                             {
-                                { "price", new QueryRange { Gte = 10 } }
+                                { "price", new QueryRange { Lt = 10 } }
                             }
                         },
                         Document = new Dictionary<string, object>
                         {
-                            { "price", 1 }
+                            { "price", 10 }
                         }
                     }
                 }

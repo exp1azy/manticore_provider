@@ -9,12 +9,12 @@ namespace ManticoreSearch.Api.Test
         private readonly ManticoreProvider apiIstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
-        public void DeleteRequestTest()
+        public void DeleteTest()
         {
             var doc = new DeleteRequest
             {
                 Index = "products",
-                Id = 3
+                Id = 2
             };
 
             var result = apiIstance.Delete(doc);
@@ -23,7 +23,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_WrongId()
+        public void DeleteTest_WrongId()
         {
             var doc = new DeleteRequest
             {
@@ -37,7 +37,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_NegativeId()
+        public void DeleteTest_NegativeId()
         {
             var doc = new DeleteRequest
             {
@@ -51,12 +51,12 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_EmptyIndex()
+        public void DeleteTest_EmptyIndex()
         {
             var doc = new DeleteRequest
             {
                 Index = "",
-                Id = 2
+                Id = 3
             };
 
             var result = apiIstance.Delete(doc);
@@ -65,7 +65,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_NullIndex()
+        public void DeleteTest_NullIndex()
         {
             var doc = new DeleteRequest
             {
@@ -79,7 +79,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_EmptyBody()
+        public void DeleteTest_Empty()
         {
             var doc = new DeleteRequest();
             var result = apiIstance.Delete(doc);
@@ -88,7 +88,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_Null()
+        public void DeleteTest_Null()
         {
             var result = apiIstance.Delete(null);
 
@@ -96,7 +96,7 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void DeleteRequestTest_Query()
+        public void DeleteTest_Query()
         {
             var doc = new DeleteRequest
             {
@@ -105,7 +105,7 @@ namespace ManticoreSearch.Api.Test
                 {
                     Equals = new Dictionary<string, object>
                     {
-                        { "title", "cock cola" }
+                        { "title", "fanta" }
                     }
                 }
             };
@@ -113,10 +113,11 @@ namespace ManticoreSearch.Api.Test
             var result = apiIstance.Delete(doc);
 
             Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.ResponseIfQuery);
         }
 
         [TestMethod]
-        public void DeleteRequestTest_EmptyQuery()
+        public void DeleteTest_EmptyQuery()
         {
             var doc = new DeleteRequest
             {
@@ -127,6 +128,7 @@ namespace ManticoreSearch.Api.Test
             var result = apiIstance.Delete(doc);
 
             Assert.IsTrue(result.IsSuccess);
+            Assert.IsNotNull(result.ResponseIfQuery);
         }
     }
 }

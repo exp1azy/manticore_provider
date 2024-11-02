@@ -9,9 +9,9 @@ namespace ManticoreSearch.Api.Test
         private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
-        public void ReplaceRequestTest()
+        public void ReplaceTest()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Id = 1,
@@ -29,12 +29,12 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WrongIndex()
+        public void ReplaceTest_WrongIndex()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "",
-                Id = 105,
+                Id = 2,
                 Document = new Dictionary<string, object>
                 {
                     { "title", "coca cola" },
@@ -49,18 +49,18 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_Null()
+        public void ReplaceTest_Null()
         {
-            Assert.ThrowsException<ReplaceException>(() => apiInstance.Replace(null));
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Replace(null));
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_WrongId()
+        public void ReplaceTest_WrongId()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
-                Id = 101,
+                Id = 1000,
                 Document = new Dictionary<string, object>
                 {
                     { "title", "pepsi" },
@@ -75,9 +75,9 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_NegativeId()
+        public void ReplaceTest_NegativeId()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Id = -1,
@@ -95,29 +95,48 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_NullDocument()
+        public void ReplaceTest_NullDocument()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Id = 1,
                 Document = null
             };
 
-            Assert.ThrowsException<ReplaceException>(() => apiInstance.Replace(doc));
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Replace(doc));
         }
 
         [TestMethod]
-        public void ReplaceRequestTest_EmptyDocument()
+        public void ReplaceTest_EmptyDocument()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Id = 3,
                 Document = []
             };
 
-            Assert.ThrowsException<ReplaceException>(() => apiInstance.Replace(doc));
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Replace(doc));
+        }
+
+        [TestMethod]
+        public void ReplaceTest_WithoutId()
+        {
+            var doc = new ModificationRequest
+            {
+                Index = "products",
+                Document = new Dictionary<string, object>
+                {
+                    { "title", "fanta" },
+                    { "price", 25.0f },
+                    { "count", 1 }
+                }
+            };
+
+            var result = apiInstance.Replace(doc);
+
+            Assert.IsTrue(result.IsSuccess);
         }
     }
 }

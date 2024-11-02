@@ -144,4 +144,7 @@
   <data name="AutocompleteError" xml:space="preserve">
     <value>An error occurred while attempting to execute the autocomplete request: '{0}'</value>
   </data>
+  <data name="MappingError" xml:space="preserve">
+    <value>An error occurred while attempting to execute the mapping request: '{0}'</value>
+  </data>
 </root>

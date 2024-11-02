@@ -1,9 +1,30 @@
 ﻿namespace ManticoreSearch.Api.Exceptions
 {
+    /// <summary>
+    /// Represents errors that occur during percolation operations in Manticore.
+    /// </summary>
     public class PercolateException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PercolateException"/> class.
+        /// </summary>
         public PercolateException() : base() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PercolateException"/> class 
+        /// with a specified error message.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
         public PercolateException(string message) : base(message) { }
-        public PercolateException(string message, Exception innerException) : base(string.Format(message, innerException.Message)) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PercolateException"/> class 
+        /// with a specified error message and a reference to the inner exception 
+        /// that is the cause of this exception.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception.</param>
+        public PercolateException(string message, Exception innerException)
+            : base(string.Format(message, innerException.Message)) { }
     }
 }

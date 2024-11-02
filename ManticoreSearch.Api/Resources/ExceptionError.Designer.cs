@@ -97,6 +97,15 @@ namespace ManticoreSearch.Api.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на An error occurred while attempting to execute the mapping request: &apos;{0}&apos;.
+        /// </summary>
+        public static string MappingError {
+            get {
+                return ResourceManager.GetString("MappingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на An error occurred while executing the percolate request: &apos;{0}&apos;.
         /// </summary>
         public static string PercolateError {

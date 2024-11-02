@@ -9,9 +9,9 @@ namespace ManticoreSearch.Api.Test
         private readonly ManticoreProvider apiInstance = new("http://194.168.0.126:9308");
 
         [TestMethod]
-        public void InsertDocumentTest()
+        public void InsertTest()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Document = new Dictionary<string, object>
@@ -28,28 +28,9 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void InsertDocumentTest_ErrorTableName()
+        public void InsertTest_ManyElementsInDocument()
         {
-            var doc = new InsertRequest
-            {
-                Index = "error",
-                Document = new Dictionary<string, object>
-                {
-                    { "title", "cock cola" },
-                    { "price", 19.0f },
-                    { "count", 3 }
-                }
-            };
-
-            var result = apiInstance.Insert(doc);
-
-            Assert.IsTrue(result.IsSuccess);
-        }
-
-        [TestMethod]
-        public void InsertDocumentTest_ManyElementsInDocument()
-        {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "error",
                 Document = new Dictionary<string, object>
@@ -69,9 +50,9 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void InsertRequestTest_NullIndex()
+        public void InsertTest_NullIndex()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = null,
                 Document = new Dictionary<string, object>
@@ -88,9 +69,9 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void InsertRequestTest_EmptyIndex()
+        public void InsertTest_EmptyIndex()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "",
                 Document = new Dictionary<string, object>
@@ -101,15 +82,15 @@ namespace ManticoreSearch.Api.Test
                 }
             };
 
-            var result =  apiInstance.Insert(doc);
+            var result = apiInstance.Insert(doc);
 
             Assert.IsFalse(result.IsSuccess);
         }
 
         [TestMethod]
-        public void InsertRequestTest_WrongAttributes()
+        public void InsertTest_WrongAttributes()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Document = new Dictionary<string, object>
@@ -126,33 +107,41 @@ namespace ManticoreSearch.Api.Test
         }
 
         [TestMethod]
-        public void InsertRequestTest_Null()
+        public void InsertTest_Null()
         {
-            Assert.ThrowsException<InsertException>(() => apiInstance.Insert(null));
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Insert(null));
         }
 
         [TestMethod]
         public void InsertRequestTest_NullDocument()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Document = null
             };
 
-            Assert.ThrowsException<InsertException>(() =>  apiInstance.Insert(doc));
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Insert(doc));
         }
 
         [TestMethod]
-        public void InsertRequestTest_EmptyDocument()
+        public void InsertTest_EmptyDocument()
         {
-            var doc = new InsertRequest
+            var doc = new ModificationRequest
             {
                 Index = "products",
                 Document = []
             };
 
-            Assert.ThrowsException<InsertException>(() => apiInstance.Insert(doc));
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Insert(doc));
+        }
+
+        [TestMethod]
+        public void InsertTest_Empty()
+        {
+            var doc = new ModificationRequest();
+
+            Assert.ThrowsException<ModificationException>(() => apiInstance.Insert(doc));
         }
     }
 }
