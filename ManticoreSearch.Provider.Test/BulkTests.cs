@@ -233,9 +233,9 @@ namespace ManticoreSearch.Provider.Test
                         Index = "products",
                         Query = new Query
                         {
-                            Range = new Dictionary<string, Models.Requests.Range>
+                            Range = new Dictionary<string, Models.Requests.RangeFilter>
                             {
-                                { "id", new Models.Requests.Range { Lt = 5 } }
+                                { "id", new Models.Requests.RangeFilter { Lt = 5 } }
                             }
                         }
                     }
@@ -247,9 +247,9 @@ namespace ManticoreSearch.Provider.Test
                         Index = "products",
                         Query = new Query
                         {
-                            Range = new Dictionary<string, Models.Requests.Range>
+                            Range = new Dictionary<string, Models.Requests.RangeFilter>
                             {
-                                { "price", new Models.Requests.Range { Gt = 10 } }
+                                { "price", new Models.Requests.RangeFilter { Gt = 10 } }
                             }
                         }
                     }
@@ -326,9 +326,9 @@ namespace ManticoreSearch.Provider.Test
                         Index = "products",
                         Query = new Query
                         {
-                            Range = new Dictionary<string, Models.Requests.Range>
+                            Range = new Dictionary<string, Models.Requests.RangeFilter>
                             {
-                                { "price", new Models.Requests.Range { Lt = 10 } }
+                                { "price", new Models.Requests.RangeFilter { Lt = 10 } }
                             }
                         },
                         Document = new Dictionary<string, object>

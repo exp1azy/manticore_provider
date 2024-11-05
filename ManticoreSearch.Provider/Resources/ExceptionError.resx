@@ -147,4 +147,7 @@
   <data name="MappingError" xml:space="preserve">
     <value>An error occurred while attempting to execute the mapping request: '{0}'</value>
   </data>
+  <data name="BaseAddressNullError" xml:space="preserve">
+    <value>The address passed to the constructor parameters cannot be empty or null.</value>
+  </data>
 </root>

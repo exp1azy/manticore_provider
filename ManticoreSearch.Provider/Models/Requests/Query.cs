@@ -49,13 +49,13 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// Gets or sets an object for checking membership in a set of values.
         /// </summary>
         [JsonProperty("in", NullValueHandling = NullValueHandling.Ignore)]
-        public object? In { get; set; }
+        public Dictionary<string, object>? In { get; set; }
 
         /// <summary>
         /// Gets or sets a dictionary defining range queries on numeric or date fields.
         /// </summary>
         [JsonProperty("range", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, Range>? Range { get; set; }
+        public Dictionary<string, RangeFilter>? Range { get; set; }
 
         /// <summary>
         /// Gets or sets the geographic distance query for spatial filtering.
@@ -74,7 +74,7 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// Represents a range query with minimum and maximum value constraints.
     /// This class can be used to specify inclusive or exclusive bounds.
     /// </summary>
-    public class Range
+    public class RangeFilter
     {
         /// <summary>
         /// Gets or sets the lower bound for the range, inclusive.

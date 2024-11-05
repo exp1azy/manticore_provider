@@ -30,7 +30,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// This provides more granular control over the returned data.
         /// </summary>
         [JsonProperty("_source", NullValueHandling = NullValueHandling.Ignore)]
-        public SourceOptions? SourceByOptions { get; set; }
+        public SourceOptions? Source { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to profile the query execution. 
@@ -93,21 +93,21 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// This allows for custom calculations based on the results.
         /// </summary>
         [JsonProperty("script_fields", NullValueHandling = NullValueHandling.Ignore)]
-        public object? ScriptFields { get; set; }
+        public Dictionary<string, object>? ScriptFields { get; set; }
 
         /// <summary>
         /// Gets or sets custom expressions that can be evaluated as part of the search. 
         /// This allows for advanced search capabilities.
         /// </summary>
         [JsonProperty("expressions", NullValueHandling = NullValueHandling.Ignore)]
-        public object? Expressions { get; set; }
+        public Dictionary<string, string>? Expressions { get; set; }
 
         /// <summary>
         /// Gets or sets a dictionary of additional options to customize the search behavior. 
         /// This allows for more fine-tuned control of the search request.
         /// </summary>
         [JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, OptionDetails>? Options { get; set; }
+        public OptionDetails? Options { get; set; }
 
         /// <summary>
         /// Gets or sets highlighting options for emphasizing search terms in the results. 
@@ -177,9 +177,9 @@ namespace ManticoreSearch.Provider.Models.Requests
             int? from = null,
             int? maxMatches = null,
             List<object>? sort = null,
-            object? scriptFields = null,
-            object? expressions = null,
-            Dictionary<string, OptionDetails>? options = null,
+            Dictionary<string, object>? scriptFields = null,
+            Dictionary<string, string>? expressions = null,
+            OptionDetails? options = null,
             HighlightOptions? highlight = null,
             bool? trackScores = null,
             List<SearchJoin>? join = null,
@@ -187,7 +187,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         {
             Index = index;
             Query = query;
-            SourceByOptions = sourceByOptions;
+            Source = sourceByOptions;
             Profile = profile;
             Aggs = aggs;
             Limit = limit;
@@ -428,6 +428,155 @@ namespace ManticoreSearch.Provider.Models.Requests
         Retain
     }
 
+
+    /// <summary>
+    /// Specifies IDF (Inverse Document Frequency) calculation options for term ranking,
+    /// determining how term frequency across documents impacts search relevance.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum IdfFlag
+    {
+        /// <summary>
+        /// BM25 normalized IDF: Applies logarithmic scaling, penalizing frequent terms 
+        /// by calculating idf = log((N - n + 1) / n), where N is total documents and n is matches.
+        /// </summary>
+        [EnumMember(Value = "normalized")]
+        Normalized,
+
+        /// <summary>
+        /// Plain IDF: Uses basic logarithmic scaling (idf = log(N / n)), ensuring no penalty for 
+        /// common terms; suitable for relevance ranking without frequency-based downranking.
+        /// </summary>
+        [EnumMember(Value = "plain")]
+        Plain,
+
+        /// <summary>
+        /// Normalized TF-IDF: Divides IDF by query term count for balanced scores in [0,1] range, 
+        /// reducing excessive influence of high-frequency terms.
+        /// </summary>
+        [EnumMember(Value = "tfidf_normalized")]
+        TfidfNormalized,
+
+        /// <summary>
+        /// Unnormalized TF-IDF: Retains raw IDF score without division by query term count, 
+        /// preventing score drift in multi-term queries.
+        /// </summary>
+        [EnumMember(Value = "tfidf_unnormalized")]
+        TfidfUnnormalized
+    }
+
+    /// <summary>
+    /// Specifies the Jieba segmentation mode used for tokenizing Chinese text in queries,
+    /// enabling different levels of precision and segment coverage.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum JiebaMode
+    {
+        /// <summary>
+        /// Accurate mode: Prioritizes segmentation accuracy, suitable for standard queries where precise token boundaries are required.
+        /// </summary>
+        [EnumMember(Value = "accurate")]
+        Accurate,
+
+        /// <summary>
+        /// Full mode: Maximizes segmentation to cover all possible terms, useful for broad search coverage or when indexing requires comprehensive segmentation.
+        /// </summary>
+        [EnumMember(Value = "full")]
+        Full,
+
+        /// <summary>
+        /// Search mode: Optimized for search queries, breaking down long phrases to match smaller segments, enhancing search relevance in phrase-based queries.
+        /// </summary>
+        [EnumMember(Value = "search")]
+        Search
+    }
+
+    /// <summary>
+    /// Represents the ranking options available for ManticoreSearch, used to define the scoring algorithms for matching documents in queries.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum RankerOption
+    {
+        /// <summary>
+        /// Combines proximity with BM25 ranking, enhancing results by factoring both term frequency and positional relevance.
+        /// </summary>
+        [EnumMember(Value = "proximity_bm25")]
+        ProximityBm25,
+
+        /// <summary>
+        /// BM25 ranking based solely on term frequency and inverse document frequency, providing classic relevance scoring.
+        /// </summary>
+        [EnumMember(Value = "bm25")]
+        Bm25,
+
+        /// <summary>
+        /// Disables ranking, resulting in a binary match/no-match for query terms without additional scoring.
+        /// </summary>
+        [EnumMember(Value = "none")]
+        None,
+
+        /// <summary>
+        /// Ranks based on term count in the document, suitable for basic relevance where frequency is a primary factor.
+        /// </summary>
+        [EnumMember(Value = "wordcount")]
+        Wordcount,
+
+        /// <summary>
+        /// Uses proximity-only scoring, giving higher weight to documents with closer term matches.
+        /// </summary>
+        [EnumMember(Value = "proximity")]
+        Proximity,
+
+        /// <summary>
+        /// Matches any term in the document without additional relevance weighting, useful for broad matches.
+        /// </summary>
+        [EnumMember(Value = "matchany")]
+        Matchany,
+
+        /// <summary>
+        /// Uses a field mask for ranking, optimizing relevance based on specific indexed fields.
+        /// </summary>
+        [EnumMember(Value = "fieldmask")]
+        Fieldmask,
+
+        /// <summary>
+        /// SPH04 algorithm-based ranking, a custom Manticore ranking model for balancing relevance with term distribution.
+        /// </summary>
+        [EnumMember(Value = "sph04")]
+        Sph04,
+
+        /// <summary>
+        /// Allows for custom ranking expressions, enabling fine-grained control over ranking based on document fields.
+        /// </summary>
+        [EnumMember(Value = "expr")]
+        Expr,
+
+        /// <summary>
+        /// Exports ranking results, primarily used for testing and debugging scoring results.
+        /// </summary>
+        [EnumMember(Value = "export")]
+        Export
+    }
+
+    /// <summary>
+    /// Specifies sorting methods available for ManticoreSearch, used to optimize query results sorting.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum SortMethod
+    {
+        /// <summary>
+        /// Priority queue sorting, efficient for small to moderate result sets by prioritizing top results.
+        /// </summary>
+        [EnumMember(Value = "pq")]
+        Pq,
+
+        /// <summary>
+        /// K-buffer sorting, suitable for handling larger result sets by maintaining a buffer of top K elements.
+        /// </summary>
+        [EnumMember(Value = "kbuffer")]
+        Kbuffer
+    }
+
     /// <summary>
     /// Represents options for configuring k-nearest neighbors (KNN) search queries.
     /// </summary>
@@ -452,19 +601,19 @@ namespace ManticoreSearch.Provider.Models.Requests
         public int K { get; set; }
 
         /// <summary>
-        /// (Optional) The size of the dynamic candidate list. Higher values may improve recall but increase query time.
+        /// The size of the dynamic candidate list. Higher values may improve recall but increase query time.
         /// </summary>
         [JsonProperty("ef", NullValueHandling = NullValueHandling.Ignore)]
         public int? Ef { get; set; }
 
         /// <summary>
-        /// (Optional) The document ID to focus the search on a specific document.
+        /// The document ID to focus the search on a specific document.
         /// </summary>
         [JsonProperty("doc_id", NullValueHandling = NullValueHandling.Ignore)]
         public long? DocId { get; set; }
 
         /// <summary>
-        /// (Optional) A filter query to narrow down the KNN search results.
+        /// A filter query to narrow down the KNN search results.
         /// </summary>
         [JsonProperty("filter", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Filter { get; set; }
@@ -476,16 +625,196 @@ namespace ManticoreSearch.Provider.Models.Requests
     public class OptionDetails
     {
         /// <summary>
+        /// Controls whether to perform more accurate aggregations at the cost of performance.
+        /// </summary>
+        [JsonProperty("accurate_aggregation", NullValueHandling = NullValueHandling.Ignore)]
+        public int? AccurateAggregation { get; set; }
+
+        /// <summary>
+        /// Sets the timeout duration (in milliseconds) for agent-based query execution.
+        /// </summary>
+        [JsonProperty("agent_query_timeout", NullValueHandling = NullValueHandling.Ignore)]
+        public int? AgentQueryTimeout { get; set; }
+
+        /// <summary>
+        /// Enables simplified evaluation of boolean expressions within queries.
+        /// </summary>
+        [JsonProperty("boolean_simplify", NullValueHandling = NullValueHandling.Ignore)]
+        public int? BooleanSimplify { get; set; }
+
+        /// <summary>
+        /// Adds a comment to the query for identification and debugging purposes.
+        /// </summary>
+        [JsonProperty("comment", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Comment { get; set; }
+
+        /// <summary>
+        /// Limits the number of matching documents processed for efficiency.
+        /// </summary>
+        [JsonProperty("cutoff", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Cutoff { get; set; }
+
+        /// <summary>
+        /// Sets the threshold for precision in distinct queries.
+        /// </summary>
+        [JsonProperty("distinct_precision_threshold", NullValueHandling = NullValueHandling.Ignore)]
+        public int? DistinctPrecisionTreshold { get; set; }
+
+        /// <summary>
+        /// Expands keywords using fuzzy or synonym expansion techniques.
+        /// </summary>
+        [JsonProperty("expand_keywords", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ExpandKeywords { get; set; }
+
+        /// <summary>
+        /// Specifies weights for fields to prioritize during ranking.
+        /// </summary>
+        [JsonProperty("field_weights", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, int>? FieldWeights { get; set; }
+
+        /// <summary>
+        /// Determines whether to use global inverse document frequency (IDF) values for term weighting.
+        /// </summary>
+        [JsonProperty("global_idf", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? GlobalIdf { get; set; }
+
+        /// <summary>
+        /// Sets the IDF (Inverse Document Frequency) computation flags, adjusting the method used for term weighting in ranking.
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("idf", NullValueHandling = NullValueHandling.Ignore)]
+        public IdfFlag? Idf { get; set; }
+
+        /// <summary>
+        /// Specifies the segmentation mode for Jieba tokenizer, optimizing for various search scenarios in Chinese language processing.
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("jieba_mode", NullValueHandling = NullValueHandling.Ignore)]
+        public JiebaMode? JiebaMode { get; set; }
+
+        /// <summary>
+        /// Assigns weights to specific indexes for ranking purposes, allowing fine-tuning of relevance across indexed fields.
+        /// </summary>
+        [JsonProperty("index_weights", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, int>? IndexWeights { get; set; }
+
+        /// <summary>
+        /// Uses local document frequency for ranking calculations rather than a global collection, enhancing relevance in localized searches.
+        /// </summary>
+        [JsonProperty("local_df", NullValueHandling = NullValueHandling.Ignore)]
+        public int? LocalDf { get; set; }
+
+        /// <summary>
+        /// Sets the query to a lower priority, reducing the load impact on the server during execution.
+        /// </summary>
+        [JsonProperty("low_priority", NullValueHandling = NullValueHandling.Ignore)]
+        public int? LowPriority { get; set; }
+
+        /// <summary>
+        /// Limits the maximum number of matched documents returned, enhancing performance and focusing on the most relevant results.
+        /// </summary>
+        [JsonProperty("max_matches", NullValueHandling = NullValueHandling.Ignore)]
+        public int? MaxMatches { get; set; }
+
+        /// <summary>
+        /// Increases the threshold for the maximum number of matches considered, allowing the search to handle broader queries.
+        /// </summary>
+        [JsonProperty("max_matches_increase_threshold", NullValueHandling = NullValueHandling.Ignore)]
+        public int? MaxMatchesIncreaseTreshold { get; set; }
+
+        /// <summary>
+        /// Specifies the maximum query execution time in milliseconds, terminating any query that exceeds this limit.
+        /// </summary>
+        [JsonProperty("max_query_time", NullValueHandling = NullValueHandling.Ignore)]
+        public int? MaxQueryTime { get; set; }
+
+        /// <summary>
+        /// Sets the maximum predicted time for query execution, allowing early termination if the predicted time exceeds this limit.
+        /// </summary>
+        [JsonProperty("max_predicted_time", NullValueHandling = NullValueHandling.Ignore)]
+        public int? MaxPredictedTime { get; set; }
+
+        /// <summary>
+        /// Defines the morphological transformation applied to query terms, 
+        /// such as stemming or exact matching, based on the specified option.
+        /// </summary>
+        [JsonProperty("morphology", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Morphology { get; set; }
+
+        /// <summary>
+        /// Specifies whether queries containing only negation terms are permitted, 
+        /// allowing for results to be excluded without required terms.
+        /// </summary>
+        [JsonProperty("not_terms_only_allowed", NullValueHandling = NullValueHandling.Ignore)]
+        public int? NotTermsOnlyAllowed { get; set; }
+
+        /// <summary>
+        /// Sets the ranking strategy to prioritize relevance within search results 
+        /// according to the selected ranking method.
+        /// </summary>
+        [JsonProperty("ranker", NullValueHandling = NullValueHandling.Ignore)]
+        public RankerOption? Ranker { get; set; }
+
+        /// <summary>
+        /// Provides a seed for randomization processes within queries, 
+        /// enabling reproducibility of randomized result sets.
+        /// </summary>
+        [JsonProperty("rand_seed", NullValueHandling = NullValueHandling.Ignore)]
+        public int? RandSeed { get; set; }
+
+        /// <summary>
+        /// Specifies the number of retries for a query in case of temporary issues, 
+        /// improving reliability of query execution.
+        /// </summary>
+        [JsonProperty("retry_count", NullValueHandling = NullValueHandling.Ignore)]
+        public int? RetryCount { get; set; }
+
+        /// <summary>
+        /// Defines the delay interval, in milliseconds, between retry attempts 
+        /// when a query fails, controlling retry pacing.
+        /// </summary>
+        [JsonProperty("retry_delay", NullValueHandling = NullValueHandling.Ignore)]
+        public int? RetryDelay { get; set; }
+
+        /// <summary>
+        /// Specifies the sorting method used for result ordering, 
+        /// allowing custom prioritization of output records.
+        /// </summary>
+        [JsonProperty("sort_method", NullValueHandling = NullValueHandling.Ignore)]
+        public SortMethod? SortMethod { get; set; }
+
+        /// <summary>
+        /// Sets the number of threads used to process the query, 
+        /// enabling parallelization for performance optimization.
+        /// </summary>
+        [JsonProperty("threads", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Threads { get; set; }
+
+        /// <summary>
+        /// Specifies the filter applied to query tokens for targeted term inclusion, 
+        /// refining search precision by limiting valid tokens.
+        /// </summary>
+        [JsonProperty("token_filter", NullValueHandling = NullValueHandling.Ignore)]
+        public string? TokenFilter { get; set; }
+
+        /// <summary>
+        /// Sets a limit on the number of expanded terms allowed, controlling 
+        /// the breadth of keyword expansion during query processing.
+        /// </summary>
+        [JsonProperty("expansion_limit", NullValueHandling = NullValueHandling.Ignore)]
+        public int? ExpansionLimit { get; set; }
+
+        /// <summary>
         /// Indicates whether fuzzy matching is enabled for the search query.
         /// </summary>
-        [JsonProperty("fuzzy")]
-        public bool Fuzzy { get; set; }
+        [JsonProperty("fuzzy", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Fuzzy { get; set; }
 
         /// <summary>
         /// A list of country codes defining the layouts to be used in the search.
         /// </summary>
-        [JsonProperty("layouts")]
-        public List<CountryCode> Layouts { get; set; }
+        [JsonProperty("layouts", NullValueHandling = NullValueHandling.Ignore)]
+        public List<CountryCode>? Layouts { get; set; }
 
         /// <summary>
         /// (Optional) The distance parameter for proximity searches, which defines the allowable distance for matches.
@@ -692,7 +1021,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// The type of join to be performed (e.g., INNER JOIN, LEFT JOIN).
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public JoinType Type { get; set; }
 
         /// <summary>
         /// The name of the table to be joined with the main query.
@@ -711,6 +1040,15 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// </summary>
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Query { get; set; }
+    }
+
+    public class JoinType
+    {
+        [JsonProperty("inner", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Inner { get; set; }
+
+        [JsonProperty("left", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Left { get; set; }
     }
 
     /// <summary>

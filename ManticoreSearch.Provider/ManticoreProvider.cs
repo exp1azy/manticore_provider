@@ -33,6 +33,9 @@ namespace ManticoreSearch.Provider
         /// <param name="baseAddress">The base address of the Manticore Search API.</param>
         public ManticoreProvider(string baseAddress)
         {
+            if (string.IsNullOrEmpty(baseAddress))
+                throw new BaseAddressNullException(ExceptionError.BaseAddressNullError);
+
             _httpClient = new HttpClient
             {
                 BaseAddress = new Uri(baseAddress)
@@ -45,7 +48,6 @@ namespace ManticoreSearch.Provider
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -53,6 +55,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="insert">The request containing the document to be inserted.</param>
         /// <returns>A response containing the result of the modification operation.</returns>
+        /// <exception cref="ModificationException">Thrown if a modification error occurred.</exception>
         public ManticoreResponse<ModificationSuccess, ErrorResponse> Insert(ModificationRequest insert) =>
             ProcessModificationAsync(insert,"/insert").GetAwaiter().GetResult();
 
@@ -63,6 +66,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to cancel the operation, if needed.</param>
         /// <returns>A task that represents the asynchronous insert operation, containing the response.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="ModificationException">Thrown if a modification error occurred.</exception>
         public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> InsertAsync(ModificationRequest insert, CancellationToken cancellationToken = default) =>
             await ProcessModificationAsync(insert, "/insert", cancellationToken);
 
@@ -72,6 +76,7 @@ namespace ManticoreSearch.Provider
         /// <param name="sql">The SQL query to be executed.</param>
         /// <returns>The result of the SQL query as a string.</returns>
         /// <exception cref="InvalidOperationException">Thrown if the SQL execution fails.</exception>
+        /// <exception cref="SqlException">Thrown if an error occurred while generating a SQL query.</exception>
         public string Sql(string sql) =>
             ProcessSqlAsync(sql).GetAwaiter().GetResult();
 
@@ -82,6 +87,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to cancel the operation, if needed.</param>
         /// <returns>A task that represents the asynchronous SQL execution operation, containing the result as a string.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="SqlException">Thrown if an error occurred while generating a SQL query.</exception>
         public async Task<string> SqlAsync(string sql, CancellationToken cancellationToken = default) =>
             await ProcessSqlAsync(sql, cancellationToken);
 
@@ -90,6 +96,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="bulk">A collection of bulk insert requests containing the documents to be added.</param>
         /// <returns>A response containing the result of the bulk operation, including any errors encountered.</returns>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk(IEnumerable<BulkInsertRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
@@ -100,6 +107,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to cancel the operation, if needed.</param>
         /// <returns>A task that represents the asynchronous bulk operation, containing the response with the result and errors.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync(IEnumerable<BulkInsertRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
@@ -108,6 +116,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="replace">The modification request containing the new document data.</param>
         /// <returns>A response indicating the success or failure of the replace operation, along with any errors encountered.</returns>
+        /// <exception cref="ModificationException">Thrown if a modification error occurred.</exception>
         public ManticoreResponse<ModificationSuccess, ErrorResponse> Replace(ModificationRequest replace) =>
             ProcessModificationAsync(replace, "/replace").GetAwaiter().GetResult();
 
@@ -118,6 +127,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to cancel the operation, if needed.</param>
         /// <returns>A task that represents the asynchronous replace operation, containing the response with the result and errors.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="ModificationException">Thrown if a modification error occurred.</exception>
         public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> ReplaceAsync(ModificationRequest replace, CancellationToken cancellationToken = default) =>
             await ProcessModificationAsync(replace, "/replace", cancellationToken);
 
@@ -126,6 +136,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="bulk">An enumerable collection of bulk replace requests containing the documents to be replaced.</param>
         /// <returns>A response indicating the success or failure of the bulk replace operation, along with a list of any errors encountered for individual requests.</returns>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public ManticoreResponse<BulkSuccess, List<BulkError>> BulkReplace(IEnumerable<BulkReplaceRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
@@ -136,6 +147,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to cancel the operation, if needed.</param>
         /// <returns>A task that represents the asynchronous bulk replace operation, containing the response with the result and any errors encountered.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync(IEnumerable<BulkReplaceRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
@@ -144,6 +156,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="update">The update request containing the details of the document to be updated.</param>
         /// <returns>A response indicating the success or failure of the update operation, along with any errors encountered during the process.</returns>
+        /// <exception cref="UpdateException">Thrown if an error occurred while updating the document.</exception>
         public ManticoreResponse<UpdateSuccess, ErrorResponse> Update(UpdateRequest update) =>
             ProcessUpdateAsync(update).GetAwaiter().GetResult();
 
@@ -154,6 +167,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous update operation, containing the response with the result and any errors encountered.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="UpdateException">Thrown if an error occurred while updating the document.</exception>
         public async Task<ManticoreResponse<UpdateSuccess, ErrorResponse>> UpdateAsync(UpdateRequest update, CancellationToken cancellationToken = default) =>
             await ProcessUpdateAsync(update, cancellationToken);
 
@@ -162,6 +176,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="bulk">An enumerable collection of bulk update requests containing the details of the documents to be updated.</param>
         /// <returns>A response indicating the success or failure of the bulk update operation, along with a list of any errors encountered for individual updates.</returns>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public ManticoreResponse<BulkSuccess, List<BulkError>> BulkUpdate(IEnumerable<BulkUpdateRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
@@ -172,6 +187,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous bulk update operation, containing the response with the result and any errors encountered for individual updates.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync(IEnumerable<BulkUpdateRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
@@ -180,6 +196,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="search">The search request object containing the parameters for the search query, including index name, query, and options.</param>
         /// <returns>A response indicating the success of the search operation, containing the results of the search or an error message if the search fails.</returns>
+        /// <exception cref="SearchException">Thrown if an error occurred while executing a search request.</exception>
         public ManticoreResponse<SearchSuccess, ErrorMessage> Search(SearchRequest search) =>
             ProcessSearchAsync(search).GetAwaiter().GetResult();
 
@@ -190,6 +207,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous search operation, containing the response with the search results or an error message if the search fails.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="SearchException">Thrown if an error occurred while executing a search request.</exception>
         public async Task<ManticoreResponse<SearchSuccess, ErrorMessage>> SearchAsync(SearchRequest search, CancellationToken cancellationToken = default) =>
             await ProcessSearchAsync(search, cancellationToken);
 
@@ -198,6 +216,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="delete">The delete request object containing the identifiers of the documents to be deleted.</param>
         /// <returns>A response indicating the success of the delete operation, including any relevant information about the deletion.</returns>
+        /// <exception cref="DeleteException">Thrown if an error occurred while deleting a document.</exception>
         public DeleteResponse Delete(DeleteRequest delete) =>
             ProcessDeleteAsync(delete).GetAwaiter().GetResult();
 
@@ -208,6 +227,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous delete operation, containing the response with the result of the delete operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="DeleteException">Thrown if an error occurred while deleting a document.</exception>
         public async Task<DeleteResponse> DeleteAsync(DeleteRequest delete, CancellationToken cancellationToken = default) =>
             await ProcessDeleteAsync(delete, cancellationToken);
 
@@ -216,6 +236,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="bulk">An enumerable collection of bulk delete requests, each specifying the identifiers of the documents to be deleted.</param>
         /// <returns>A response indicating the success of the bulk delete operation, including details of any errors encountered for individual deletions.</returns>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public ManticoreResponse<BulkSuccess, List<BulkError>> BulkDelete(IEnumerable<BulkDeleteRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
@@ -226,6 +247,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous bulk delete operation, containing the response with the result of the bulk delete operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
         public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkDeleteAsync(IEnumerable<BulkDeleteRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
@@ -235,6 +257,7 @@ namespace ManticoreSearch.Provider
         /// <param name="percolate">The request containing the document to be percolated, which will be evaluated against the queries in the specified index.</param>
         /// <param name="index">The name of the index where the percolation queries are stored.</param>
         /// <returns>A response indicating the result of the percolate operation, including details of matches found.</returns>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public PercolateResponse IndexPercolate(PercolationActionRequest percolate, string index) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/doc/", HttpMethod.Put).GetAwaiter().GetResult();
 
@@ -246,6 +269,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task that represents the asynchronous percolate operation, containing the response with the result of the percolate operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public async Task<PercolateResponse> IndexPercolateAsync(PercolationActionRequest percolate, string index, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/doc/", HttpMethod.Put, cancellationToken);
 
@@ -256,6 +280,7 @@ namespace ManticoreSearch.Provider
         /// <param name="index">The name of the index where the percolate request will be stored.</param>
         /// <param name="id">The unique identifier for the document being indexed.</param>
         /// <returns>A response indicating the success or failure of the indexing operation.</returns>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public PercolateResponse IndexPercolate(PercolationActionRequest percolate, string index, long id) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}", HttpMethod.Put).GetAwaiter().GetResult();
 
@@ -268,6 +293,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous indexing operation, containing the response indicating success or failure.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public async Task<PercolateResponse> IndexPercolateAsync(PercolationActionRequest percolate, string index, long id, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}", HttpMethod.Put, cancellationToken);
 
@@ -277,6 +303,7 @@ namespace ManticoreSearch.Provider
         /// <param name="percolate">The request containing the query to be percolated, which will be matched against the percolation queries in the specified index.</param>
         /// <param name="index">The name of the index where the percolation queries are stored.</param>
         /// <returns>A response containing the results of the percolate operation, including any matching queries.</returns>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public PercolateResponse Percolate(PercolateRequest percolate, string index) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/search", HttpMethod.Post).GetAwaiter().GetResult();
 
@@ -288,6 +315,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous percolate operation, containing the response with the results of the percolate operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public async Task<PercolateResponse> PercolateAsync(PercolateRequest percolate, string index, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/search", HttpMethod.Post, cancellationToken);
 
@@ -298,6 +326,7 @@ namespace ManticoreSearch.Provider
         /// <param name="index">The name of the index where the percolate request is stored.</param>
         /// <param name="id">The unique identifier for the document being updated.</param>
         /// <returns>A response indicating the success or failure of the update operation.</returns>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public PercolateResponse UpdatePercolate(PercolationActionRequest percolate, string index, int id) =>
             ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}?refresh=1", HttpMethod.Put).GetAwaiter().GetResult();
 
@@ -310,6 +339,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous update operation, containing the response indicating success or failure.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public async Task<PercolateResponse> UpdatePercolateAsync(PercolationActionRequest percolate, string index, int id, CancellationToken cancellationToken = default) =>
             await ProcessPercolateAsync(percolate, $"/pq/{index}/doc/{id}?refresh=1", HttpMethod.Put, cancellationToken);
 
@@ -319,6 +349,7 @@ namespace ManticoreSearch.Provider
         /// <param name="index">The name of the index where the percolate request is stored.</param>
         /// <param name="id">The unique identifier for the percolate request to be retrieved.</param>
         /// <returns>A response containing the percolate request's details if found, or an error message if not.</returns>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public ManticoreResponse<SearchSuccess, ErrorMessage> GetPercolate(string index, int id) =>
             ProcessGetPercolateAsync(index, id).GetAwaiter().GetResult();
 
@@ -330,6 +361,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous retrieval operation, containing a response with the percolate request's details or an error message.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="PercolateException">Thrown if an error occurred while performing percolation.</exception>
         public async Task<ManticoreResponse<SearchSuccess, ErrorMessage>> GetPercolateAsync(string index, int id, CancellationToken cancellationToken = default) =>
             await ProcessGetPercolateAsync(index, id, cancellationToken);
 
@@ -338,6 +370,7 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="autocomplete">The request object containing the parameters for the autocomplete operation.</param>
         /// <returns>A response containing a list of autocomplete suggestions or an error message if the operation fails.</returns>
+        /// <exception cref="AutocompleteException">Thrown if an error occurred while performing.</exception>
         public ManticoreResponse<List<AutocompleteSuccess>, ErrorMessage> Autocomplete(AutocompleteRequest autocomplete) =>
             ProcessAutocompleteAsync(autocomplete).GetAwaiter().GetResult();
 
@@ -348,6 +381,7 @@ namespace ManticoreSearch.Provider
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous autocomplete operation, containing a response with a list of autocomplete suggestions or an error message.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="AutocompleteException">Thrown if an error occurred while performing.</exception>
         public async Task<ManticoreResponse<List<AutocompleteSuccess>, ErrorMessage>> AutocompleteAsync(AutocompleteRequest autocomplete, CancellationToken cancellationToken = default) =>
             await ProcessAutocompleteAsync(autocomplete, cancellationToken);
 
@@ -357,6 +391,7 @@ namespace ManticoreSearch.Provider
         /// <param name="properties">The request object containing the mapping properties that describe the table structure to be created.</param>
         /// <param name="index">The name of the index for which the new table structure will be defined.</param>
         /// <returns>A response containing a list of successful mapping operations or an error message if the operation fails.</returns>
+        /// <exception cref="MappingException">Thrown if an error occurred while performing mapping.</exception>
         public ManticoreResponse<List<MappingSuccess>, ErrorMessage> UseMapping(MappingRequest properties, string index) =>
             ProcessMappingAsync(properties, index).GetAwaiter().GetResult();
 
@@ -367,7 +402,8 @@ namespace ManticoreSearch.Provider
         /// <param name="index">The name of the index for which the new table structure will be defined.</param>
         /// <param name="cancellationToken">A cancellation token to allow the operation to be canceled if needed.</param>
         /// <returns>A task representing the asynchronous mapping operation, containing a response with a list of successful mapping operations or an error message.</returns>
-        /// /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+        /// <exception cref="MappingException">Thrown if an error occurred while performing mapping.</exception>
         public async Task<ManticoreResponse<List<MappingSuccess>, ErrorMessage>> UseMappingAsync(MappingRequest properties, string index, CancellationToken cancellationToken = default) =>
             await ProcessMappingAsync(properties, index, cancellationToken);
 
@@ -384,7 +420,7 @@ namespace ManticoreSearch.Provider
             }
         }
 
-        private StringContent CreateStringContent(object data, string contentType)
+        private static StringContent CreateStringContent(object data, string contentType)
         {
             var json = JsonConvert.SerializeObject(data);
             return new StringContent(json, Encoding.UTF8, contentType);

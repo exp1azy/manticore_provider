@@ -39,7 +39,7 @@ namespace ManticoreSearch.Provider.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ManticoreSearch.Api.Resources.ExceptionError", typeof(ExceptionError).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ManticoreSearch.Provider.Resources.ExceptionError", typeof(ExceptionError).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,6 +66,15 @@ namespace ManticoreSearch.Provider.Resources {
         public static string AutocompleteError {
             get {
                 return ResourceManager.GetString("AutocompleteError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на The address passed to the constructor parameters cannot be empty or null..
+        /// </summary>
+        public static string BaseAddressNullError {
+            get {
+                return ResourceManager.GetString("BaseAddressNullError", resourceCulture);
             }
         }
         
