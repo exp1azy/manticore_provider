@@ -411,10 +411,8 @@ namespace ManticoreSearch.Provider
         {
             if (!_disposed)
             {
-                if (disposing)
-                {
-                    _httpClient.Dispose();
-                }
+                if (disposing)               
+                    _httpClient.Dispose();               
 
                 _disposed = true;
             }
@@ -429,6 +427,7 @@ namespace ManticoreSearch.Provider
         private async Task<HttpResponse> SendAsync(string endpoint, HttpMethod method, StringContent? content = null, CancellationToken cancellationToken = default)
         {
             var request = new HttpRequestMessage(method, endpoint);
+
             if (content != null)
                 request.Content = content;
 

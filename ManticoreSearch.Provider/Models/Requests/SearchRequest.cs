@@ -147,9 +147,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// </summary>
         /// <param name="index">The index to search.</param>
         /// <param name="query">The query object.</param>
-        /// <param name="queryByObject">An alternative query representation as an object.</param>
-        /// <param name="source">Fields to include in the response.</param>
-        /// <param name="sourceByOptions">Options for source fields.</param>
+        /// <param name="source">Options for source fields.</param>
         /// <param name="profile">Indicates whether to profile the query execution.</param>
         /// <param name="aggs">Aggregation options.</param>
         /// <param name="limit">Limit for the number of search results.</param>
@@ -168,7 +166,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         public SearchRequest(
             string index,
             Query? query = null,
-            SourceOptions? sourceByOptions = null,
+            SourceOptions? source = null,
             bool? profile = null,
             object? aggs = null,
             int? limit = null,
@@ -187,7 +185,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         {
             Index = index;
             Query = query;
-            Source = sourceByOptions;
+            Source = source;
             Profile = profile;
             Aggs = aggs;
             Limit = limit;
@@ -578,6 +576,28 @@ namespace ManticoreSearch.Provider.Models.Requests
     }
 
     /// <summary>
+    /// Specifies the type of join to be performed in a database query.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum JoinType
+    {
+        /// <summary>
+        /// Represents an inner join. 
+        /// Only returns rows where there is a match in both tables.
+        /// </summary>
+        [EnumMember(Value = "inner")]
+        Inner,
+
+        /// <summary>
+        /// Represents a left join.
+        /// Returns all rows from the left table, and the matched rows from the right table. 
+        /// If there is no match, the result is NULL on the right side.
+        /// </summary>
+        [EnumMember(Value = "left")]
+        Left
+    }
+
+    /// <summary>
     /// Represents options for configuring k-nearest neighbors (KNN) search queries.
     /// </summary>
     public class KnnOptions
@@ -915,8 +935,8 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// <summary>
         /// (Optional) The mode for stripping HTML tags from highlighted text.
         /// </summary>
-        [JsonProperty("html_strip_mode", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("html_strip_mode", NullValueHandling = NullValueHandling.Ignore)]       
         public HtmlStripMode? HtmlStripMode { get; set; }
 
         /// <summary>
@@ -928,8 +948,8 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// <summary>
         /// (Optional) Specifies the boundary for snippets in the highlight output.
         /// </summary>
-        [JsonProperty("snippet_boundary", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("snippet_boundary", NullValueHandling = NullValueHandling.Ignore)]        
         public SnippetBoundary? SnippetBoundary { get; set; }
 
         /// <summary>
@@ -965,8 +985,8 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// <summary>
         /// (Optional) The encoder to be used for processing highlighted text.
         /// </summary>
-        [JsonProperty("encoder", NullValueHandling = NullValueHandling.Ignore)]
         [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("encoder", NullValueHandling = NullValueHandling.Ignore)]        
         public Encoder? Encoder { get; set; }
 
         /// <summary>
@@ -1040,15 +1060,6 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// </summary>
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Query { get; set; }
-    }
-
-    public class JoinType
-    {
-        [JsonProperty("inner", NullValueHandling = NullValueHandling.Ignore)]
-        public string? Inner { get; set; }
-
-        [JsonProperty("left", NullValueHandling = NullValueHandling.Ignore)]
-        public string? Left { get; set; }
     }
 
     /// <summary>
