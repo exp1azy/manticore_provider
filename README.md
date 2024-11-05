@@ -4,7 +4,7 @@
 
 Initial release of `ManticoreSearch.Provider` providing API integration with `ManticoreSearch` for .NET applications. This version includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify `ManticoreSearch` integration in .NET projects.
 
-**Note:** If you find errors or bugs in the library, please write to the email `anton.panin75@gmail.com`
+**Note:** If you find errors or bugs in the library, please write in the `issues` section
 
 ## Usage
 ### Creating an Instance
