@@ -39,7 +39,7 @@ namespace ManticoreSearch.Provider.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ManticoreSearch.Api.Resources.ProviderError", typeof(ProviderError).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ManticoreSearch.Provider.Resources.ProviderError", typeof(ProviderError).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
