@@ -240,5 +240,12 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// </summary>
         [JsonProperty("query_string", NullValueHandling = NullValueHandling.Ignore)]
         public string? QueryString { get; set; }
+
+        /// <summary>
+        /// Gets or sets a dictionary defining attribute values.
+        /// Filter to match a given set of attribute values.
+        /// </summary>
+        [JsonProperty("in", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object>? In { get; set; }
     }
 }
