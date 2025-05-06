@@ -11,13 +11,13 @@
     <PackageProjectUrl>https://github.com/exp1azy/ManticoreSearch.Api</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/exp1azy/ManticoreSearch.Api</RepositoryUrl>
-    <PackageTags>ManticoreSearch;Search;Provider;FullTextSearch;TextSearch;Manticore;SearchAPI;FuzzySearch;Autocomplete;Database;OpenSource;CSharp;DotNet;DistributedSearch;NoSQL</PackageTags>
-    <PackageReleaseNotes>Added support for .NET 7.0 and .NET 9.0</PackageReleaseNotes>
+    <PackageTags>manticore;search;fulltext;text;autocomplete;database;opensource;nosql</PackageTags>
+    <PackageReleaseNotes>Add missing "in" condition to Must class</PackageReleaseNotes>
     <PackAsTool>False</PackAsTool>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageLicenseFile>LICENCE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -57,14 +57,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="LICENCE.txt">
+    <None Include="..\LICENCE.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
-  <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
 
 </Project>
