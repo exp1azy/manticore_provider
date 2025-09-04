@@ -93,7 +93,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// This allows for custom calculations based on the results.
         /// </summary>
         [JsonProperty("script_fields", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, object>? ScriptFields { get; set; }
+        public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 
         /// <summary>
         /// Gets or sets custom expressions that can be evaluated as part of the search. 
@@ -175,7 +175,7 @@ namespace ManticoreSearch.Provider.Models.Requests
             int? from = null,
             int? maxMatches = null,
             List<object>? sort = null,
-            Dictionary<string, object>? scriptFields = null,
+            Dictionary<string, ScriptField>? scriptFields = null,
             Dictionary<string, string>? expressions = null,
             OptionDetails? options = null,
             HighlightOptions? highlight = null,
@@ -202,6 +202,30 @@ namespace ManticoreSearch.Provider.Models.Requests
             Join = join;
             Knn = knn;
         }
+    }
+
+    /// <summary>
+    /// Represents a script field configuration for dynamic field computation in search results.
+    /// </summary>
+    public class ScriptField
+    {
+        /// <summary>
+        /// Gets or sets the script configuration for the field.
+        /// </summary>
+        [JsonProperty("script")]
+        public Script Script { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the script configuration for a script field.
+    /// </summary>
+    public class Script
+    {
+        /// <summary>
+        /// Gets or sets the inline script code to execute.
+        /// </summary>
+        [JsonProperty("inline")]
+        public string Inline { get; set; }
     }
 
     /// <summary>

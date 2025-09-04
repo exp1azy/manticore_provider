@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace ManticoreSearch.Provider.Models.Requests
 {
@@ -9,7 +11,7 @@ namespace ManticoreSearch.Provider.Models.Requests
     public class MappingRequest
     {
         /// <summary>
-        /// Gets or sets the dictionary of field properties where the key is the field name 
+        /// Gets or sets the dictionary of field properties where the key is the field name
         /// and the value is the corresponding mapping field definition.
         /// </summary>
         [JsonProperty("properties")]
@@ -18,10 +20,11 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// <summary>
         /// Initializes a new instance of the <see cref="MappingRequest"/> class.
         /// </summary>
-        public MappingRequest() { }
+        public MappingRequest()
+        { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MappingRequest"/> class with 
+        /// Initializes a new instance of the <see cref="MappingRequest"/> class with
         /// the specified field properties.
         /// </summary>
         /// <param name="properties">The dictionary of field properties.</param>
@@ -37,53 +40,126 @@ namespace ManticoreSearch.Provider.Models.Requests
     public class MappingField
     {
         /// <summary>
-        /// Gets or sets the type of the mapping field. 
+        /// Gets or sets the type of the mapping field.
         /// This indicates how the field should be indexed and queried.
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public MappingFieldType Type { get; set; }
     }
 
     /// <summary>
-    /// Provides a static class containing constants for various field types 
+    /// Provides a enumeration containing field types
     /// that can be used in the mapping of data indices.
     /// </summary>
-    public class FieldType
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum MappingFieldType
     {
-        public static string AggregateMetric => "aggregate_metric";
-        public static string Binary => "binary";
-        public static string Boolean => "boolean";
-        public static string Byte => "byte";
-        public static string Completion => "completion";
-        public static string Date => "date";
-        public static string DateNanos => "date_nanos";
-        public static string DateRange => "date_range";
-        public static string DenseVector => "dense_vector";
-        public static string Flattened => "flattened";
-        public static string FlatObject => "flat_object";
-        public static string Float => "float";
-        public static string FloatRange => "float_range";
-        public static string GeoPoint => "geo_point";
-        public static string GeoShape => "geo_shape";
-        public static string HalfFloat => "half_float";
-        public static string Histogram => "histogram";
-        public static string Integer => "integer";
-        public static string IntegerRange => "integer_range";
-        public static string Ip => "ip";
-        public static string IpRange => "ip_range";
-        public static string Keyword => "keyword";
-        public static string KnnVector => "knn_vector";
-        public static string Long => "long";
-        public static string LongRange => "long_range";
-        public static string MatchOnlyText => "match_only_text";
-        public static string Object => "object";
-        public static string Point => "point";
-        public static string ScaledFloat => "scaled_float";
-        public static string SearchAsYouType => "search_as_you_type";
-        public static string Shape => "shape";
-        public static string Short => "short";
-        public static string Text => "text";
-        public static string UnsignedLong => "unsigned_long";
-        public static string Version => "version";
+        [EnumMember(Value = "aggregate_metric")]
+        AggregateMetric,
+
+        [EnumMember(Value = "binary")]
+        Binary,
+
+        [EnumMember(Value = "boolean")]
+        Boolean,
+
+        [EnumMember(Value = "byte")]
+        Byte,
+
+        [EnumMember(Value = "completion")]
+        Completion,
+
+        [EnumMember(Value = "date")]
+        Date,
+
+        [EnumMember(Value = "date_nanos")]
+        DateNanos,
+
+        [EnumMember(Value = "date_range")]
+        DateRange,
+
+        [EnumMember(Value = "dense_vector")]
+        DenseVector,
+
+        [EnumMember(Value = "flattened")]
+        Flattened,
+
+        [EnumMember(Value = "flat_object")]
+        FlatObject,
+
+        [EnumMember(Value = "float")]
+        Float,
+
+        [EnumMember(Value = "float_range")]
+        FloatRange,
+
+        [EnumMember(Value = "geo_point")]
+        GeoPoint,
+
+        [EnumMember(Value = "geo_shape")]
+        GeoShape,
+
+        [EnumMember(Value = "half_float")]
+        HalfFloat,
+
+        [EnumMember(Value = "histogram")]
+        Histogram,
+
+        [EnumMember(Value = "integer")]
+        Integer,
+
+        [EnumMember(Value = "integer_range")]
+        IntegerRange,
+
+        [EnumMember(Value = "ip")]
+        Ip,
+
+        [EnumMember(Value = "ip_range")]
+        IpRange,
+
+        [EnumMember(Value = "join")]
+        Join,
+
+        [EnumMember(Value = "keyword")]
+        Keyword,
+
+        [EnumMember(Value = "knn_vector")]
+        KnnVector,
+
+        [EnumMember(Value = "long")]
+        Long,
+
+        [EnumMember(Value = "long_range")]
+        LongRange,
+
+        [EnumMember(Value = "match_only_text")]
+        MatchOnlyText,
+
+        [EnumMember(Value = "object")]
+        Object,
+
+        [EnumMember(Value = "point")]
+        Point,
+
+        [EnumMember(Value = "scaled_float")]
+        ScaledFloat,
+
+        [EnumMember(Value = "search_as_you_type")]
+        SearchAsYouType,
+
+        [EnumMember(Value = "shape")]
+        Shape,
+
+        [EnumMember(Value = "short")]
+        Short,
+
+        [EnumMember(Value = "text")]
+        Text,
+
+        [EnumMember(Value = "unsigned_long")]
+        UnsignedLong,
+
+        [EnumMember(Value = "version")]
+        Version
     }
 }

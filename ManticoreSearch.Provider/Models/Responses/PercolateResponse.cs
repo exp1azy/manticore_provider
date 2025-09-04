@@ -39,7 +39,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// Gets or sets the unique identifier of the percolate rule that matched.
         /// This property identifies the specific rule that triggered a match during the percolation operation.
         /// </summary>
-        [JsonProperty("_id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
         /// <summary>

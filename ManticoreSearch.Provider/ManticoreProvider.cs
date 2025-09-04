@@ -17,13 +17,15 @@ namespace ManticoreSearch.Provider
         private bool _disposed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with the default base address.
+        /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with the default base address (http://localhost:9308).
         /// </summary>
-        public ManticoreProvider()
+        /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
+        public ManticoreProvider(TimeSpan timeout = default)
         {
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("http://localhost:9308")
+                BaseAddress = new Uri("http://localhost:9308"),
+                Timeout = timeout == default ? TimeSpan.FromSeconds(30) : timeout
             };
         }
 
@@ -31,14 +33,16 @@ namespace ManticoreSearch.Provider
         /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with a specified base address.
         /// </summary>
         /// <param name="baseAddress">The base address of the Manticore Search API.</param>
-        public ManticoreProvider(string baseAddress)
+        /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
+        public ManticoreProvider(string baseAddress, TimeSpan timeout = default)
         {
             if (string.IsNullOrEmpty(baseAddress))
                 throw new BaseAddressNullException(ExceptionError.BaseAddressNullError);
 
             _httpClient = new HttpClient
             {
-                BaseAddress = new Uri(baseAddress)
+                BaseAddress = new Uri(baseAddress),
+                Timeout = timeout == default ? TimeSpan.FromSeconds(30) : timeout
             };
         }
 
@@ -58,7 +62,7 @@ namespace ManticoreSearch.Provider
         /// <returns>A response containing the result of the modification operation.</returns>
         /// <exception cref="ModificationException">Thrown if a modification error occurred.</exception>
         public ManticoreResponse<ModificationSuccess, ErrorResponse> Insert(ModificationRequest insert) =>
-            ProcessModificationAsync(insert,"/insert").GetAwaiter().GetResult();
+            ProcessModificationAsync(insert, "/insert").GetAwaiter().GetResult();
 
         /// <summary>
         /// Inserts a new document into the Manticore Search index asynchronously.
@@ -98,7 +102,7 @@ namespace ManticoreSearch.Provider
         /// <param name="bulk">A collection of bulk insert requests containing the documents to be added.</param>
         /// <returns>A response containing the result of the bulk operation, including any errors encountered.</returns>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk(IEnumerable<BulkInsertRequest> bulk) =>
+        public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk(List<BulkInsertRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
@@ -109,7 +113,7 @@ namespace ManticoreSearch.Provider
         /// <returns>A task that represents the asynchronous bulk operation, containing the response with the result and errors.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync(IEnumerable<BulkInsertRequest> bulk, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync(List<BulkInsertRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
@@ -138,7 +142,7 @@ namespace ManticoreSearch.Provider
         /// <param name="bulk">An enumerable collection of bulk replace requests containing the documents to be replaced.</param>
         /// <returns>A response indicating the success or failure of the bulk replace operation, along with a list of any errors encountered for individual requests.</returns>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkReplace(IEnumerable<BulkReplaceRequest> bulk) =>
+        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkReplace(List<BulkReplaceRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
@@ -149,7 +153,7 @@ namespace ManticoreSearch.Provider
         /// <returns>A task that represents the asynchronous bulk replace operation, containing the response with the result and any errors encountered.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync(IEnumerable<BulkReplaceRequest> bulk, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync(List<BulkReplaceRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
@@ -178,7 +182,7 @@ namespace ManticoreSearch.Provider
         /// <param name="bulk">An enumerable collection of bulk update requests containing the details of the documents to be updated.</param>
         /// <returns>A response indicating the success or failure of the bulk update operation, along with a list of any errors encountered for individual updates.</returns>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkUpdate(IEnumerable<BulkUpdateRequest> bulk) =>
+        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkUpdate(List<BulkUpdateRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
@@ -189,7 +193,7 @@ namespace ManticoreSearch.Provider
         /// <returns>A task that represents the asynchronous bulk update operation, containing the response with the result and any errors encountered for individual updates.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync(IEnumerable<BulkUpdateRequest> bulk, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync(List<BulkUpdateRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
@@ -238,7 +242,7 @@ namespace ManticoreSearch.Provider
         /// <param name="bulk">An enumerable collection of bulk delete requests, each specifying the identifiers of the documents to be deleted.</param>
         /// <returns>A response indicating the success of the bulk delete operation, including details of any errors encountered for individual deletions.</returns>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkDelete(IEnumerable<BulkDeleteRequest> bulk) =>
+        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkDelete(List<BulkDeleteRequest> bulk) =>
             ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
@@ -249,7 +253,7 @@ namespace ManticoreSearch.Provider
         /// <returns>A task that represents the asynchronous bulk delete operation, containing the response with the result of the bulk delete operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
         /// <exception cref="BulkException">Thrown if an error occurred during bulk loading.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkDeleteAsync(IEnumerable<BulkDeleteRequest> bulk, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkDeleteAsync(List<BulkDeleteRequest> bulk, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
@@ -412,8 +416,8 @@ namespace ManticoreSearch.Provider
         {
             if (!_disposed)
             {
-                if (disposing)               
-                    _httpClient.Dispose();               
+                if (disposing)
+                    _httpClient.Dispose();
 
                 _disposed = true;
             }
@@ -449,7 +453,7 @@ namespace ManticoreSearch.Provider
                     request == null ? nameof(request) : nameof(request.Document)));
             }
 
-            if (request.Document.Count <= 0)
+            if (request.Document.Count == 0)
                 throw new ModificationException(ProviderError.DocumentCount);
 
             try
@@ -470,14 +474,14 @@ namespace ManticoreSearch.Provider
                 else
                 {
                     result.Error = JsonConvert.DeserializeObject<ErrorResponse>(response.Response);
-                    result.IsSuccess = false;                   
+                    result.IsSuccess = false;
                 }
 
                 return result;
             }
             catch (Exception ex)
             {
-                throw new ModificationException(endpoint.Equals("/insert") ? 
+                throw new ModificationException(endpoint.Equals("/insert") ?
                     ExceptionError.InsertError : ExceptionError.ReplaceError, ex);
             }
         }
@@ -499,9 +503,9 @@ namespace ManticoreSearch.Provider
             }
         }
 
-        private async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> ProcessBulkAsync<TBulkRequest>(IEnumerable<TBulkRequest> documents, CancellationToken cancellationToken = default)
+        private async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> ProcessBulkAsync<TBulkRequest>(List<TBulkRequest> documents, CancellationToken cancellationToken = default)
         {
-             if (documents == null)
+            if (documents == null)
                 throw new BulkException(ProviderError.DocumentsNull);
 
             try
@@ -516,16 +520,16 @@ namespace ManticoreSearch.Provider
 
                 try
                 {
-                    result.Response = JsonConvert.DeserializeObject<BulkSuccess>(response.Response);
-                    result.IsSuccess = true;
-                }
-                catch
-                {
                     result.Error = JsonConvert.DeserializeObject<List<BulkError>>(response.Response)!;
                     result.IsSuccess = false;
                 }
+                catch
+                {
+                    result.Response = JsonConvert.DeserializeObject<BulkSuccess>(response.Response);
+                    result.IsSuccess = true;
+                }
 
-                return result;             
+                return result;
             }
             catch (BulkException ex)
             {
@@ -538,7 +542,7 @@ namespace ManticoreSearch.Provider
             try
             {
                 var content = CreateStringContent(document, "application/json");
-                var response = await SendAsync("/update", HttpMethod.Post, content, cancellationToken);               
+                var response = await SendAsync("/update", HttpMethod.Post, content, cancellationToken);
                 var result = new ManticoreResponse<UpdateSuccess, ErrorResponse>
                 {
                     RawResponse = response.Response
@@ -547,7 +551,7 @@ namespace ManticoreSearch.Provider
                 if (response.IsSuccessStatusCode)
                 {
                     result.Response = JsonConvert.DeserializeObject<UpdateSuccess>(response.Response);
-                    result.IsSuccess = true;                    
+                    result.IsSuccess = true;
                 }
                 else
                 {
@@ -618,7 +622,7 @@ namespace ManticoreSearch.Provider
                 else
                 {
                     result.Response = JsonConvert.DeserializeObject<DeleteSuccess>(response.Response);
-                    result.IsSuccess = true;              
+                    result.IsSuccess = true;
                 }
 
                 return result;
@@ -670,8 +674,8 @@ namespace ManticoreSearch.Provider
             try
             {
                 var response = await SendAsync(
-                    endpoint: $"/pq/{index}/doc/{id}", 
-                    method: HttpMethod.Get, 
+                    endpoint: $"/pq/{index}/doc/{id}",
+                    method: HttpMethod.Get,
                     cancellationToken: cancellationToken
                 );
 
@@ -739,7 +743,7 @@ namespace ManticoreSearch.Provider
                 {
                     RawResponse = response.Response
                 };
-                
+
                 try
                 {
                     result.Response = JsonConvert.DeserializeObject<List<MappingSuccess>>(response.Response);

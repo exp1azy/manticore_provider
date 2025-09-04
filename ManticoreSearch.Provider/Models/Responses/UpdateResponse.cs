@@ -20,7 +20,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// Gets or sets the unique identifier of the record that was updated.
         /// This property is essential for referencing the specific record in the database.
         /// </summary>
-        [JsonProperty("_id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
         /// <summary>

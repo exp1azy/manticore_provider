@@ -41,7 +41,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// This property is a collection of <see cref="Hits"/> that match the search criteria.
         /// </summary>
         [JsonProperty("hits")]
-        public IEnumerable<Hits> Hits { get; set; }
+        public IEnumerable<Hit> Hits { get; set; }
 
         /// <summary>
         /// Gets or sets the total number of hits that matched the search criteria.
@@ -62,7 +62,7 @@ namespace ManticoreSearch.Provider.Models.Responses
     /// Represents an individual hit returned from a search operation.
     /// Contains details about the hit, including its ID, score, and source document.
     /// </summary>
-    public class Hits
+    public class Hit
     {
         /// <summary>
         /// Gets or sets the unique identifier of the document that was matched.
@@ -84,5 +84,12 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// </summary>
         [JsonProperty("_source")]
         public Dictionary<string, object> Source { get; set; }
+
+        /// <summary>
+        /// Gets or sets the highlight details returned from a search operation.
+        /// This property contains information about the highlighted fields of the document.
+        /// </summary>
+        [JsonProperty("highlight")]
+        public Dictionary<string, string[]>? Highlight { get; set; }
     }
 }

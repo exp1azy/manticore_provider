@@ -35,7 +35,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// <summary>
         /// The unique identifier of the deleted record.
         /// </summary>
-        [JsonProperty("_id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// Gets or sets the unique identifier of the modified record.
         /// This property is used to identify the specific entry that was modified.
         /// </summary>
-        [JsonProperty("_id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
         /// <summary>

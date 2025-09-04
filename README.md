@@ -34,7 +34,7 @@ var request = new ModificationRequest
         Index = "products",
         Document = new Dictionary<string, object>
         {
-            { "title", "jopa" },
+            { "title", "book" },
             { "price", 19.0f },
             { "count", 3 }
         }
@@ -60,7 +60,7 @@ for (int i = 0; i < 20; i++)
             Id = i + 1,
             Document = new Dictionary<string, object>
             {
-                { "title", "burger" },
+                { "title", "book" },
                 { "price", random.Next(1, 20) },
                 { "count", random.Next(1, 5) }
             }
@@ -83,7 +83,7 @@ var request = new ModificationRequest
     Id = 1,
     Document = new Dictionary<string, object>
     {
-        { "title", "sosal" },
+        { "title", "book" },
         { "price", 100.0f },
         { "count", 25 }
     }
@@ -108,7 +108,7 @@ var request = new List<BulkReplaceRequest>()
             Id = 9,
             Document = new Dictionary<string, object>()
             {
-                { "title", "goida" },
+                { "title", "chocolate" },
                 { "price", 15 },
                 { "count", 2 }
             }
@@ -122,7 +122,7 @@ var request = new List<BulkReplaceRequest>()
             Id = 100,
             Document = new Dictionary<string, object>()
             {
-                { "title", "svo" },
+                { "title", "lemonade" },
                 { "price", 14 },
                 { "count", 3 }
             }
@@ -145,7 +145,7 @@ var request = new UpdateRequest()
     Id = 1,
     Document = new Dictionary<string, object>
     {
-        { "title", "tanki online" },
+        { "title", "book" },
         { "price", 30.0f },
         { "count", 1 }
     }
@@ -167,12 +167,12 @@ var request = new List<BulkUpdateRequest>
             {
                 Equals = new Dictionary<string, object>
                 {
-                    { "title", "burger" }
+                    { "title", "chocolate" }
                 }
             },
             Document = new Dictionary<string, object>
             {
-                { "title", "kit kat" }
+                { "title", "lemonade" }
             }
         }
     },
@@ -308,7 +308,7 @@ var resuest = new IndexPercolateRequest
     {
         Match = new Dictionary<string, object>
         {
-            { "title", "Nasral" }
+            { "title", "book" }
         }
     }
 };
@@ -328,7 +328,7 @@ var request = new IndexPercolateRequest
     {
         Match = new Dictionary<string, object>
         {
-            { "title", "Pupkin" }
+            { "title", "Putin" }
         }
     }
 };
