@@ -3,3 +3,15 @@ ManticoreSearch.Provider/bin/Debug/
 ManticoreSearch.Provider/obj/
 ManticoreSearch.Provider.Test/bin/Debug/net8.0
 ManticoreSearch.Provider.Test/obj/
+/ManticoreSearch.Provider.Test/ManticoreSearch.Provider.Test.csproj
+/ManticoreSearch.Provider.Test/AutocompleteTests.cs
+/ManticoreSearch.Provider.Test/BulkTests.cs
+/ManticoreSearch.Provider.Test/DeleteTests.cs
+/ManticoreSearch.Provider.Test/InsertTests.cs
+/ManticoreSearch.Provider.Test/MappingTests.cs
+/ManticoreSearch.Provider.Test/PercolateTests.cs
+/ManticoreSearch.Provider.Test/ReplaceTests.cs
+/ManticoreSearch.Provider.Test/SearchTests.cs
+/ManticoreSearch.Provider.Test/Setup.cs
+/ManticoreSearch.Provider.Test/SqlTests.cs
+/ManticoreSearch.Provider.Test/UpdateTests.cs
