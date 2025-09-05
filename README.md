@@ -29,217 +29,207 @@ string resultAsync = await provider.SqlAsync("SELECT * FROM your_index");
 
 To insert documents into the index, use the `Insert` method or `InsertAsync`:
 ```csharp
-var request = new ModificationRequest
+var request = new ModificationRequest<TestIndex>
+{
+    Index = "test_index",
+    Id = 10,
+    Document = new TestIndex
     {
-        Index = "products",
-        Document = new Dictionary<string, object>
-        {
-            { "title", "book" },
-            { "price", 19.0f },
-            { "count", 3 }
-        }
+        Title = "Test Document",
+        Content = "This is a test content" ,
+        Price = 19.99f,
     }
 };
 
-var insertResponse = provider.Insert(request);
-// or
-var insertResponseAsync = await provider.InsertAsync(request);
+var result = await provider.InsertAsync(request);
 ```
 
 ### Bulking Documents
 
 To perform bulk upload of documents use `Bulk` method or `BulkAsync`:
 ```csharp
-for (int i = 0; i < 20; i++)
+var bulkRequests = new List<BulkInsertRequest<TestIndex>>
 {
-    request.Add(new()
+    new (new ModificationRequest<TestIndex>
     {
-        Insert = new ModificationRequest
+        Index = "test_index",
+        Id = 1001,
+        Document = new TestIndex
         {
-            Index = "products",
-            Id = i + 1,
-            Document = new Dictionary<string, object>
-            {
-                { "title", "book" },
-                { "price", random.Next(1, 20) },
-                { "count", random.Next(1, 5) }
-            }
+            Title = "Bulk Test Document 2",
+            Content = "Content for bulk test 2",
+            Price = 20.99f
         }
-    });
-}
+    }),
+    new (new ModificationRequest<TestIndex>
+    {
+        Index = "test_index",
+        Id = 1002,
+        Document = new TestIndex
+        {
+            Title = "Bulk Test Document 3",
+            Content = "Content for bulk test 3",
+            Price = 30.99f
+        }
+    })
+};
 
-var result = provider.Bulk(request);
-// or
-var resultAsync = await provider.BulkAsync(request);
+var result = await provider.BulkAsync(bulkRequests);
 ```
 
 ### Replacement of Documents
 
 To replace documents, use `Replace` method or `ReplaceAsync`:
 ```csharp
-var request = new ModificationRequest
+var replaceRequest = new ModificationRequest<TestIndex>
 {
-    Index = "products",
-    Id = 1,
-    Document = new Dictionary<string, object>
+    Index = "test_index",
+    Id = 3000,
+    Document = new TestIndex
     {
-        { "title", "book" },
-        { "price", 100.0f },
-        { "count", 25 }
+        Title = "Updated Title",
+        Content = "Updated Content",
+        Price = 19.99f
     }
 };
 
-var result = provider.Replace(request);
-// or
-var resultAsync = await provider.ReplaceAsync(request);
+var result = await provider.ReplaceAsync(replaceRequest);
 ```
 
 ### Bulk Replacement of Documents
 
 To perform a bulk document replacement, use `BulkReplace` method or `BulkReplaceAsync`:
 ```csharp
-var request = new List<BulkReplaceRequest>()
+var bulkRequests = new List<BulkReplaceRequest<TestIndex>>
 {
-    new()
+    new (new ModificationRequest<TestIndex>
     {
-        Replace = new()
+        Index = "test_index",
+        Id = 1,
+        Document = new TestIndex
         {
-            Index = "products",
-            Id = 9,
-            Document = new Dictionary<string, object>()
-            {
-                { "title", "chocolate" },
-                { "price", 15 },
-                { "count", 2 }
-            }
+            Title = "Updated Document 1",
+            Content = "Updated content for document 1",
+            Price = 25.99f,
+            Category = "updated"
         }
-    },
-    new()
+    }),
+    new (new ModificationRequest<TestIndex>
     {
-        Replace = new()
+        Index = "test_index",
+        Id = 2,
+        Document = new TestIndex
         {
-            Index = "products",
-            Id = 100,
-            Document = new Dictionary<string, object>()
-            {
-                { "title", "lemonade" },
-                { "price", 14 },
-                { "count", 3 }
-            }
+            Title = "Updated Document 2",
+            Content = "Updated content for document 2",
+            Price = 35.99f,
+            Category = "updated"
         }
-    },
+    })
 };
 
-var result = provider.BulkReplace(request);
-// or
-var resultAsync = await provider.BulkReplaceAsync(request);
+var result = await provider.BulkReplaceAsync(bulkRequests);
 ```
 
 ### Updating Documents
 
 To update documents, use `Update` method or `UpdateAsync`:
 ```csharp
-var request = new UpdateRequest()
+var doc = new UpdateRequest<Products>
 {
     Index = "products",
-    Id = 1,
-    Document = new Dictionary<string, object>
+    Document = new Products
     {
-        { "title", "book" },
-        { "price", 30.0f },
-        { "count", 1 }
+        Title = "book"
+    },
+    Query = new Query
+    {
+        Equals = new Dictionary<string, object>
+        {
+            { "price", 25 }
+        }
     }
 };
+
+var result = provider.Update(doc);
 ```
 
 ### Bulk Updating Documents
 
-To update documents, use `Update` method or `UpdateAsync`:
+To update documents, use `BulkUpdate` method or `BulkUpdateAsync`:
 ```csharp
-var request = new List<BulkUpdateRequest>
+var insertRequest = new ModificationRequest<TestIndex>
 {
-    new()
+    Index = "test_index",
+    Id = 13,
+    Document = new TestIndex
     {
-        Update = new()
-        {
-            Index = "products",
-            Query = new Query
-            {
-                Equals = new Dictionary<string, object>
-                {
-                    { "title", "chocolate" }
-                }
-            },
-            Document = new Dictionary<string, object>
-            {
-                { "title", "lemonade" }
-            }
-        }
-    },
-    new()
+        Title = "Title",
+        Content = "Content"
+    }
+};
+
+await provider.InsertAsync(insertRequest);
+
+var bulkRequests = new List<BulkUpdateRequest<TestIndex>>
+{
     {
-        Update = new()
+        new BulkUpdateRequest<TestIndex>
         {
-            Index = "products",
-            Query = new Query
+            Update = new UpdateRequest<TestIndex>
             {
-                Range = new Dictionary<string, QueryRange>
+                Index = "test_index",
+                Id = 13,
+                Document = new TestIndex
                 {
-                    { "price", new QueryRange { Lt = 10 } }
+                    Title = "First Update",
+                    Content = "First content"
                 }
-            },
-            Document = new Dictionary<string, object>
-            {
-                { "price", 10 }
             }
         }
     }
 };
 
-var result = provider.BulkUpdate(request);
-// or
-var resultAsync = await provider.BulkUpdateAsync(request);
+var result = await provider.BulkUpdateAsync(bulkRequests);
 ```
 
 ### Search by Documents
 
 To search documents, use `Search` method or `SearchAsync`:
 ```csharp
-var request = new SearchRequest
-{
-    Index = "articles",
-    Limit = 1000,
-    Query = new Query
+var searchRequest = new SearchRequest(
+    index: "test_index",
+    query: new Query
     {
-        Bool = new QueryBool
+        Match = new Dictionary<string, object>
         {
-            Must = new List<BoolMust>
-            {
-                new BoolMust
-                {
-                    Match = new Dictionary<string, object>
-                    {
-                        { "body", "Putin" }
-                    }
-                }
-            },
-            MustNot = new List<BoolMust>
-            {
-                new BoolMust 
-                {
-                    Match = new Dictionary<string, object>
-                    {
-                        { "body", "Trump" }
-                    }
-                }
-            }
+            { "content", new { query = "comprehensive test" } }
         }
-    }
-};
+    },
+    source: new { includes = new List<string> { "id", "title", "content" } },
+    profile: true,
+    limit: 20,
+    offset: 5,
+    size: 15,
+    from: 0,
+    maxMatches: 100,
+    sort: new List<object> { new { content = "desc" } },
+    options: new OptionDetails
+    {
+        MaxMatches = 1000,
+        Ranker = RankerOption.Bm25,
+        Threads = 4
+    },
+    highlight: new HighlightOptions
+    {
+        BeforeMatch = "<b>",
+        AfterMatch = "</b>",
+        Limit = 3
+    },
+    trackScores: true
+);
 
-var result = provider.Search(request);
-// or
-var resultAsync = await provider.SearchAsync(request);
+var result = await provider.SearchAsync(searchRequest);
 ```
 
 ### Deleting Documents
@@ -249,12 +239,16 @@ To delete documents, use `Delete` method or `DeleteAsync`:
 var request = new DeleteRequest
 {
     Index = "products",
-    Id = 2
+    Query = new Query
+    {
+        Equals = new Dictionary<string, object>
+        {
+            { "title", "book" }
+        }
+    }
 };
 
-var result = provider.Delete(request);
-// or
-var resultAsync = await provider.DeleteAsync(request);
+var result = await provider.DeleteAsync(doc);
 ```
 
 ### Bulk Deletion of Documents
@@ -263,79 +257,70 @@ To perform bulk deletion of documents use `BulkDelete` method or `BulkDeleteAsyn
 ```csharp
 var request = new List<BulkDeleteRequest>
 {
-    new()
     {
-        Delete = new DeleteRequest
+        new BulkDeleteRequest
         {
-            Index = "products",
-            Query = new Query
+            Delete = new DeleteRequest
             {
-                Range = new Dictionary<string, QueryRange>
-                {
-                    { "id", new QueryRange { Lt = 5 } }
-                }
+                Index = "test_index",
+                Id = 1
             }
         }
     },
-    new()
     {
-        Delete = new DeleteRequest
+        new BulkDeleteRequest
         {
-            Index = "products",
-            Query = new Query
+            Delete = new DeleteRequest
             {
-                Range = new Dictionary<string, QueryRange>
-                {
-                    { "price", new QueryRange { Gt = 10 } }
-                }
+                Index = "test_index",
+                Id = 2
             }
         }
     }
 };
 
-var result = provider.BulkDelete(request);
-// or
-var resultAsync = await provider.BulkDeleteAsync(request);
+var result = await provider.BulkDeleteAsync(request);
 ```
 
 ### Working with Percolators
 
 To index and search using percolators, use the `IndexPercolate`, `Percolate`, `GetPercolate` and `UpdatePercolate` methods and their asynchronous versions:
 ```csharp
-var resuest = new IndexPercolateRequest
+var percolate = new PercolateRequest<Products>
 {
-    Query = new Query
+    Query = new PercolateRequestQuery<Products>
     {
-        Match = new Dictionary<string, object>
+        Percolate = new PercolateDocument<Products>
         {
-            { "title", "book" }
+            Documents =
+            [
+                new Products
+                {
+                    Title = "chocolate"
+                },
+                new Products
+                {
+                    Title = "banana"
+                }
+            ]
         }
     }
 };
 
-var result = provider.Percolate(resuest, "your_index");
-// or
-var resultAsync = await provider.PercolateAsync(resuest, "your_index");
+var result = await provider.PercolateAsync(percolate, "mypq");
 ```
 
 ### Autocomplete request
 
 Retrieves autocomplete suggestions based on the provided autocomplete query. Use the `Autocomplete` or `AutocompleteAsync` methods:
 ```csharp
-var request = new IndexPercolateRequest
+var request = new AutocompleteRequest
 {
-    Query = new Query
-    {
-        Match = new Dictionary<string, object>
-        {
-            { "title", "Putin" }
-        }
-    }
+    Index = "articles",
+    Query = "Tr"
 };
 
-var result = apiInstance.IndexPercolate(request, "pqtable", 5);
-// or
-var resultAsync = await apiInstance.IndexPercolateAsync(request, "pqtable", 5);
+var result = await provider.AutocompleteAsync(request);
 ```
 
 ### Mapping request
@@ -346,15 +331,13 @@ var request = new MappingRequest
 {
     Properties = new Dictionary<string, MappingField>
     {
-        { "exersice", new MappingField { Type = FieldType.Keyword } },
-        { "working_weight", new MappingField { Type = FieldType.Integer } },
-        { "weight_limit", new MappingField { Type = FieldType.Integer } }
+        { "exercise", new MappingField { Type = MappingFieldType.Keyword } },
+        { "working_weight", new MappingField { Type = MappingFieldType.Integer } },
+        { "weight_limit", new MappingField { Type = MappingFieldType.Integer } }
     }
 };
 
-var result = apiInstance.UseMapping(request, "training");
-// or
-var resultAsync = await apiInstance.UseMappingAsync(request, "training");
+var result = await provider.UseMappingAsync(request, "training");
 ```
 
 ## Exceptions

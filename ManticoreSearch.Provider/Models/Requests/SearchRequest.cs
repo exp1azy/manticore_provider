@@ -6,132 +6,132 @@ namespace ManticoreSearch.Provider.Models.Requests
 {
     /// <summary>
     /// Represents a search request to be sent to a search service.
-    /// This class encapsulates various parameters that can be used 
+    /// This class encapsulates various parameters that can be used
     /// to customize the search operation.
     /// </summary>
     public class SearchRequest
     {
         /// <summary>
-        /// Gets or sets the name of the index to search in. 
+        /// Gets or sets the name of the index to search in.
         /// This is a required field.
         /// </summary>
         [JsonProperty("index")]
         public string Index { get; set; }
 
         /// <summary>
-        /// Gets or sets the query object to filter the search results. 
+        /// Gets or sets the query object to filter the search results.
         /// This can be a complex query defined by the Query class.
         /// </summary>
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Query { get; set; }
 
         /// <summary>
-        /// Gets or sets options for specifying which fields to include in the response. 
+        /// Gets or sets options for specifying which fields to include in the response.
         /// This provides more granular control over the returned data.
         /// </summary>
         [JsonProperty("_source", NullValueHandling = NullValueHandling.Ignore)]
-        public SourceOptions? Source { get; set; }
+        public object? Source { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to profile the query execution. 
+        /// Gets or sets a value indicating whether to profile the query execution.
         /// If true, profiling information will be included in the response.
         /// </summary>
         [JsonProperty("profile", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Profile { get; set; }
 
         /// <summary>
-        /// Gets or sets aggregation options for grouping and summarizing search results. 
+        /// Gets or sets aggregation options for grouping and summarizing search results.
         /// This allows for performing calculations over the data.
         /// </summary>
         [JsonProperty("aggs", NullValueHandling = NullValueHandling.Ignore)]
         public object? Aggs { get; set; }
 
         /// <summary>
-        /// Gets or sets the limit for the number of search results returned. 
+        /// Gets or sets the limit for the number of search results returned.
         /// This can be used for pagination.
         /// </summary>
         [JsonProperty("limit", NullValueHandling = NullValueHandling.Ignore)]
         public int? Limit { get; set; }
 
         /// <summary>
-        /// Gets or sets the offset for the search results. 
+        /// Gets or sets the offset for the search results.
         /// This can be used for pagination in conjunction with limit.
         /// </summary>
         [JsonProperty("offset", NullValueHandling = NullValueHandling.Ignore)]
         public int? Offset { get; set; }
 
         /// <summary>
-        /// Gets or sets the maximum number of results to return. 
+        /// Gets or sets the maximum number of results to return.
         /// This is a convenience property that can also be used for pagination.
         /// </summary>
         [JsonProperty("size", NullValueHandling = NullValueHandling.Ignore)]
         public int? Size { get; set; }
 
         /// <summary>
-        /// Gets or sets the starting point from which to return results. 
+        /// Gets or sets the starting point from which to return results.
         /// This can be used to control pagination.
         /// </summary>
         [JsonProperty("from", NullValueHandling = NullValueHandling.Ignore)]
         public int? From { get; set; }
 
         /// <summary>
-        /// Gets or sets the maximum number of matches to return. 
+        /// Gets or sets the maximum number of matches to return.
         /// This can be useful to limit the response size.
         /// </summary>
         [JsonProperty("max_matches", NullValueHandling = NullValueHandling.Ignore)]
         public int? MaxMatches { get; set; }
 
         /// <summary>
-        /// Gets or sets a list of sorting options for the search results. 
+        /// Gets or sets a list of sorting options for the search results.
         /// This allows for controlling the order of the results returned.
         /// </summary>
         [JsonProperty("sort", NullValueHandling = NullValueHandling.Ignore)]
         public List<object>? Sort { get; set; }
 
         /// <summary>
-        /// Gets or sets a set of fields that can be dynamically computed for each hit. 
+        /// Gets or sets a set of fields that can be dynamically computed for each hit.
         /// This allows for custom calculations based on the results.
         /// </summary>
         [JsonProperty("script_fields", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 
         /// <summary>
-        /// Gets or sets custom expressions that can be evaluated as part of the search. 
+        /// Gets or sets custom expressions that can be evaluated as part of the search.
         /// This allows for advanced search capabilities.
         /// </summary>
         [JsonProperty("expressions", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string>? Expressions { get; set; }
 
         /// <summary>
-        /// Gets or sets a dictionary of additional options to customize the search behavior. 
+        /// Gets or sets a dictionary of additional options to customize the search behavior.
         /// This allows for more fine-tuned control of the search request.
         /// </summary>
         [JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
         public OptionDetails? Options { get; set; }
 
         /// <summary>
-        /// Gets or sets highlighting options for emphasizing search terms in the results. 
+        /// Gets or sets highlighting options for emphasizing search terms in the results.
         /// This improves the visibility of matched terms.
         /// </summary>
         [JsonProperty("highlight", NullValueHandling = NullValueHandling.Ignore)]
         public HighlightOptions? Highlight { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to track scores for each result. 
+        /// Gets or sets a value indicating whether to track scores for each result.
         /// This can be useful for understanding how results are ranked.
         /// </summary>
         [JsonProperty("track_scores", NullValueHandling = NullValueHandling.Ignore)]
         public bool? TrackScores { get; set; }
 
         /// <summary>
-        /// Gets or sets a list of join options for combining multiple queries. 
+        /// Gets or sets a list of join options for combining multiple queries.
         /// This enables advanced query patterns by joining results.
         /// </summary>
         [JsonProperty("join", NullValueHandling = NullValueHandling.Ignore)]
         public List<SearchJoin>? Join { get; set; }
 
         /// <summary>
-        /// Gets or sets options for performing k-nearest neighbors (KNN) searches. 
+        /// Gets or sets options for performing k-nearest neighbors (KNN) searches.
         /// This can be used for similarity-based queries.
         /// </summary>
         [JsonProperty("knn", NullValueHandling = NullValueHandling.Ignore)]
@@ -140,7 +140,8 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// <summary>
         /// Initializes a new instance of the SearchRequest class.
         /// </summary>
-        public SearchRequest() { }
+        public SearchRequest()
+        { }
 
         /// <summary>
         /// Initializes a new instance of the SearchRequest class with specified parameters.
@@ -166,7 +167,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         public SearchRequest(
             string index,
             Query? query = null,
-            SourceOptions? source = null,
+            object? source = null,
             bool? profile = null,
             object? aggs = null,
             int? limit = null,
@@ -450,7 +451,6 @@ namespace ManticoreSearch.Provider.Models.Requests
         Retain
     }
 
-
     /// <summary>
     /// Specifies IDF (Inverse Document Frequency) calculation options for term ranking,
     /// determining how term frequency across documents impacts search relevance.
@@ -459,28 +459,28 @@ namespace ManticoreSearch.Provider.Models.Requests
     public enum IdfFlag
     {
         /// <summary>
-        /// BM25 normalized IDF: Applies logarithmic scaling, penalizing frequent terms 
+        /// BM25 normalized IDF: Applies logarithmic scaling, penalizing frequent terms
         /// by calculating idf = log((N - n + 1) / n), where N is total documents and n is matches.
         /// </summary>
         [EnumMember(Value = "normalized")]
         Normalized,
 
         /// <summary>
-        /// Plain IDF: Uses basic logarithmic scaling (idf = log(N / n)), ensuring no penalty for 
+        /// Plain IDF: Uses basic logarithmic scaling (idf = log(N / n)), ensuring no penalty for
         /// common terms; suitable for relevance ranking without frequency-based downranking.
         /// </summary>
         [EnumMember(Value = "plain")]
         Plain,
 
         /// <summary>
-        /// Normalized TF-IDF: Divides IDF by query term count for balanced scores in [0,1] range, 
+        /// Normalized TF-IDF: Divides IDF by query term count for balanced scores in [0,1] range,
         /// reducing excessive influence of high-frequency terms.
         /// </summary>
         [EnumMember(Value = "tfidf_normalized")]
         TfidfNormalized,
 
         /// <summary>
-        /// Unnormalized TF-IDF: Retains raw IDF score without division by query term count, 
+        /// Unnormalized TF-IDF: Retains raw IDF score without division by query term count,
         /// preventing score drift in multi-term queries.
         /// </summary>
         [EnumMember(Value = "tfidf_unnormalized")]
@@ -606,7 +606,7 @@ namespace ManticoreSearch.Provider.Models.Requests
     public enum JoinType
     {
         /// <summary>
-        /// Represents an inner join. 
+        /// Represents an inner join.
         /// Only returns rows where there is a match in both tables.
         /// </summary>
         [EnumMember(Value = "inner")]
@@ -614,7 +614,7 @@ namespace ManticoreSearch.Provider.Models.Requests
 
         /// <summary>
         /// Represents a left join.
-        /// Returns all rows from the left table, and the matched rows from the right table. 
+        /// Returns all rows from the left table, and the matched rows from the right table.
         /// If there is no match, the result is NULL on the right side.
         /// </summary>
         [EnumMember(Value = "left")]
@@ -779,70 +779,70 @@ namespace ManticoreSearch.Provider.Models.Requests
         public int? MaxPredictedTime { get; set; }
 
         /// <summary>
-        /// Defines the morphological transformation applied to query terms, 
+        /// Defines the morphological transformation applied to query terms,
         /// such as stemming or exact matching, based on the specified option.
         /// </summary>
         [JsonProperty("morphology", NullValueHandling = NullValueHandling.Ignore)]
         public string? Morphology { get; set; }
 
         /// <summary>
-        /// Specifies whether queries containing only negation terms are permitted, 
+        /// Specifies whether queries containing only negation terms are permitted,
         /// allowing for results to be excluded without required terms.
         /// </summary>
         [JsonProperty("not_terms_only_allowed", NullValueHandling = NullValueHandling.Ignore)]
         public int? NotTermsOnlyAllowed { get; set; }
 
         /// <summary>
-        /// Sets the ranking strategy to prioritize relevance within search results 
+        /// Sets the ranking strategy to prioritize relevance within search results
         /// according to the selected ranking method.
         /// </summary>
         [JsonProperty("ranker", NullValueHandling = NullValueHandling.Ignore)]
         public RankerOption? Ranker { get; set; }
 
         /// <summary>
-        /// Provides a seed for randomization processes within queries, 
+        /// Provides a seed for randomization processes within queries,
         /// enabling reproducibility of randomized result sets.
         /// </summary>
         [JsonProperty("rand_seed", NullValueHandling = NullValueHandling.Ignore)]
         public int? RandSeed { get; set; }
 
         /// <summary>
-        /// Specifies the number of retries for a query in case of temporary issues, 
+        /// Specifies the number of retries for a query in case of temporary issues,
         /// improving reliability of query execution.
         /// </summary>
         [JsonProperty("retry_count", NullValueHandling = NullValueHandling.Ignore)]
         public int? RetryCount { get; set; }
 
         /// <summary>
-        /// Defines the delay interval, in milliseconds, between retry attempts 
+        /// Defines the delay interval, in milliseconds, between retry attempts
         /// when a query fails, controlling retry pacing.
         /// </summary>
         [JsonProperty("retry_delay", NullValueHandling = NullValueHandling.Ignore)]
         public int? RetryDelay { get; set; }
 
         /// <summary>
-        /// Specifies the sorting method used for result ordering, 
+        /// Specifies the sorting method used for result ordering,
         /// allowing custom prioritization of output records.
         /// </summary>
         [JsonProperty("sort_method", NullValueHandling = NullValueHandling.Ignore)]
         public SortMethod? SortMethod { get; set; }
 
         /// <summary>
-        /// Sets the number of threads used to process the query, 
+        /// Sets the number of threads used to process the query,
         /// enabling parallelization for performance optimization.
         /// </summary>
         [JsonProperty("threads", NullValueHandling = NullValueHandling.Ignore)]
         public int? Threads { get; set; }
 
         /// <summary>
-        /// Specifies the filter applied to query tokens for targeted term inclusion, 
+        /// Specifies the filter applied to query tokens for targeted term inclusion,
         /// refining search precision by limiting valid tokens.
         /// </summary>
         [JsonProperty("token_filter", NullValueHandling = NullValueHandling.Ignore)]
         public string? TokenFilter { get; set; }
 
         /// <summary>
-        /// Sets a limit on the number of expanded terms allowed, controlling 
+        /// Sets a limit on the number of expanded terms allowed, controlling
         /// the breadth of keyword expansion during query processing.
         /// </summary>
         [JsonProperty("expansion_limit", NullValueHandling = NullValueHandling.Ignore)]
@@ -865,24 +865,18 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// </summary>
         [JsonProperty("distance", NullValueHandling = NullValueHandling.Ignore)]
         public int? Distance { get; set; }
-    }
-
-    /// <summary>
-    /// Represents options for including or excluding fields in the search results.
-    /// </summary>
-    public class SourceOptions
-    {
-        /// <summary>
-        /// (Optional) A list of fields to include in the search results.
-        /// </summary>
-        [JsonProperty("includes", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string>? Includes { get; set; }
 
         /// <summary>
-        /// (Optional) A list of fields to exclude from the search results.
+        /// (Optional) The number of characters to preserve in proximity search matches.
         /// </summary>
-        [JsonProperty("excludes", NullValueHandling = NullValueHandling.Ignore)]
-        public List<string>? Excludes { get; set; }
+        [JsonProperty("preserve", NullValueHandling = NullValueHandling.Ignore)]
+        public int? Preserve { get; set; }
+
+        /// <summary>
+        /// (Optional) A value indicating whether to enable scrolling for the search.
+        /// </summary>
+        [JsonProperty("scroll", NullValueHandling = NullValueHandling.Ignore)]
+        public object? Scroll { get; set; }
     }
 
     /// <summary>
@@ -960,7 +954,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// (Optional) The mode for stripping HTML tags from highlighted text.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("html_strip_mode", NullValueHandling = NullValueHandling.Ignore)]       
+        [JsonProperty("html_strip_mode", NullValueHandling = NullValueHandling.Ignore)]
         public HtmlStripMode? HtmlStripMode { get; set; }
 
         /// <summary>
@@ -973,7 +967,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// (Optional) Specifies the boundary for snippets in the highlight output.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("snippet_boundary", NullValueHandling = NullValueHandling.Ignore)]        
+        [JsonProperty("snippet_boundary", NullValueHandling = NullValueHandling.Ignore)]
         public SnippetBoundary? SnippetBoundary { get; set; }
 
         /// <summary>
@@ -1010,7 +1004,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         /// (Optional) The encoder to be used for processing highlighted text.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("encoder", NullValueHandling = NullValueHandling.Ignore)]        
+        [JsonProperty("encoder", NullValueHandling = NullValueHandling.Ignore)]
         public Encoder? Encoder { get; set; }
 
         /// <summary>

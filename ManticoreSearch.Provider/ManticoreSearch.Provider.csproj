@@ -12,12 +12,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/exp1azy/ManticoreSearch.Api</RepositoryUrl>
     <PackageTags>manticore;search;fulltext;text;autocomplete;database;opensource;nosql</PackageTags>
-    <PackageReleaseNotes>adaptation to new versions of manticore</PackageReleaseNotes>
+    <PackageReleaseNotes>added new fields to the search result + using generics instead of objects</PackageReleaseNotes>
     <PackAsTool>False</PackAsTool>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageLicenseFile>LICENCE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.2.4</Version>
+    <Version>1.3.0</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

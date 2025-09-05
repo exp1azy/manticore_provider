@@ -28,6 +28,68 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// </summary>
         [JsonProperty("hits")]
         public HitsObject Hits { get; set; }
+
+        /// <summary>
+        /// Gets or sets the profile information for the search operation.
+        /// </summary>
+        [JsonProperty("profile")]
+        public Profile? Profile { get; set; }
+
+        /// <summary>
+        /// Gets or sets the scroll ID for the search operation.
+        /// </summary>
+        [JsonProperty("scroll")]
+        public string? Scroll { get; set; }
+
+        /// <summary>
+        /// Gets or sets the aggregations for the search operation.
+        /// </summary>
+        [JsonProperty("aggregations")]
+        public object? Aggregations { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the profile information for a search operation.
+    /// </summary>
+    public class Profile
+    {
+        /// <summary>
+        /// Gets or sets the query for the search operation.
+        /// </summary>
+        [JsonProperty("query")]
+        public ProfileQuery[]? Query { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the query profile information for a search operation.
+    /// </summary>
+    public class ProfileQuery
+    {
+        /// <summary>
+        /// Describes the specific state where the time was spent.
+        /// </summary>
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        /// <summary>
+        /// Shows the wall clock time, in seconds.
+        /// </summary>
+        [JsonProperty("duration")]
+        public double Duration { get; set; }
+
+        /// <summary>
+        /// Displays the number of times the query engine changed to the given state.
+        /// These are merely logical engine state switches and not any OS level context switches or function calls (although some sections might actually map to function calls), and they do not have any direct effect on performance.
+        /// In a sense, the number of switches is just the number of times the respective instrumentation point was hit.
+        /// </summary>
+        [JsonProperty("switches")]
+        public int Switches { get; set; }
+
+        /// <summary>
+        /// Shows the percentage of time spent in this state.
+        /// </summary>
+        [JsonProperty("percent")]
+        public float Percent { get; set; }
     }
 
     /// <summary>
@@ -41,7 +103,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// This property is a collection of <see cref="Hits"/> that match the search criteria.
         /// </summary>
         [JsonProperty("hits")]
-        public IEnumerable<Hit> Hits { get; set; }
+        public Hit[] Hits { get; set; }
 
         /// <summary>
         /// Gets or sets the total number of hits that matched the search criteria.
@@ -91,5 +153,11 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// </summary>
         [JsonProperty("highlight")]
         public Dictionary<string, string[]>? Highlight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the KNN distance of the hit.
+        /// </summary>
+        [JsonProperty("_knn_dist")]
+        public double? KnnDistance { get; set; }
     }
 }
