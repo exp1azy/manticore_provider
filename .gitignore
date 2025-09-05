@@ -15,3 +15,5 @@ ManticoreSearch.Provider.Test/obj/
 /ManticoreSearch.Provider.Test/Setup.cs
 /ManticoreSearch.Provider.Test/SqlTests.cs
 /ManticoreSearch.Provider.Test/UpdateTests.cs
+/ManticoreSearch.Provider.Test/TestIndex.cs
+/ManticoreSearch.Provider.Test/Products.cs
