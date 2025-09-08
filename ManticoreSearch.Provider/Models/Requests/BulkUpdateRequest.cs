@@ -4,13 +4,12 @@ namespace ManticoreSearch.Provider.Models.Requests
 {
     /// <summary>
     /// Represents a request to update multiple records in a bulk operation.
-    /// This class encapsulates the details of the update operation.
     /// </summary>
+    /// <typeparam name="TDocument">The type of document to be updated in the table.</typeparam>
     public class BulkUpdateRequest<TDocument>
     {
         /// <summary>
-        /// Gets or sets the details of the update operation, including the 
-        /// records to be updated and their associated properties.
+        /// Gets or sets the details of the update operation.
         /// </summary>
         [JsonProperty("update")]
         public UpdateRequest<TDocument> Update { get; set; }
@@ -21,8 +20,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         public BulkUpdateRequest() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulkUpdateRequest{TDocument}"/> class 
-        /// with the specified update request details.
+        /// Initializes a new instance of the <see cref="BulkUpdateRequest{TDocument}"/> class.
         /// </summary>
         /// <param name="update">The details of the update operation.</param>
         public BulkUpdateRequest(UpdateRequest<TDocument> update)

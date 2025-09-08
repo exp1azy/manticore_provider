@@ -3,13 +3,13 @@
 namespace ManticoreSearch.Provider.Models.Requests
 {
     /// <summary>
-    /// Represents a request to percolate a document through predefined queries.
-    /// This class holds the percolation query that will be used to match documents.
+    /// Represents a percolate request to match documents against stored queries in Manticore Search.
     /// </summary>
+    /// <typeparam name="TDocument">The type of document to be percolated against stored queries.</typeparam>
     public class PercolateRequest<TDocument>
     {
         /// <summary>
-        /// Gets or sets the percolate request query containing the document to match.
+        /// Gets or sets the query configuration for the percolate operation.
         /// </summary>
         [JsonProperty("query")]
         public PercolateRequestQuery<TDocument> Query { get; set; }
@@ -20,10 +20,9 @@ namespace ManticoreSearch.Provider.Models.Requests
         public PercolateRequest() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PercolateRequest{TDocument}"/> class 
-        /// with the specified percolate request query.
+        /// Initializes a new instance of the <see cref="PercolateRequest{TDocument}"/> class.
         /// </summary>
-        /// <param name="query">The percolate request query.</param>
+        /// <param name="query">The query configuration for the percolate operation.</param>
         public PercolateRequest(PercolateRequestQuery<TDocument> query)
         {
             Query = query;
@@ -31,32 +30,33 @@ namespace ManticoreSearch.Provider.Models.Requests
     }
 
     /// <summary>
-    /// Represents the percolate request query, which contains the document to match against.
+    /// Represents the query configuration for a percolate operation.
+    /// Wraps the percolate document(s) in a query structure for Manticore Search.
     /// </summary>
+    /// <typeparam name="TDocument">The type of document to be percolated.</typeparam>
     public class PercolateRequestQuery<TDocument>
     {
         /// <summary>
-        /// Gets or sets the percolate document that contains the document to be checked against queries.
+        /// Gets or sets the document(s) to be matched against stored percolation queries.
         /// </summary>
         [JsonProperty("percolate")]
         public PercolateDocument<TDocument> Percolate { get; set; }
     }
 
     /// <summary>
-    /// Represents the document or documents to be matched against predefined queries.
-    /// This class allows for matching either a single document or multiple documents.
+    /// Represents the document(s) to be used in a percolate operation.
     /// </summary>
+    /// <typeparam name="TDocument">The type of document to be percolated.</typeparam>
     public class PercolateDocument<TDocument>
     {
         /// <summary>
-        /// Gets or sets the single document to be percolated.
+        /// Gets or sets a single document to be percolated against stored queries.
         /// </summary>
         [JsonProperty("document", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public TDocument? Document { get; set; }
 
         /// <summary>
-        /// Gets or sets a list of documents to be percolated.
-        /// This property can be used when matching multiple documents at once.
+        /// Gets or sets a list of documents to be percolated against stored queries.
         /// </summary>
         [JsonProperty("documents", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<TDocument>? Documents { get; set; }

@@ -3,13 +3,12 @@ namespace ManticoreSearch.Provider.Models.Requests
 {
     /// <summary>
     /// Represents a request to replace multiple records in a bulk operation.
-    /// This class encapsulates the details of the replace operation.
     /// </summary>
+    /// <typeparam name="TDocument">The type of document to be replaced in the table.</typeparam>
     public class BulkReplaceRequest<TDocument>
     {
         /// <summary>
-        /// Gets or sets the details of the replace operation, including the 
-        /// records to be replaced and their associated properties.
+        /// Gets or sets the details of the replace operation.
         /// </summary>
         [JsonProperty("replace")]
         public ModificationRequest<TDocument> Replace { get; set; }
@@ -20,8 +19,7 @@ namespace ManticoreSearch.Provider.Models.Requests
         public BulkReplaceRequest() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulkReplaceRequest{TDocument}"/> class 
-        /// with the specified replace request details.
+        /// Initializes a new instance of the <see cref="BulkReplaceRequest{TDocument}"/> class.
         /// </summary>
         /// <param name="replace">The details of the replace operation.</param>
         public BulkReplaceRequest(ModificationRequest<TDocument> replace)

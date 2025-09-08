@@ -9,12 +9,15 @@ using System.Text;
 namespace ManticoreSearch.Provider
 {
     /// <summary>
-    /// Provides a client for interacting with the ManticoreSearch API.
+    /// Provides a client for interacting with the Manticore Search server.
     /// </summary>
     public sealed class ManticoreProvider : IDisposable
     {
         private readonly HttpClient _httpClient;
         private bool _disposed;
+
+        private const string _baseAddress = "http://localhost:9308";
+        private const int _defaultTimeout = 30;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with the default base address (http://localhost:9308).
@@ -24,8 +27,8 @@ namespace ManticoreSearch.Provider
         {
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("http://localhost:9308"),
-                Timeout = timeout == default ? TimeSpan.FromSeconds(30) : timeout
+                BaseAddress = new Uri(_baseAddress),
+                Timeout = timeout == default ? TimeSpan.FromSeconds(_defaultTimeout) : timeout
             };
         }
 
@@ -42,7 +45,7 @@ namespace ManticoreSearch.Provider
             _httpClient = new HttpClient
             {
                 BaseAddress = new Uri(baseAddress),
-                Timeout = timeout == default ? TimeSpan.FromSeconds(30) : timeout
+                Timeout = timeout == default ? TimeSpan.FromSeconds(_defaultTimeout) : timeout
             };
         }
 

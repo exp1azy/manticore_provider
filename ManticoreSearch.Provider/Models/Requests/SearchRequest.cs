@@ -5,29 +5,26 @@ using System.Runtime.Serialization;
 namespace ManticoreSearch.Provider.Models.Requests
 {
     /// <summary>
-    /// Represents a search request to be sent to a search service.
+    /// Represents a search request.
     /// This class encapsulates various parameters that can be used
     /// to customize the search operation.
     /// </summary>
     public class SearchRequest
     {
         /// <summary>
-        /// Gets or sets the name of the index to search in.
-        /// This is a required field.
+        /// Gets or sets the name of the table to search in.
         /// </summary>
-        [JsonProperty("index")]
-        public string Index { get; set; }
+        [JsonProperty("table")]
+        public string Table { get; set; }
 
         /// <summary>
         /// Gets or sets the query object to filter the search results.
-        /// This can be a complex query defined by the Query class.
         /// </summary>
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Query { get; set; }
 
         /// <summary>
         /// Gets or sets options for specifying which fields to include in the response.
-        /// This provides more granular control over the returned data.
         /// </summary>
         [JsonProperty("_source", NullValueHandling = NullValueHandling.Ignore)]
         public object? Source { get; set; }
@@ -41,98 +38,84 @@ namespace ManticoreSearch.Provider.Models.Requests
 
         /// <summary>
         /// Gets or sets aggregation options for grouping and summarizing search results.
-        /// This allows for performing calculations over the data.
         /// </summary>
         [JsonProperty("aggs", NullValueHandling = NullValueHandling.Ignore)]
         public object? Aggs { get; set; }
 
         /// <summary>
         /// Gets or sets the limit for the number of search results returned.
-        /// This can be used for pagination.
         /// </summary>
         [JsonProperty("limit", NullValueHandling = NullValueHandling.Ignore)]
         public int? Limit { get; set; }
 
         /// <summary>
         /// Gets or sets the offset for the search results.
-        /// This can be used for pagination in conjunction with limit.
         /// </summary>
         [JsonProperty("offset", NullValueHandling = NullValueHandling.Ignore)]
         public int? Offset { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of results to return.
-        /// This is a convenience property that can also be used for pagination.
         /// </summary>
         [JsonProperty("size", NullValueHandling = NullValueHandling.Ignore)]
         public int? Size { get; set; }
 
         /// <summary>
         /// Gets or sets the starting point from which to return results.
-        /// This can be used to control pagination.
         /// </summary>
         [JsonProperty("from", NullValueHandling = NullValueHandling.Ignore)]
         public int? From { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of matches to return.
-        /// This can be useful to limit the response size.
         /// </summary>
         [JsonProperty("max_matches", NullValueHandling = NullValueHandling.Ignore)]
         public int? MaxMatches { get; set; }
 
         /// <summary>
         /// Gets or sets a list of sorting options for the search results.
-        /// This allows for controlling the order of the results returned.
         /// </summary>
         [JsonProperty("sort", NullValueHandling = NullValueHandling.Ignore)]
         public List<object>? Sort { get; set; }
 
         /// <summary>
         /// Gets or sets a set of fields that can be dynamically computed for each hit.
-        /// This allows for custom calculations based on the results.
         /// </summary>
         [JsonProperty("script_fields", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, ScriptField>? ScriptFields { get; set; }
 
         /// <summary>
         /// Gets or sets custom expressions that can be evaluated as part of the search.
-        /// This allows for advanced search capabilities.
         /// </summary>
         [JsonProperty("expressions", NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, string>? Expressions { get; set; }
 
         /// <summary>
         /// Gets or sets a dictionary of additional options to customize the search behavior.
-        /// This allows for more fine-tuned control of the search request.
         /// </summary>
         [JsonProperty("options", NullValueHandling = NullValueHandling.Ignore)]
         public OptionDetails? Options { get; set; }
 
         /// <summary>
         /// Gets or sets highlighting options for emphasizing search terms in the results.
-        /// This improves the visibility of matched terms.
         /// </summary>
         [JsonProperty("highlight", NullValueHandling = NullValueHandling.Ignore)]
         public HighlightOptions? Highlight { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to track scores for each result.
-        /// This can be useful for understanding how results are ranked.
         /// </summary>
         [JsonProperty("track_scores", NullValueHandling = NullValueHandling.Ignore)]
         public bool? TrackScores { get; set; }
 
         /// <summary>
         /// Gets or sets a list of join options for combining multiple queries.
-        /// This enables advanced query patterns by joining results.
         /// </summary>
         [JsonProperty("join", NullValueHandling = NullValueHandling.Ignore)]
         public List<SearchJoin>? Join { get; set; }
 
         /// <summary>
         /// Gets or sets options for performing k-nearest neighbors (KNN) searches.
-        /// This can be used for similarity-based queries.
         /// </summary>
         [JsonProperty("knn", NullValueHandling = NullValueHandling.Ignore)]
         public KnnOptions? Knn { get; set; }
@@ -184,7 +167,7 @@ namespace ManticoreSearch.Provider.Models.Requests
             List<SearchJoin>? join = null,
             KnnOptions? knn = null)
         {
-            Index = index;
+            Table = index;
             Query = query;
             Source = source;
             Profile = profile;

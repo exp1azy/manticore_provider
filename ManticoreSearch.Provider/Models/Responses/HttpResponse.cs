@@ -2,13 +2,11 @@
 {
     /// <summary>
     /// Represents an HTTP response from a web request.
-    /// This class encapsulates the response content and the status of the request.
     /// </summary>
     public class HttpResponse
     {
         /// <summary>
         /// Gets or sets the response content as a string.
-        /// This property contains the data returned by the server.
         /// </summary>
         public string Response { get; set; }
 

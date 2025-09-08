@@ -3,8 +3,7 @@
 namespace ManticoreSearch.Provider.Models.Responses
 {
     /// <summary>
-    /// Represents the error response returned by the ManticoreSearch API.
-    /// This class contains details about the error encountered during an operation.
+    /// Represents the error response returned by the Manticore Search server.
     /// </summary>
     public class ErrorResponse
     {
@@ -22,7 +21,7 @@ namespace ManticoreSearch.Provider.Models.Responses
     }
 
     /// <summary>
-    /// Contains detailed information about an error returned by the ManticoreSearch API.
+    /// Contains detailed information about an error returned by the Manticore Search server.
     /// </summary>
     public class ErrorDetails
     {

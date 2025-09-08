@@ -3,34 +3,40 @@
 namespace ManticoreSearch.Provider.Models.Requests
 {
     /// <summary>
-    /// Represents a request to update a document in a specified table (index) within the ManticoreSearch system.
+    /// Represents a request to update a document in a table.
     /// </summary>
+    /// <typeparam name="TDocument">The type of document to be updated in the table.</typeparam>
     public class UpdateRequest<TDocument>
     {
         /// <summary>
-        /// The name of the table (index) where the document is located.
+        /// The name of the table to update documents in.
         /// </summary>
-        [JsonProperty("index")]
-        public string Index { get; set; }
+        [JsonProperty("table")]
+        public string Table { get; set; }
 
         /// <summary>
-        /// (Optional) The unique identifier of the document to be updated. 
-        /// If not specified, the update may rely on the provided query.
+        /// The ID of the document to update.
         /// </summary>
         [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
         public long? Id { get; set; }
 
         /// <summary>
-        /// A dictionary representing the fields and their updated values for the document.
+        /// The document data to update.
         /// </summary>
         [JsonProperty("doc")]
         public TDocument Document { get; set; }
 
         /// <summary>
-        /// (Optional) A query to identify documents to be updated if the ID is not provided.
+        /// A query to identify documents to be updated if the ID is not provided.
         /// </summary>
         [JsonProperty("query", NullValueHandling = NullValueHandling.Ignore)]
         public Query? Query { get; set; }
+
+        /// <summary>
+        /// The name of the cluster to use for the request.
+        /// </summary>
+        [JsonProperty("cluster", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Cluster { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateRequest{TDocument}"/> class.
@@ -38,18 +44,20 @@ namespace ManticoreSearch.Provider.Models.Requests
         public UpdateRequest() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateRequest{TDocument}"/> class with specified parameters.
+        /// Initializes a new instance of the <see cref="UpdateRequest{TDocument}"/> class.
         /// </summary>
-        /// <param name="index">The name of the table (index) where the document is located.</param>
-        /// <param name="document">A dictionary of fields and values to update in the document.</param>
-        /// <param name="id">The unique identifier of the document to update.</param>
-        /// <param name="query">An optional query to find documents to update if no ID is provided.</param>
-        public UpdateRequest(string index, TDocument document, long id = 0, Query? query = null)
+        /// <param name="table">The name of the table to update documents in.</param>
+        /// <param name="document">The document data to update.</param>
+        /// <param name="id">The ID of the document to update.</param>
+        /// <param name="query">The query to identify documents to be updated if the ID is not provided.</param>
+        /// <param name="cluster">The name of the cluster to use for the request.</param>
+        public UpdateRequest(string table, TDocument document, long id = 0, Query? query = null, string? cluster = null)
         {
-            Index = index;
+            Table = table;
             Id = id;
             Document = document;
             Query = query;
+            Cluster = cluster;
         }
     }
 }

@@ -8,12 +8,12 @@
     public class ManticoreResponse<TResponse, TError>
     {
         /// <summary>
-        /// The successful response data returned from the Manticore Search API.
+        /// The successful response data returned from the Manticore Search server.
         /// </summary>
         public TResponse? Response { get; set; }
 
         /// <summary>
-        /// The error details returned from the Manticore Search API if the request was unsuccessful.
+        /// The error details returned from the Manticore Search server if the request was unsuccessful.
         /// </summary>
         public TError? Error { get; set; }
 
@@ -28,7 +28,7 @@
         public bool IsSuccess { get; set; }
 
         /// <summary>
-        /// The raw response string received from the Manticore Search API, useful for logging and debugging purposes.
+        /// The raw response string received from the Manticore Search server, useful for logging and debugging purposes.
         /// </summary>
         public string RawResponse { get; set; }
     }

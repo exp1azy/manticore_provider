@@ -32,7 +32,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         public bool Errors { get; set; }
 
         /// <summary>
-        /// (Optional) An error message detailing the nature of the error, if any occurred.
+        /// An error message detailing the nature of the error, if any occurred.
         /// </summary>
         [JsonProperty("error")]
         public string Error { get; set; }
@@ -51,12 +51,12 @@ namespace ManticoreSearch.Provider.Models.Responses
     }
 
     /// <summary>
-    /// Represents the details of an individual item processed during a bulk operation in ManticoreSearch.
+    /// Represents the details of an individual item processed during a bulk operation in Manticore Search.
     /// </summary>
     public class BulkDetails
     {
         /// <summary>
-        /// The name of the table (index) associated with the bulk operation.
+        /// The name of the table associated with the bulk operation.
         /// </summary>
         [JsonProperty("table")]
         public string Table { get; set; }
