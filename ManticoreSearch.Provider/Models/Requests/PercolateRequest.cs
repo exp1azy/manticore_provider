@@ -5,8 +5,8 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// <summary>
     /// Represents a percolate request to match documents against stored queries in Manticore Search.
     /// </summary>
-    /// <typeparam name="TDocument">The type of document to be percolated against stored queries.</typeparam>
-    public class PercolateRequest<TDocument>
+    /// <typeparam name="TDocument">The type of document to be percolated against stored queries. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+    public class PercolateRequest<TDocument> where TDocument : ManticoreDocument
     {
         /// <summary>
         /// Gets or sets the query configuration for the percolate operation.

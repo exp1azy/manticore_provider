@@ -5,8 +5,8 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// <summary>
     /// Represents a request to insert multiple records in a bulk operation.
     /// </summary>
-    /// <typeparam name="TDocument">The type of document to be inserted into the table.</typeparam>
-    public class BulkInsertRequest<TDocument>
+    /// <typeparam name="TDocument">The type of document to be inserted into the table. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+    public class BulkInsertRequest<TDocument> where TDocument : ManticoreDocument
     {
         /// <summary>
         /// Gets or sets the details of the insert operation.

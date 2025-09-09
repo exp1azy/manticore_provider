@@ -6,8 +6,8 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// Represents a request for document modification operations.
     /// This class is used for both insert and replace operations.
     /// </summary>
-    /// <typeparam name="TDocument">The type of document to be inserted or replaced in the table.</typeparam>
-    public class ModificationRequest<TDocument>
+    /// <typeparam name="TDocument">The type of document to be inserted or replaced in the table. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+    public class ModificationRequest<TDocument> where TDocument : ManticoreDocument
     {
         /// <summary>
         /// Gets or sets the name of the table where the document should be inserted or replaced.

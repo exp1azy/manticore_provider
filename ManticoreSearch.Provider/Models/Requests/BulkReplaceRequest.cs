@@ -4,8 +4,8 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// <summary>
     /// Represents a request to replace multiple records in a bulk operation.
     /// </summary>
-    /// <typeparam name="TDocument">The type of document to be replaced in the table.</typeparam>
-    public class BulkReplaceRequest<TDocument>
+    /// <typeparam name="TDocument">The type of document to be replaced in the table. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+    public class BulkReplaceRequest<TDocument> where TDocument : ManticoreDocument
     {
         /// <summary>
         /// Gets or sets the details of the replace operation.

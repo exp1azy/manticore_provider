@@ -32,7 +32,7 @@ namespace ManticoreSearch.Provider
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with a specified base address.
+        /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with a specified address.
         /// </summary>
         /// <param name="address">The address of the Manticore Search server.</param>
         /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
@@ -58,20 +58,20 @@ namespace ManticoreSearch.Provider
         /// Inserts a new document into the specified table synchronously.
         /// </summary>
         /// <typeparam name="TDocument">The type of document to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
-        /// <param name="insert">The modification request containing document data.</param>
+        /// <param name="insertRequest">The modification request containing document data.</param>
         /// <returns>Response indicating success or failure of the insert operation.</returns>
-        public ManticoreResponse<ModificationSuccess, ErrorResponse> Insert<TDocument>(ModificationRequest<TDocument> insert)
-            where TDocument : ManticoreDocument => ProcessModificationAsync(insert, "/insert").GetAwaiter().GetResult();
+        public ManticoreResponse<ModificationSuccess, ErrorResponse> Insert<TDocument>(ModificationRequest<TDocument> insertRequest)
+            where TDocument : ManticoreDocument => ProcessModificationAsync(insertRequest, "/insert").GetAwaiter().GetResult();
 
         /// <summary>
         /// Inserts a new document into the specified table asynchronously.
         /// </summary>
         /// <typeparam name="TDocument">The type of document to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
-        /// <param name="insert">The modification request containing document data.</param>
+        /// <param name="insertRequest">The modification request containing document data.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous insert operation.</returns>
-        public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> InsertAsync<TDocument>(ModificationRequest<TDocument> insert, CancellationToken cancellationToken = default)
-            where TDocument : ManticoreDocument => await ProcessModificationAsync(insert, "/insert", cancellationToken);
+        public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> InsertAsync<TDocument>(ModificationRequest<TDocument> insertRequest, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessModificationAsync(insertRequest, "/insert", cancellationToken);
 
         /// <summary>
         /// Executes a raw SQL query against Manticore Search synchronously.
@@ -94,29 +94,29 @@ namespace ManticoreSearch.Provider
         /// Performs bulk insert operations synchronously.
         /// </summary>
         /// <typeparam name="TDocument">The type of documents to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
-        /// <param name="bulk">List of bulk insert requests.</param>
+        /// <param name="bulkRequests">List of bulk insert requests.</param>
         /// <returns>Response containing bulk operation results.</returns>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk<TDocument>(List<BulkInsertRequest<TDocument>> bulk)
-            where TDocument : ManticoreDocument => ProcessBulkAsync(bulk).GetAwaiter().GetResult();
+        public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk<TDocument>(List<BulkInsertRequest<TDocument>> bulkRequests)
+            where TDocument : ManticoreDocument => ProcessBulkAsync(bulkRequests).GetAwaiter().GetResult();
 
         /// <summary>
         /// Performs bulk insert operations asynchronously.
         /// </summary>
         /// <typeparam name="TDocument">The type of documents to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
-        /// <param name="bulk">List of bulk insert requests.</param>
+        /// <param name="bulkRequests">List of bulk insert requests.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous bulk operation.</returns>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulk, CancellationToken cancellationToken = default)
-            where TDocument : ManticoreDocument => await ProcessBulkAsync(bulk, cancellationToken);
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessBulkAsync(bulkRequests, cancellationToken);
 
         /// <summary>
         /// Replaces an existing document in the table synchronously.
         /// </summary>
         /// <typeparam name="TDocument">The type of document to replace. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
-        /// <param name="replace">The modification request containing replacement data.</param>
+        /// <param name="replaceRequest">The modification request containing replacement data.</param>
         /// <returns>Response indicating success or failure of the replace operation.</returns>
-        public ManticoreResponse<ModificationSuccess, ErrorResponse> Replace<TDocument>(ModificationRequest<TDocument> replace)
-            where TDocument : ManticoreDocument => ProcessModificationAsync(replace, "/replace").GetAwaiter().GetResult();
+        public ManticoreResponse<ModificationSuccess, ErrorResponse> Replace<TDocument>(ModificationRequest<TDocument> replaceRequest)
+            where TDocument : ManticoreDocument => ProcessModificationAsync(replaceRequest, "/replace").GetAwaiter().GetResult();
 
         /// <summary>
         /// Replaces an existing document in the table asynchronously.
@@ -440,6 +440,7 @@ namespace ManticoreSearch.Provider
         }
 
         private async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> ProcessModificationAsync<TDocument>(ModificationRequest<TDocument> request, string endpoint, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument
         {
             if (request == null || request.Document == null)
             {
@@ -531,6 +532,7 @@ namespace ManticoreSearch.Provider
         }
 
         private async Task<ManticoreResponse<UpdateSuccess, ErrorResponse>> ProcessUpdateAsync<TDocument>(UpdateRequest<TDocument> document, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument
         {
             try
             {

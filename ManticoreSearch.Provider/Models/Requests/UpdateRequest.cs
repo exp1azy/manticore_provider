@@ -5,8 +5,8 @@ namespace ManticoreSearch.Provider.Models.Requests
     /// <summary>
     /// Represents a request to update a document in a table.
     /// </summary>
-    /// <typeparam name="TDocument">The type of document to be updated in the table.</typeparam>
-    public class UpdateRequest<TDocument>
+    /// <typeparam name="TDocument">The type of document to be updated in the table. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+    public class UpdateRequest<TDocument> where TDocument : ManticoreDocument
     {
         /// <summary>
         /// The name of the table to update documents in.
