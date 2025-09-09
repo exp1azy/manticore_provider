@@ -8,12 +8,11 @@ namespace ManticoreSearch.Provider.Extensions
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// Registers the Manticore Search provider with the default base address (http://localhost:9308)
-        /// and optional timeout configuration.
+        /// Registers the Manticore Search provider with the default base address (http://localhost:9308) and optional timeout configuration.
         /// </summary>
         /// <param name="collection">The service collection to add the provider to.</param>
         /// <param name="timeout">The timeout for HTTP requests. Default is 30 seconds if not specified.</param>
-        public static void AddManticoreSearch(this IServiceCollection collection, TimeSpan timeout = default)
+        public static void AddManticoreSearchProvider(this IServiceCollection collection, TimeSpan timeout = default)
         {
             RegisterManticoreSearch(collection, null, timeout);
         }
@@ -24,7 +23,7 @@ namespace ManticoreSearch.Provider.Extensions
         /// <param name="collection">The service collection to add the provider to.</param>
         /// <param name="url">The base URL of the Manticore Search API server.</param>
         /// <param name="timeout">The timeout for HTTP requests. Default is 30 seconds if not specified.</param>
-        public static void AddManticoreSearch(this IServiceCollection collection, string url, TimeSpan timeout = default)
+        public static void AddManticoreSearchProvider(this IServiceCollection collection, string url, TimeSpan timeout = default)
         {
             RegisterManticoreSearch(collection, url, timeout);
         }

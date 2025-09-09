@@ -4,20 +4,22 @@ using ManticoreSearch.Provider.Models.Responses;
 using ManticoreSearch.Provider.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System.Text;
 
 namespace ManticoreSearch.Provider
 {
     /// <summary>
     /// Provides a client for interacting with the Manticore Search server.
+    /// <see cref="ManticoreProvider"/> based on HTTP and use <see cref="HttpClient"/> for sending requests to the server.
     /// </summary>
     public sealed class ManticoreProvider : IDisposable
     {
-        private readonly HttpClient _httpClient;
+        private HttpClient? _httpClient;
         private bool _disposed;
 
         private const string _baseAddress = "http://localhost:9308";
-        private const int _defaultTimeout = 30;
+        private const int _defaultTimeoutInSeconds = 30;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with the default base address (http://localhost:9308).
@@ -25,28 +27,22 @@ namespace ManticoreSearch.Provider
         /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
         public ManticoreProvider(TimeSpan timeout = default)
         {
-            _httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri(_baseAddress),
-                Timeout = timeout == default ? TimeSpan.FromSeconds(_defaultTimeout) : timeout
-            };
+            InitializeHttpClient(_baseAddress, timeout);
+            ConfigureJsonSettings();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with a specified base address.
         /// </summary>
-        /// <param name="baseAddress">The base address of the ManticoreSearch API.</param>
+        /// <param name="address">The address of the Manticore Search server.</param>
         /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
-        public ManticoreProvider(string baseAddress, TimeSpan timeout = default)
+        public ManticoreProvider(string address, TimeSpan timeout = default)
         {
-            if (string.IsNullOrEmpty(baseAddress))
+            if (string.IsNullOrEmpty(address))
                 throw new BaseAddressNullException(ExceptionError.BaseAddressNullError);
 
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(baseAddress),
-                Timeout = timeout == default ? TimeSpan.FromSeconds(_defaultTimeout) : timeout
-            };
+            InitializeHttpClient(address, timeout);
+            ConfigureJsonSettings();
         }
 
         /// <summary>
@@ -59,23 +55,23 @@ namespace ManticoreSearch.Provider
         }
 
         /// <summary>
-        /// Inserts a new document into the specified index synchronously.
+        /// Inserts a new document into the specified table synchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document to insert.</typeparam>
+        /// <typeparam name="TDocument">The type of document to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="insert">The modification request containing document data.</param>
         /// <returns>Response indicating success or failure of the insert operation.</returns>
-        public ManticoreResponse<ModificationSuccess, ErrorResponse> Insert<TDocument>(ModificationRequest<TDocument> insert) =>
-            ProcessModificationAsync(insert, "/insert").GetAwaiter().GetResult();
+        public ManticoreResponse<ModificationSuccess, ErrorResponse> Insert<TDocument>(ModificationRequest<TDocument> insert)
+            where TDocument : ManticoreDocument => ProcessModificationAsync(insert, "/insert").GetAwaiter().GetResult();
 
         /// <summary>
-        /// Inserts a new document into the specified index asynchronously.
+        /// Inserts a new document into the specified table asynchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document to insert.</typeparam>
+        /// <typeparam name="TDocument">The type of document to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="insert">The modification request containing document data.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous insert operation.</returns>
-        public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> InsertAsync<TDocument>(ModificationRequest<TDocument> insert, CancellationToken cancellationToken = default) =>
-            await ProcessModificationAsync(insert, "/insert", cancellationToken);
+        public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> InsertAsync<TDocument>(ModificationRequest<TDocument> insert, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessModificationAsync(insert, "/insert", cancellationToken);
 
         /// <summary>
         /// Executes a raw SQL query against Manticore Search synchronously.
@@ -97,100 +93,100 @@ namespace ManticoreSearch.Provider
         /// <summary>
         /// Performs bulk insert operations synchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of documents to insert.</typeparam>
+        /// <typeparam name="TDocument">The type of documents to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="bulk">List of bulk insert requests.</param>
         /// <returns>Response containing bulk operation results.</returns>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk<TDocument>(List<BulkInsertRequest<TDocument>> bulk) =>
-            ProcessBulkAsync(bulk).GetAwaiter().GetResult();
+        public ManticoreResponse<BulkSuccess, List<BulkError>> Bulk<TDocument>(List<BulkInsertRequest<TDocument>> bulk)
+            where TDocument : ManticoreDocument => ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
         /// Performs bulk insert operations asynchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of documents to insert.</typeparam>
+        /// <typeparam name="TDocument">The type of documents to insert. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="bulk">List of bulk insert requests.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous bulk operation.</returns>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulk, CancellationToken cancellationToken = default) =>
-            await ProcessBulkAsync(bulk, cancellationToken);
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulk, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
-        /// Replaces an existing document in the index synchronously.
+        /// Replaces an existing document in the table synchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document to replace.</typeparam>
+        /// <typeparam name="TDocument">The type of document to replace. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="replace">The modification request containing replacement data.</param>
         /// <returns>Response indicating success or failure of the replace operation.</returns>
-        public ManticoreResponse<ModificationSuccess, ErrorResponse> Replace<TDocument>(ModificationRequest<TDocument> replace) =>
-            ProcessModificationAsync(replace, "/replace").GetAwaiter().GetResult();
+        public ManticoreResponse<ModificationSuccess, ErrorResponse> Replace<TDocument>(ModificationRequest<TDocument> replace)
+            where TDocument : ManticoreDocument => ProcessModificationAsync(replace, "/replace").GetAwaiter().GetResult();
 
         /// <summary>
-        /// Replaces an existing document in the index asynchronously.
+        /// Replaces an existing document in the table asynchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document to replace.</typeparam>
+        /// <typeparam name="TDocument">The type of document to replace. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="replace">The modification request containing replacement data.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous replace operation.</returns>
-        public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> ReplaceAsync<TDocument>(ModificationRequest<TDocument> replace, CancellationToken cancellationToken = default) =>
-            await ProcessModificationAsync(replace, "/replace", cancellationToken);
+        public async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> ReplaceAsync<TDocument>(ModificationRequest<TDocument> replace, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessModificationAsync(replace, "/replace", cancellationToken);
 
         /// <summary>
         /// Performs bulk replace operations synchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of documents to replace.</typeparam>
+        /// <typeparam name="TDocument">The type of documents to replace. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="bulk">List of bulk replace requests.</param>
         /// <returns>Response containing bulk operation results.</returns>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkReplace<TDocument>(List<BulkReplaceRequest<TDocument>> bulk) =>
-            ProcessBulkAsync(bulk).GetAwaiter().GetResult();
+        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkReplace<TDocument>(List<BulkReplaceRequest<TDocument>> bulk)
+            where TDocument : ManticoreDocument => ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
         /// Performs bulk replace operations asynchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of documents to replace.</typeparam>
+        /// <typeparam name="TDocument">The type of documents to replace. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="bulk">List of bulk replace requests.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous bulk replace operation.</returns>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync<TDocument>(List<BulkReplaceRequest<TDocument>> bulk, CancellationToken cancellationToken = default) =>
-            await ProcessBulkAsync(bulk, cancellationToken);
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync<TDocument>(List<BulkReplaceRequest<TDocument>> bulk, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
-        /// Updates an existing document in the index synchronously.
+        /// Updates an existing document in the table synchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document to update.</typeparam>
+        /// <typeparam name="TDocument">The type of document to update. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="update">The update request containing modification data.</param>
         /// <returns>Response indicating success or failure of the update operation.</returns>
-        public ManticoreResponse<UpdateSuccess, ErrorResponse> Update<TDocument>(UpdateRequest<TDocument> update) =>
-            ProcessUpdateAsync(update).GetAwaiter().GetResult();
+        public ManticoreResponse<UpdateSuccess, ErrorResponse> Update<TDocument>(UpdateRequest<TDocument> update)
+            where TDocument : ManticoreDocument => ProcessUpdateAsync(update).GetAwaiter().GetResult();
 
         /// <summary>
-        /// Updates an existing document in the index asynchronously.
+        /// Updates an existing document in the table asynchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document to update.</typeparam>
+        /// <typeparam name="TDocument">The type of document to update. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="update">The update request containing modification data.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous update operation.</returns>
-        public async Task<ManticoreResponse<UpdateSuccess, ErrorResponse>> UpdateAsync<TDocument>(UpdateRequest<TDocument> update, CancellationToken cancellationToken = default) =>
-            await ProcessUpdateAsync(update, cancellationToken);
+        public async Task<ManticoreResponse<UpdateSuccess, ErrorResponse>> UpdateAsync<TDocument>(UpdateRequest<TDocument> update, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessUpdateAsync(update, cancellationToken);
 
         /// <summary>
         /// Performs bulk update operations synchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of documents to update.</typeparam>
+        /// <typeparam name="TDocument">The type of documents to update. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="bulk">List of bulk update requests.</param>
         /// <returns>Response containing bulk operation results.</returns>
-        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkUpdate<TDocument>(List<BulkUpdateRequest<TDocument>> bulk) =>
-            ProcessBulkAsync(bulk).GetAwaiter().GetResult();
+        public ManticoreResponse<BulkSuccess, List<BulkError>> BulkUpdate<TDocument>(List<BulkUpdateRequest<TDocument>> bulk)
+            where TDocument : ManticoreDocument => ProcessBulkAsync(bulk).GetAwaiter().GetResult();
 
         /// <summary>
         /// Performs bulk update operations asynchronously.
         /// </summary>
-        /// <typeparam name="TDocument">The type of documents to update.</typeparam>
+        /// <typeparam name="TDocument">The type of documents to update. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="bulk">List of bulk update requests.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous bulk update operation.</returns>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync<TDocument>(List<BulkUpdateRequest<TDocument>> bulk, CancellationToken cancellationToken = default) =>
-            await ProcessBulkAsync(bulk, cancellationToken);
+        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync<TDocument>(List<BulkUpdateRequest<TDocument>> bulk, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessBulkAsync(bulk, cancellationToken);
 
         /// <summary>
-        /// Executes a search query against the Manticore Search index synchronously.
+        /// Executes a search query against the Manticore Search table synchronously.
         /// </summary>
         /// <param name="search">The search request containing query parameters and options.</param>
         /// <returns>Search results or error message if the operation fails.</returns>
@@ -199,7 +195,7 @@ namespace ManticoreSearch.Provider
             ProcessSearchAsync(search).GetAwaiter().GetResult();
 
         /// <summary>
-        /// Executes a search query against the Manticore Search index asynchronously.
+        /// Executes a search query against the Manticore Search table asynchronously.
         /// </summary>
         /// <param name="search">The search request containing query parameters and options.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
@@ -210,7 +206,7 @@ namespace ManticoreSearch.Provider
             await ProcessSearchAsync(search, cancellationToken);
 
         /// <summary>
-        /// Deletes documents from the index synchronously based on the provided criteria.
+        /// Deletes documents from the table synchronously based on the provided criteria.
         /// </summary>
         /// <param name="delete">The delete request containing document identifiers.</param>
         /// <returns>Response indicating success or failure of the delete operation.</returns>
@@ -219,7 +215,7 @@ namespace ManticoreSearch.Provider
             ProcessDeleteAsync(delete).GetAwaiter().GetResult();
 
         /// <summary>
-        /// Deletes documents from the index asynchronously based on the provided criteria.
+        /// Deletes documents from the table asynchronously based on the provided criteria.
         /// </summary>
         /// <param name="delete">The delete request containing document identifiers.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
@@ -298,26 +294,26 @@ namespace ManticoreSearch.Provider
         /// <summary>
         /// Executes a percolate request to match a query against stored percolation documents.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document used for percolation.</typeparam>
+        /// <typeparam name="TDocument">The type of document used for percolation. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="percolate">The percolate request containing the query.</param>
         /// <param name="index">The target index name.</param>
         /// <returns>Percolation results including matched documents.</returns>
         /// <exception cref="PercolateException">Thrown if an error occurred during percolation.</exception>
-        public PercolateResponse Percolate<TDocument>(PercolateRequest<TDocument> percolate, string index) =>
-            ProcessPercolateAsync(percolate, $"/pq/{index}/search", HttpMethod.Post).GetAwaiter().GetResult();
+        public PercolateResponse Percolate<TDocument>(PercolateRequest<TDocument> percolate, string index)
+            where TDocument : ManticoreDocument => ProcessPercolateAsync(percolate, $"/pq/{index}/search", HttpMethod.Post).GetAwaiter().GetResult();
 
         /// <summary>
         /// Executes a percolate request asynchronously to match a query against stored percolation documents.
         /// </summary>
-        /// <typeparam name="TDocument">The type of document used for percolation.</typeparam>
+        /// <typeparam name="TDocument">The type of document used for percolation. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
         /// <param name="percolate">The percolate request containing the query.</param>
         /// <param name="index">The target index name.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
         /// <returns>Task representing the asynchronous percolation operation.</returns>
         /// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
         /// <exception cref="PercolateException">Thrown if an error occurred during percolation.</exception>
-        public async Task<PercolateResponse> PercolateAsync<TDocument>(PercolateRequest<TDocument> percolate, string index, CancellationToken cancellationToken = default) =>
-            await ProcessPercolateAsync(percolate, $"/pq/{index}/search", HttpMethod.Post, cancellationToken);
+        public async Task<PercolateResponse> PercolateAsync<TDocument>(PercolateRequest<TDocument> percolate, string index, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessPercolateAsync(percolate, $"/pq/{index}/search", HttpMethod.Post, cancellationToken);
 
         /// <summary>
         /// Updates an existing percolate request and optionally refreshes the index.
@@ -412,7 +408,10 @@ namespace ManticoreSearch.Provider
             if (!_disposed)
             {
                 if (disposing)
-                    _httpClient.Dispose();
+                {
+                    _httpClient!.Dispose();
+                    _httpClient = null;
+                }
 
                 _disposed = true;
             }
@@ -452,6 +451,7 @@ namespace ManticoreSearch.Provider
             {
                 var content = CreateStringContent(request, "application/x-ndjson");
                 var response = await SendAsync(endpoint, HttpMethod.Post, content, cancellationToken);
+
                 var result = new ManticoreResponse<ModificationSuccess, ErrorResponse>()
                 {
                     RawResponse = response.Response
@@ -505,6 +505,7 @@ namespace ManticoreSearch.Provider
                 var json = string.Join("\n", documents.Select(d => JsonConvert.SerializeObject(d)));
                 var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
                 var response = await SendAsync("/bulk", HttpMethod.Post, content, cancellationToken);
+
                 var result = new ManticoreResponse<BulkSuccess, List<BulkError>>
                 {
                     RawResponse = response.Response
@@ -535,6 +536,7 @@ namespace ManticoreSearch.Provider
             {
                 var content = CreateStringContent(document, "application/json");
                 var response = await SendAsync("/update", HttpMethod.Post, content, cancellationToken);
+
                 var result = new ManticoreResponse<UpdateSuccess, ErrorResponse>
                 {
                     RawResponse = response.Response
@@ -565,6 +567,7 @@ namespace ManticoreSearch.Provider
             {
                 var content = CreateStringContent(request, "application/json");
                 var response = await SendAsync("/search", HttpMethod.Post, content, cancellationToken);
+
                 var result = new ManticoreResponse<SearchSuccess, ErrorMessage>
                 {
                     RawResponse = response.Response
@@ -595,6 +598,7 @@ namespace ManticoreSearch.Provider
             {
                 var content = CreateStringContent(document, "application/json");
                 var response = await SendAsync("/delete", HttpMethod.Post, content, cancellationToken);
+
                 var result = new DeleteResponse
                 {
                     RawResponse = response.Response
@@ -631,6 +635,7 @@ namespace ManticoreSearch.Provider
             {
                 var content = CreateStringContent(document, "application/json");
                 var response = await SendAsync(endpoint, httpMethod, content, cancellationToken);
+
                 var result = new PercolateResponse()
                 {
                     RawResponse = response.Response
@@ -701,6 +706,7 @@ namespace ManticoreSearch.Provider
             {
                 var stringContent = CreateStringContent(autocomplete, "application/json");
                 var response = await SendAsync("/autocomplete", HttpMethod.Post, stringContent, cancellationToken);
+
                 var result = new ManticoreResponse<List<AutocompleteSuccess>, ErrorMessage>
                 {
                     RawResponse = response.Response
@@ -731,6 +737,7 @@ namespace ManticoreSearch.Provider
             {
                 var stringContent = CreateStringContent(properties, "application/json");
                 var response = await SendAsync($"/{index}/_mapping", HttpMethod.Post, stringContent, cancellationToken);
+
                 var result = new ManticoreResponse<List<MappingSuccess>, ErrorMessage>
                 {
                     RawResponse = response.Response
@@ -753,6 +760,27 @@ namespace ManticoreSearch.Provider
             {
                 throw new MappingException(ExceptionError.MappingError, ex);
             }
+        }
+
+        private void InitializeHttpClient(string uri, TimeSpan timeout = default)
+        {
+            _httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(uri),
+                Timeout = timeout == default ? TimeSpan.FromSeconds(_defaultTimeoutInSeconds) : timeout
+            };
+        }
+
+        private static void ConfigureJsonSettings()
+        {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new SnakeCaseNamingStrategy()
+                },
+                NullValueHandling = NullValueHandling.Ignore
+            };
         }
     }
 }

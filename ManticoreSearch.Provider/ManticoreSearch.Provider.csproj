@@ -12,12 +12,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/exp1azy/ManticoreSearch.Api</RepositoryUrl>
     <PackageTags>manticore;search;fulltext;text;autocomplete;database;opensource;nosql</PackageTags>
-    <PackageReleaseNotes>service collection extensions</PackageReleaseNotes>
+    <PackageReleaseNotes>base class ManticoreDocument for tables</PackageReleaseNotes>
     <PackAsTool>False</PackAsTool>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageLicenseFile>LICENCE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.3.1</Version>
+    <Version>1.4.0</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

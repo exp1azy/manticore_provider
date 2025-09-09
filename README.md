@@ -25,6 +25,23 @@ string result = provider.Sql("SELECT * FROM your_index");
 string resultAsync = await provider.SqlAsync("SELECT * FROM your_index");
 ```
 
+### Declaring Entities
+
+Manticore contains structured tables, so you need to declare a class that describes the table. The class must inherit from `ManticoreDocument`:
+```csharp
+internal class TestIndex : ManticoreDocument
+{
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public float? Price { get; set; }
+    public string Category { get; set; }
+    public string StringField { get; set; }
+    public int? IntField { get; set; }
+    public bool? BoolField { get; set; }
+    public TimeSpan? DatetimeField { get; set; }
+}
+```
+
 ### Inserting Documents
 
 To insert documents into the index, use the `Insert` method or `InsertAsync`:
