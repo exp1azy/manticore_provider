@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ManticoreSearch.Provider.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ManticoreSearch.Provider.Extensions
 {
@@ -31,9 +32,9 @@ namespace ManticoreSearch.Provider.Extensions
         private static void RegisterManticoreSearch(IServiceCollection serviceCollection, string? url = null, TimeSpan timeout = default)
         {
             if (string.IsNullOrEmpty(url))
-                serviceCollection.AddSingleton(new ManticoreProvider(timeout));
+                serviceCollection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(timeout));
             else
-                serviceCollection.AddSingleton(new ManticoreProvider(url, timeout));
+                serviceCollection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(url, timeout));
         }
     }
 }

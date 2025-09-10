@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManticoreSearch.Provider", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManticoreSearch.Provider.Test", "ManticoreSearch.Provider.Test\ManticoreSearch.Provider.Test.csproj", "{F1D85B63-1977-45E5-B0EB-CB384FD4F524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManticoreSearch.WebApi", "ManticoreSearch.WebApi\ManticoreSearch.WebApi.csproj", "{D3224985-306A-4704-AFE7-347E5A906708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F1D85B63-1977-45E5-B0EB-CB384FD4F524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1D85B63-1977-45E5-B0EB-CB384FD4F524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1D85B63-1977-45E5-B0EB-CB384FD4F524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3224985-306A-4704-AFE7-347E5A906708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3224985-306A-4704-AFE7-347E5A906708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3224985-306A-4704-AFE7-347E5A906708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3224985-306A-4704-AFE7-347E5A906708}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

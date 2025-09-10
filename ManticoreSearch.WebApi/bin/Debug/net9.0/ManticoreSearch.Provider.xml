@@ -1,0 +1,2918 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ManticoreSearch.Provider</name>
+    </assembly>
+    <members>
+        <member name="T:ManticoreSearch.Provider.Exceptions.AutocompleteException">
+            <summary>
+            Represents errors that occur during autocomplete operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.AutocompleteException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.AutocompleteException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.AutocompleteException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.AutocompleteException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.AutocompleteException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.AutocompleteException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.BaseAddressNullException">
+            <summary>
+            Represents an exception that is thrown when the base address of the HTTP client is null.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.BaseAddressNullException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.BaseAddressNullException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.BaseAddressNullException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.BaseAddressNullException"/> class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.BaseAddressNullException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.BaseAddressNullException"/> class with a specified 
+            error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference 
+            if no inner exception is specified.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.BulkException">
+            <summary>
+            Represents errors that occur during bulk operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.BulkException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.BulkException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.BulkException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.BulkException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.BulkException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.BulkException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.DeleteException">
+            <summary>
+            Represents errors that occur during delete operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.DeleteException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.DeleteException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.DeleteException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.DeleteException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.DeleteException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.DeleteException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.MappingException">
+            <summary>
+            Represents errors that occur during mapping operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.MappingException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.MappingException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.MappingException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.MappingException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.MappingException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.MappingException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.ModificationException">
+            <summary>
+            Represents errors that occur during modification operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.ModificationException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.ModificationException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.ModificationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.ModificationException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.ModificationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.ModificationException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.PercolateException">
+            <summary>
+            Represents errors that occur during percolation operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.PercolateException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.PercolateException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.PercolateException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.PercolateException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.PercolateException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.PercolateException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.SearchException">
+            <summary>
+            Represents errors that occur during search operations in Manticore.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.SearchException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.SearchException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.SearchException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.SearchException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.SearchException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.SearchException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.SqlException">
+            <summary>
+            Represents SQL-related errors that occur during database operations.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.SqlException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.SqlException"/> class 
+            with a default SQL error message.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.SqlException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.SqlException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.SqlException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.SqlException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Exceptions.UpdateException">
+            <summary>
+            Represents errors that occur during update operations in the application.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.UpdateException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.UpdateException"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.UpdateException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.UpdateException"/> class 
+            with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Exceptions.UpdateException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Exceptions.UpdateException"/> class 
+            with a specified error message and a reference to the inner exception 
+            that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Extensions for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Extensions.ServiceCollectionExtensions.AddManticoreSearchProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.TimeSpan)">
+            <summary>
+            Registers the Manticore Search provider with the default base address (http://localhost:9308) and optional timeout configuration.
+            </summary>
+            <param name="collection">The service collection to add the provider to.</param>
+            <param name="timeout">The timeout for HTTP requests. Default is 30 seconds if not specified.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Extensions.ServiceCollectionExtensions.AddManticoreSearchProvider(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.TimeSpan)">
+            <summary>
+            Registers the Manticore Search provider with a specified base URL and optional timeout configuration.
+            </summary>
+            <param name="collection">The service collection to add the provider to.</param>
+            <param name="url">The base URL of the Manticore Search API server.</param>
+            <param name="timeout">The timeout for HTTP requests. Default is 30 seconds if not specified.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Interfaces.IManticoreProvider">
+            <summary>
+            Represents an interface that provides a client for interacting with the Manticore Search server.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.InsertAsync``1(ManticoreSearch.Provider.Models.Requests.ModificationRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Inserts a new document into the specified table asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of document to insert. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="insertRequest">The modification request containing document data.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous insert operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.ModificationException">Thrown when an error occurs during the insert operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.SqlAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes a raw SQL query against Manticore Search server asynchronously.
+            </summary>
+            <param name="sql">The SQL query string to execute.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous SQL execution.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.SqlException">Thrown when an error occurs during the SQL execution.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.BulkAsync``1(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkInsertRequest{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk insert operations asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of documents to insert. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="bulkRequests">List of bulk insert requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.ReplaceAsync``1(ManticoreSearch.Provider.Models.Requests.ModificationRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Replaces an existing document in the table asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of document to replace. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="replaceRequest">The modification request containing replacement data.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous replace operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.ModificationException">Thrown when an error occurs during the replace operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.BulkReplaceAsync``1(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk replace operations asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of documents to replace. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="bulkRequests">List of bulk replace requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk replace operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk replace operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.UpdateAsync``1(ManticoreSearch.Provider.Models.Requests.UpdateRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Updates an existing document in the table asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of document to update. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="updateRequest">The update request containing modification data.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous update operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.UpdateException">Thrown when an error occurs during the update operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.BulkUpdateAsync``1(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk update operations asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of documents to update. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="bulkRequests">List of bulk update requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk update operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk update operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.SearchAsync(ManticoreSearch.Provider.Models.Requests.SearchRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes a search query against the Manticore Search table asynchronously.
+            </summary>
+            <param name="searchRequest">The search request containing query parameters and options.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous search operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.SearchException">Thrown when an error occurs during the search operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.DeleteAsync(ManticoreSearch.Provider.Models.Requests.DeleteRequest,System.Threading.CancellationToken)">
+            <summary>
+            Deletes documents from the table asynchronously based on the provided criteria.
+            </summary>
+            <param name="deleteRequest">The delete request containing document identifiers.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous delete operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.DeleteException">Thrown when an error occurs during the delete operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.BulkDeleteAsync(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk delete operations asynchronously.
+            </summary>
+            <param name="bulkRequests">List of bulk delete requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk delete operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk delete operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.IndexPercolateAsync(ManticoreSearch.Provider.Models.Requests.PercolationActionRequest,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Submits a percolate request asynchronously to match a document against existing percolation queries.
+            </summary>
+            <param name="percolateRequest">The percolation request containing the document.</param>
+            <param name="index">The target index name.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.IndexPercolateAsync(ManticoreSearch.Provider.Models.Requests.PercolationActionRequest,System.String,System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Indexes a percolate request with a specific document ID asynchronously.
+            </summary>
+            <param name="percolateRequest">The percolation request to index.</param>
+            <param name="index">The target index name.</param>
+            <param name="id">The document identifier.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation indexing operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation indexing operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.PercolateAsync``1(ManticoreSearch.Provider.Models.Requests.PercolateRequest{``0},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes a percolate request asynchronously to match a query against stored percolation documents.
+            </summary>
+            <typeparam name="TDocument">The type of document used for percolation. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="percolateRequest">The percolate request containing the query.</param>
+            <param name="index">The target index name.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.UpdatePercolateAsync(ManticoreSearch.Provider.Models.Requests.PercolationActionRequest,System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Updates an existing percolate request asynchronously and optionally refreshes the index.
+            </summary>
+            <param name="percolateRequest">The updated percolation request.</param>
+            <param name="index">The target index name.</param>
+            <param name="id">The document identifier to update.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation update operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation update operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.GetPercolateAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves a specific percolate request asynchronously by its ID from the specified index.
+            </summary>
+            <param name="index">The index name where the percolate request is stored.</param>
+            <param name="id">The identifier of the percolate request to retrieve.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous retrieval operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the retrieval operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.AutocompleteAsync(ManticoreSearch.Provider.Models.Requests.AutocompleteRequest,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves autocomplete suggestions asynchronously based on the provided request.
+            </summary>
+            <param name="autocompleteRequest">The autocomplete request parameters.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous autocomplete operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.AutocompleteException">Thrown when an error occurs during the autocomplete operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Interfaces.IManticoreProvider.UseMappingAsync(ManticoreSearch.Provider.Models.Requests.MappingRequest,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Defines a new table structure asynchronously using mapping properties.
+            </summary>
+            <param name="mappingRequest">The mapping properties describing the table structure.</param>
+            <param name="index">The target index name.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous mapping operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.MappingException">Thrown when an error occurs during the mapping operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="T:ManticoreSearch.Provider.ManticoreDocument">
+            <summary>
+            Represents a base document for tables in Manticore Search.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.ManticoreProvider">
+            <summary>
+            Provides a client for interacting with the Manticore Search server.
+            <see cref="T:ManticoreSearch.Provider.ManticoreProvider"/> based on HTTP and use <see cref="T:System.Net.Http.HttpClient"/> for sending requests to the server.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.#ctor(System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.ManticoreProvider"/> class with the default base address (http://localhost:9308).
+            </summary>
+            <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.#ctor(System.String,System.TimeSpan)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.ManticoreProvider"/> class with a specified address.
+            </summary>
+            <param name="address">The address of the Manticore Search server.</param>
+            <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.Dispose">
+            <summary>
+            Releases the resources used by the <see cref="T:ManticoreSearch.Provider.ManticoreProvider"/>.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.InsertAsync``1(ManticoreSearch.Provider.Models.Requests.ModificationRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Inserts a new document into the specified table asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of document to insert. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="insertRequest">The modification request containing document data.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous insert operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.ModificationException">Thrown when an error occurs during the insert operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.SqlAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes a raw SQL query against Manticore Search server asynchronously.
+            </summary>
+            <param name="sql">The SQL query string to execute.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous SQL execution.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.SqlException">Thrown when an error occurs during the SQL execution.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.BulkAsync``1(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkInsertRequest{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk insert operations asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of documents to insert. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="bulkRequests">List of bulk insert requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.ReplaceAsync``1(ManticoreSearch.Provider.Models.Requests.ModificationRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Replaces an existing document in the table asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of document to replace. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="replaceRequest">The modification request containing replacement data.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous replace operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.ModificationException">Thrown when an error occurs during the replace operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.BulkReplaceAsync``1(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk replace operations asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of documents to replace. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="bulkRequests">List of bulk replace requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk replace operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk replace operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.UpdateAsync``1(ManticoreSearch.Provider.Models.Requests.UpdateRequest{``0},System.Threading.CancellationToken)">
+            <summary>
+            Updates an existing document in the table asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of document to update. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="updateRequest">The update request containing modification data.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous update operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.UpdateException">Thrown when an error occurs during the update operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.BulkUpdateAsync``1(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk update operations asynchronously.
+            </summary>
+            <typeparam name="TDocument">The type of documents to update. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="bulkRequests">List of bulk update requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk update operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk update operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.SearchAsync(ManticoreSearch.Provider.Models.Requests.SearchRequest,System.Threading.CancellationToken)">
+            <summary>
+            Executes a search query against the Manticore Search table asynchronously.
+            </summary>
+            <param name="searchRequest">The search request containing query parameters and options.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous search operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.SearchException">Thrown when an error occurs during the search operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.DeleteAsync(ManticoreSearch.Provider.Models.Requests.DeleteRequest,System.Threading.CancellationToken)">
+            <summary>
+            Deletes documents from the table asynchronously based on the provided criteria.
+            </summary>
+            <param name="deleteRequest">The delete request containing document identifiers.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous delete operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.DeleteException">Thrown when an error occurs during the delete operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.BulkDeleteAsync(System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest},System.Threading.CancellationToken)">
+            <summary>
+            Performs bulk delete operations asynchronously.
+            </summary>
+            <param name="bulkRequests">List of bulk delete requests.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous bulk delete operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.BulkException">Thrown when an error occurs during the bulk delete operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.IndexPercolateAsync(ManticoreSearch.Provider.Models.Requests.PercolationActionRequest,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Submits a percolate request asynchronously to match a document against existing percolation queries.
+            </summary>
+            <param name="percolateRequest">The percolation request containing the document.</param>
+            <param name="index">The target index name.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.IndexPercolateAsync(ManticoreSearch.Provider.Models.Requests.PercolationActionRequest,System.String,System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            Indexes a percolate request with a specific document ID asynchronously.
+            </summary>
+            <param name="percolateRequest">The percolation request to index.</param>
+            <param name="index">The target index name.</param>
+            <param name="id">The document identifier.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation indexing operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation indexing operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.PercolateAsync``1(ManticoreSearch.Provider.Models.Requests.PercolateRequest{``0},System.String,System.Threading.CancellationToken)">
+            <summary>
+            Executes a percolate request asynchronously to match a query against stored percolation documents.
+            </summary>
+            <typeparam name="TDocument">The type of document used for percolation. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+            <param name="percolateRequest">The percolate request containing the query.</param>
+            <param name="index">The target index name.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.UpdatePercolateAsync(ManticoreSearch.Provider.Models.Requests.PercolationActionRequest,System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Updates an existing percolate request asynchronously and optionally refreshes the index.
+            </summary>
+            <param name="percolateRequest">The updated percolation request.</param>
+            <param name="index">The target index name.</param>
+            <param name="id">The document identifier to update.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous percolation update operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the percolation update operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.GetPercolateAsync(System.String,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves a specific percolate request asynchronously by its ID from the specified index.
+            </summary>
+            <param name="index">The index name where the percolate request is stored.</param>
+            <param name="id">The identifier of the percolate request to retrieve.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous retrieval operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.PercolateException">Thrown when an error occurs during the retrieval operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.AutocompleteAsync(ManticoreSearch.Provider.Models.Requests.AutocompleteRequest,System.Threading.CancellationToken)">
+            <summary>
+            Retrieves autocomplete suggestions asynchronously based on the provided request.
+            </summary>
+            <param name="autocompleteRequest">The autocomplete request parameters.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous autocomplete operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.AutocompleteException">Thrown when an error occurs during the autocomplete operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="M:ManticoreSearch.Provider.ManticoreProvider.UseMappingAsync(ManticoreSearch.Provider.Models.Requests.MappingRequest,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Defines a new table structure asynchronously using mapping properties.
+            </summary>
+            <param name="mappingRequest">The mapping properties describing the table structure.</param>
+            <param name="index">The target index name.</param>
+            <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+            <returns>Task representing the asynchronous mapping operation.</returns>
+            <exception cref="T:ManticoreSearch.Provider.Exceptions.MappingException">Thrown when an error occurs during the mapping operation.</exception>
+            <exception cref="T:System.OperationCanceledException">Thrown when the operation is canceled.</exception>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest">
+            <summary>
+            Represents a request for autocomplete functionality to Manticore Search server.
+            Used to retrieve search suggestions based on partial input.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest.Table">
+            <summary>
+            Gets or sets the name of the table to perform autocomplete against.
+            The table must be configured with appropriate autocomplete settings.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest.Query">
+            <summary>
+            Gets or sets the partial query string for which to generate autocomplete suggestions.
+            The autocomplete request will return suggestions based on the provided query string.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest.Options">
+            <summary>
+            Gets or sets additional options to customize the autocomplete behavior.
+            Optional parameter that can be null if default behavior is acceptable.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest.#ctor(System.String,System.String,ManticoreSearch.Provider.Models.Requests.AutocompleteOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.AutocompleteRequest"/> class
+            with the specified table, query, and optional options.
+            </summary>
+            <param name="table">The name of the table to search against.</param>
+            <param name="query">The partial query string for autocomplete suggestions.</param>
+            <param name="options">Optional parameters to customize autocomplete behavior.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.AutocompleteOptions">
+            <summary>
+            Contains optional parameters to customize the autocomplete behavior
+            and fine-tune the suggestion generation process.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteOptions.Layouts">
+            <summary>
+            Gets or sets the keyboard layouts to consider for autocomplete suggestions.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteOptions.Fuzziness">
+            <summary>
+            Gets or sets the fuzziness level for matching suggestions.
+            Higher values allow more typos and variations in the matching.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteOptions.Prepend">
+            <summary>
+            Gets or sets a value indicating whether to prepend wildcards to the search pattern.
+            When true, allows matches that end with the query string (prefix matching).
+            When false or null, uses the default matching behavior.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteOptions.Append">
+            <summary>
+            Gets or sets a value indicating whether to append wildcards to the search pattern.
+            When true, allows matches that start with the query string (suffix matching).
+            When false or null, uses the default matching behavior.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.AutocompleteOptions.ExpansionLen">
+            <summary>
+            Gets or sets the expansion length for generating suggestions.
+            Defines how many additional characters to consider around the match.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest">
+            <summary>
+            Represents a request to delete multiple records in a bulk operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest.Delete">
+            <summary>
+            Gets or sets the details of the delete operation.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest.#ctor(ManticoreSearch.Provider.Models.Requests.DeleteRequest)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkDeleteRequest"/> class.
+            </summary>
+            <param name="delete">The details of the delete operation.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.BulkInsertRequest`1">
+            <summary>
+            Represents a request to insert multiple records in a bulk operation.
+            </summary>
+            <typeparam name="TDocument">The type of document to be inserted into the table. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.BulkInsertRequest`1.Insert">
+            <summary>
+            Gets or sets the details of the insert operation.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkInsertRequest`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkInsertRequest`1"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkInsertRequest`1.#ctor(ManticoreSearch.Provider.Models.Requests.ModificationRequest{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkInsertRequest`1"/> class.
+            </summary>
+            <param name="insert">The details of the insert operation.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest`1">
+            <summary>
+            Represents a request to replace multiple records in a bulk operation.
+            </summary>
+            <typeparam name="TDocument">The type of document to be replaced in the table. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest`1.Replace">
+            <summary>
+            Gets or sets the details of the replace operation.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest`1"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest`1.#ctor(ManticoreSearch.Provider.Models.Requests.ModificationRequest{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkReplaceRequest`1"/> class.
+            </summary>
+            <param name="replace">The details of the replace operation.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest`1">
+            <summary>
+            Represents a request to update multiple records in a bulk operation.
+            </summary>
+            <typeparam name="TDocument">The type of document to be updated in the table. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest`1.Update">
+            <summary>
+            Gets or sets the details of the update operation.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest`1"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest`1.#ctor(ManticoreSearch.Provider.Models.Requests.UpdateRequest{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.BulkUpdateRequest`1"/> class.
+            </summary>
+            <param name="update">The details of the update operation.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.DeleteRequest">
+            <summary>
+            Represents a request to delete documents from a table.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.DeleteRequest.Table">
+            <summary>
+            Gets or sets the name of the table to delete documents from.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.DeleteRequest.Cluster">
+            <summary>
+            Gets or sets the name of the cluster where the table resides.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.DeleteRequest.Id">
+            <summary>
+            Gets or sets the specific document ID to be deleted.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.DeleteRequest.Query">
+            <summary>
+            Gets or sets the query criteria for deleting multiple documents.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.DeleteRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.DeleteRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.DeleteRequest.#ctor(System.String,System.String,System.Int64,ManticoreSearch.Provider.Models.Requests.Query)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.DeleteRequest"/> class
+            with the specified deletion parameters.
+            </summary>
+            <param name="table">The name of the target table for deletion.</param>
+            <param name="cluster">The name of the cluster containing the table.</param>
+            <param name="id">The specific document ID to delete. Use 0 or null for query-based deletion.</param>
+            <param name="query">The query criteria for deleting multiple documents.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.MappingRequest">
+            <summary>
+            Represents a mapping request to define or update the schema of a table.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.MappingRequest.Properties">
+            <summary>
+            Gets or sets the dictionary of field definitions for the table mapping.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.MappingRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.MappingRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.MappingRequest.#ctor(System.Collections.Generic.Dictionary{System.String,ManticoreSearch.Provider.Models.Requests.MappingField})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.MappingRequest"/> class.
+            </summary>
+            <param name="properties">The dictionary of field definitions for the table mapping.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.MappingField">
+            <summary>
+            Represents the configuration for a single field in a Manticore Search table mapping.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.MappingField.Type">
+            <summary>
+            Gets or sets the data type of the field.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.MappingFieldType">
+            <summary>
+            Enumerates the supported field types for Manticore Search table mappings.
+            Each type corresponds to specific data handling and indexing behavior.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.AggregateMetric">
+            <summary>Aggregate metric type for numerical aggregations.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Binary">
+            <summary>Binary data type for storing binary content.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Boolean">
+            <summary>Boolean type for true/false values.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Byte">
+            <summary>8-bit signed integer type.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Completion">
+            <summary>Completion type for autocomplete functionality.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Date">
+            <summary>Date type for storing date and time values.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.DateNanos">
+            <summary>High-precision date type with nanosecond resolution.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.DateRange">
+            <summary>Date range type for storing date intervals.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.DenseVector">
+            <summary>Dense vector type for machine learning and similarity search.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Flattened">
+            <summary>Flattened type for indexing entire JSON objects as single fields.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.FlatObject">
+            <summary>Flat object type for nested object structures.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Float">
+            <summary>Single-precision floating point number type.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.FloatRange">
+            <summary>Float range type for storing floating point intervals.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.GeoPoint">
+            <summary>Geographic point type for latitude/longitude coordinates.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.GeoShape">
+            <summary>Geographic shape type for complex geospatial data.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.HalfFloat">
+            <summary>Half-precision floating point number type (16-bit).</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Histogram">
+            <summary>Histogram type for statistical data representation.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Integer">
+            <summary>32-bit signed integer type.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.IntegerRange">
+            <summary>Integer range type for storing integer intervals.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Ip">
+            <summary>IP address type for IPv4 and IPv6 addresses.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.IpRange">
+            <summary>IP range type for storing IP address intervals.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Join">
+            <summary>Join type for defining parent-child relationships between documents.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Keyword">
+            <summary>Keyword type for exact-match string values (not analyzed).</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.KnnVector">
+            <summary>KNN vector type for nearest neighbor search operations.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Long">
+            <summary>64-bit signed integer type.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.LongRange">
+            <summary>Long range type for storing long integer intervals.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.MatchOnlyText">
+            <summary>Match-only text type for efficient text matching without scoring.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Object">
+            <summary>Object type for nested JSON object structures.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Point">
+            <summary>Point type for Cartesian coordinate points.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.ScaledFloat">
+            <summary>Scaled float type for high-precision floating point numbers with scaling factor.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.SearchAsYouType">
+            <summary>Search-as-you-type type for incremental search suggestions.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Shape">
+            <summary>Shape type for geometric shapes and polygons.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Short">
+            <summary>16-bit signed integer type</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Text">
+            <summary>Text type for full-text search with analysis.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.UnsignedLong">
+            <summary>Unsigned 64-bit integer type.</summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.MappingFieldType.Version">
+            <summary>Version type for software version numbers.</summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1">
+            <summary>
+            Represents a request for document modification operations.
+            This class is used for both insert and replace operations.
+            </summary>
+            <typeparam name="TDocument">The type of document to be inserted or replaced in the table. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1.Table">
+            <summary>
+            Gets or sets the name of the table where the document should be inserted or replaced.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1.Id">
+            <summary>
+            Gets or sets the ID of the document to be inserted or replaced.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1.Cluster">
+            <summary>
+            Gets or sets the name of the cluster where the table resides.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1.Document">
+            <summary>
+            Gets or sets the document to be inserted or replaced.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1.#ctor(System.String,`0,System.Int64,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.ModificationRequest`1"/> class
+            with the specified modification parameters.
+            </summary>
+            <param name="table">The name of the target table (index) for the operation.</param>
+            <param name="document">The document data to be inserted or used as replacement.</param>
+            <param name="id">The document identifier. Use 0 for auto-generated ID in insert operations.</param>
+            <param name="cluster">The name of the cluster containing the table.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.PercolateRequest`1">
+            <summary>
+            Represents a percolate request to match documents against stored queries in Manticore Search.
+            </summary>
+            <typeparam name="TDocument">The type of document to be percolated against stored queries. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolateRequest`1.Query">
+            <summary>
+            Gets or sets the query configuration for the percolate operation.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.PercolateRequest`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.PercolateRequest`1"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.PercolateRequest`1.#ctor(ManticoreSearch.Provider.Models.Requests.PercolateRequestQuery{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.PercolateRequest`1"/> class.
+            </summary>
+            <param name="query">The query configuration for the percolate operation.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.PercolateRequestQuery`1">
+            <summary>
+            Represents the query configuration for a percolate operation.
+            Wraps the percolate document(s) in a query structure for Manticore Search.
+            </summary>
+            <typeparam name="TDocument">The type of document to be percolated.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolateRequestQuery`1.Percolate">
+            <summary>
+            Gets or sets the document(s) to be matched against stored percolation queries.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.PercolateDocument`1">
+            <summary>
+            Represents the document(s) to be used in a percolate operation.
+            </summary>
+            <typeparam name="TDocument">The type of document to be percolated.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolateDocument`1.Document">
+            <summary>
+            Gets or sets a single document to be percolated against stored queries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolateDocument`1.Documents">
+            <summary>
+            Gets or sets a list of documents to be percolated against stored queries.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest">
+            <summary>
+            Represents a request for percolation query management operations in Manticore Search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest.Query">
+            <summary>
+            Gets or sets the search query to be stored for percolation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest.Filters">
+            <summary>
+            Gets or sets additional filter conditions for the percolation query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest.Tags">
+            <summary>
+            Gets or sets the list of tags associated with the percolation query.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest.#ctor(ManticoreSearch.Provider.Models.Requests.Query,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.PercolationActionRequest"/> class.
+            </summary>
+            <param name="query">The search query to be stored for percolation.</param>
+            <param name="filters">The additional filter conditions for the percolation query.</param>
+            <param name="tags">The list of tags associated with the percolation query.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.Query">
+            <summary>
+            Represents a query object used in search operations.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.Match">
+            <summary>
+            Gets or sets a dictionary for matching documents based on specific fields and values.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.MatchAll">
+            <summary>
+            Gets or sets an object that matches all documents in the index.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.MatchPhrase">
+            <summary>
+            Gets or sets a dictionary for matching documents based on exact phrase matches.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.QueryString">
+            <summary>
+            Gets or sets the query string used for full-text search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.Bool">
+            <summary>
+            Gets or sets the boolean query that combines multiple query conditions.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.Equals">
+            <summary>
+            Gets or sets a dictionary for equality checks on fields.
+            This property overrides the base class property.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.In">
+            <summary>
+            Gets or sets an object for checking membership in a set of values.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.Range">
+            <summary>
+            Gets or sets a dictionary defining range queries on numeric or date fields.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.GeoDistance">
+            <summary>
+            Gets or sets the geographic distance query for spatial filtering.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Query.Ql">
+            <summary>
+            Gets or sets the query language for the query, if applicable.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.RangeFilter">
+            <summary>
+            Represents a range query with minimum and maximum value constraints.
+            This class can be used to specify inclusive or exclusive bounds.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.RangeFilter.Gte">
+            <summary>
+            Gets or sets the lower bound for the range, inclusive.
+            </summary>
+            <remarks>Greater than or equal to.</remarks>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.RangeFilter.Gt">
+            <summary>
+            Gets or sets the lower bound for the range, exclusive.
+            </summary>
+            <remarks>Greater than.</remarks>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.RangeFilter.Lte">
+            <summary>
+            Gets or sets the upper bound for the range, inclusive.
+            </summary>
+            <remarks>Less than or equal to.</remarks>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.RangeFilter.Lt">
+            <summary>
+            Gets or sets the upper bound for the range, exclusive.
+            </summary>
+            <remarks>Less than.</remarks>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.GeoDistance">
+            <summary>
+            Represents a geographic distance query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.GeoDistance.LocationAnchor">
+            <summary>
+            Gets or sets the geographic anchor location for the distance query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.GeoDistance.LocationSource">
+            <summary>
+            Gets or sets the source location for the query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.GeoDistance.DistanceType">
+            <summary>
+            Gets or sets the type of distance measurement (e.g., "kilometers", "miles").
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.GeoDistance.Distance">
+            <summary>
+            Gets or sets the distance value to filter the query results.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.GeoLocationAnchor">
+            <summary>
+            Represents a geographic location defined by latitude and longitude.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.GeoLocationAnchor.Lat">
+            <summary>
+            Gets or sets the latitude of the geographic location.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.GeoLocationAnchor.Lon">
+            <summary>
+            Gets or sets the longitude of the geographic location.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.Bool">
+            <summary>
+            Represents a boolean query structure for constructing complex queries using logical operators in a query language.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Bool.Must">
+            <summary>
+            Gets or sets the list of conditions that must be satisfied 
+            for the query to match. Each condition in this list must 
+            evaluate to true for the overall query to be considered a match.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Bool.MustNot">
+            <summary>
+            Gets or sets the list of condition that must not be satisfied for the query to match.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Bool.Should">
+            <summary>
+            Gets or sets the list of conditions that must not be met for the query to be considered valid.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.Must">
+            <summary>
+            Represents a condition that must be satisfied for a boolean query to match.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Must.Match">
+            <summary>
+            Gets or sets a dictionary defining the match condition.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Must.Range">
+            <summary>
+            Gets or sets a range condition that must be satisfied.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Must.Equals">
+            <summary>
+            Gets or sets a dictionary defining equality conditions.
+            The key is the field name and the value is the expected value.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Must.Bool">
+            <summary>
+            Gets or sets another boolean query that must be satisfied.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Must.QueryString">
+            <summary>
+            Gets or sets a query string condition that must be satisfied.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Must.In">
+            <summary>
+            Gets or sets a dictionary defining attribute values.
+            Filter to match a given set of attribute values.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.SearchRequest">
+            <summary>
+            Represents a search request.
+            This class encapsulates various parameters that can be used
+            to customize the search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Table">
+            <summary>
+            Gets or sets the name of the table to search in.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Query">
+            <summary>
+            Gets or sets the query object to filter the search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Source">
+            <summary>
+            Gets or sets options for specifying which fields to include in the response.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Profile">
+            <summary>
+            Gets or sets a value indicating whether to profile the query execution.
+            If true, profiling information will be included in the response.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Aggs">
+            <summary>
+            Gets or sets aggregation options for grouping and summarizing search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Limit">
+            <summary>
+            Gets or sets the limit for the number of search results returned.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Offset">
+            <summary>
+            Gets or sets the offset for the search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Size">
+            <summary>
+            Gets or sets the maximum number of results to return.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.From">
+            <summary>
+            Gets or sets the starting point from which to return results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.MaxMatches">
+            <summary>
+            Gets or sets the maximum number of matches to return.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Sort">
+            <summary>
+            Gets or sets a list of sorting options for the search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.ScriptFields">
+            <summary>
+            Gets or sets a set of fields that can be dynamically computed for each hit.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Expressions">
+            <summary>
+            Gets or sets custom expressions that can be evaluated as part of the search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Options">
+            <summary>
+            Gets or sets a dictionary of additional options to customize the search behavior.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Highlight">
+            <summary>
+            Gets or sets highlighting options for emphasizing search terms in the results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.TrackScores">
+            <summary>
+            Gets or sets a value indicating whether to track scores for each result.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Join">
+            <summary>
+            Gets or sets a list of join options for combining multiple queries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchRequest.Knn">
+            <summary>
+            Gets or sets options for performing k-nearest neighbors (KNN) searches.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.SearchRequest.#ctor">
+            <summary>
+            Initializes a new instance of the SearchRequest class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.SearchRequest.#ctor(System.String,ManticoreSearch.Provider.Models.Requests.Query,System.Object,System.Nullable{System.Boolean},System.Object,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Collections.Generic.List{System.Object},System.Collections.Generic.Dictionary{System.String,ManticoreSearch.Provider.Models.Requests.ScriptField},System.Collections.Generic.Dictionary{System.String,System.String},ManticoreSearch.Provider.Models.Requests.OptionDetails,ManticoreSearch.Provider.Models.Requests.HighlightOptions,System.Nullable{System.Boolean},System.Collections.Generic.List{ManticoreSearch.Provider.Models.Requests.SearchJoin},ManticoreSearch.Provider.Models.Requests.KnnOptions)">
+            <summary>
+            Initializes a new instance of the SearchRequest class with specified parameters.
+            </summary>
+            <param name="index">The index to search.</param>
+            <param name="query">The query object.</param>
+            <param name="source">Options for source fields.</param>
+            <param name="profile">Indicates whether to profile the query execution.</param>
+            <param name="aggs">Aggregation options.</param>
+            <param name="limit">Limit for the number of search results.</param>
+            <param name="offset">Offset for search results.</param>
+            <param name="size">Maximum number of results to return.</param>
+            <param name="from">Starting point for returning results.</param>
+            <param name="maxMatches">Maximum number of matches to return.</param>
+            <param name="sort">Sorting options.</param>
+            <param name="scriptFields">Dynamically computed fields for each hit.</param>
+            <param name="expressions">Custom expressions for the search.</param>
+            <param name="options">Additional options for the search.</param>
+            <param name="highlight">Highlighting options for search terms.</param>
+            <param name="trackScores">Indicates whether to track scores for results.</param>
+            <param name="join">Join options for combining queries.</param>
+            <param name="knn">Options for performing KNN searches.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.ScriptField">
+            <summary>
+            Represents a script field configuration for dynamic field computation in search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.ScriptField.Script">
+            <summary>
+            Gets or sets the script configuration for the field.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.Script">
+            <summary>
+            Represents the script configuration for a script field.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Script.Inline">
+            <summary>
+            Gets or sets the inline script code to execute.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.CountryCode">
+            <summary>
+            Enumeration of country codes based on ISO 3166-1 alpha-2 standard.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.BE">
+            <summary>
+            Belgium.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.BG">
+            <summary>
+            Bulgaria.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.BR">
+            <summary>
+            Brazil.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.CH">
+            <summary>
+            Switzerland.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.DE">
+            <summary>
+            Germany.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.DK">
+            <summary>
+            Denmark.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.ES">
+            <summary>
+            Spain.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.FR">
+            <summary>
+            France.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.UK">
+            <summary>
+            United Kingdom.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.GR">
+            <summary>
+            Greece.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.IT">
+            <summary>
+            Italy.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.NO">
+            <summary>
+            Norway.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.PT">
+            <summary>
+            Portugal.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.RU">
+            <summary>
+            Russia.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.SE">
+            <summary>
+            Sweden.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.UA">
+            <summary>
+            Ukraine.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.CountryCode.US">
+            <summary>
+            United States.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.SortMode">
+            <summary>
+            Specifies the sorting mode for search results.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SortMode.Min">
+            <summary>
+            Sort by the minimum value.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SortMode.Max">
+            <summary>
+            Sort by the maximum value.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.SortOrder">
+            <summary>
+            Defines the order in which search results are sorted.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SortOrder.Asc">
+            <summary>
+            Sort results in ascending order.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SortOrder.Desc">
+            <summary>
+            Sort results in descending order.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.Encoder">
+            <summary>
+            Specifies the encoding type for text output.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.Encoder.Default">
+            <summary>
+            Use default encoding.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.Encoder.Html">
+            <summary>
+            Encode output as HTML.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.SnippetBoundary">
+            <summary>
+            Specifies the boundaries for generating snippets from text.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SnippetBoundary.Sentence">
+            <summary>
+            Use sentence boundaries for snippet extraction.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SnippetBoundary.Paragraph">
+            <summary>
+            Use paragraph boundaries for snippet extraction.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SnippetBoundary.Zone">
+            <summary>
+            Use custom-defined zones for snippet extraction.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.HtmlStripMode">
+            <summary>
+            Defines the HTML stripping behavior for text processing.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.HtmlStripMode.None">
+            <summary>
+            No HTML stripping is performed.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.HtmlStripMode.Strip">
+            <summary>
+            Strips all HTML tags from the text.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.HtmlStripMode.Index">
+            <summary>
+            Strips HTML tags but retains content for indexing.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.HtmlStripMode.Retain">
+            <summary>
+            Retains HTML tags and content as is.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.IdfFlag">
+            <summary>
+            Specifies IDF (Inverse Document Frequency) calculation options for term ranking,
+            determining how term frequency across documents impacts search relevance.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.IdfFlag.Normalized">
+            <summary>
+            BM25 normalized IDF: Applies logarithmic scaling, penalizing frequent terms
+            by calculating idf = log((N - n + 1) / n), where N is total documents and n is matches.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.IdfFlag.Plain">
+            <summary>
+            Plain IDF: Uses basic logarithmic scaling (idf = log(N / n)), ensuring no penalty for
+            common terms; suitable for relevance ranking without frequency-based downranking.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.IdfFlag.TfidfNormalized">
+            <summary>
+            Normalized TF-IDF: Divides IDF by query term count for balanced scores in [0,1] range,
+            reducing excessive influence of high-frequency terms.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.IdfFlag.TfidfUnnormalized">
+            <summary>
+            Unnormalized TF-IDF: Retains raw IDF score without division by query term count,
+            preventing score drift in multi-term queries.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.JiebaMode">
+            <summary>
+            Specifies the Jieba segmentation mode used for tokenizing Chinese text in queries,
+            enabling different levels of precision and segment coverage.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.JiebaMode.Accurate">
+            <summary>
+            Accurate mode: Prioritizes segmentation accuracy, suitable for standard queries where precise token boundaries are required.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.JiebaMode.Full">
+            <summary>
+            Full mode: Maximizes segmentation to cover all possible terms, useful for broad search coverage or when indexing requires comprehensive segmentation.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.JiebaMode.Search">
+            <summary>
+            Search mode: Optimized for search queries, breaking down long phrases to match smaller segments, enhancing search relevance in phrase-based queries.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.RankerOption">
+            <summary>
+            Represents the ranking options available for ManticoreSearch, used to define the scoring algorithms for matching documents in queries.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.ProximityBm25">
+            <summary>
+            Combines proximity with BM25 ranking, enhancing results by factoring both term frequency and positional relevance.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Bm25">
+            <summary>
+            BM25 ranking based solely on term frequency and inverse document frequency, providing classic relevance scoring.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.None">
+            <summary>
+            Disables ranking, resulting in a binary match/no-match for query terms without additional scoring.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Wordcount">
+            <summary>
+            Ranks based on term count in the document, suitable for basic relevance where frequency is a primary factor.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Proximity">
+            <summary>
+            Uses proximity-only scoring, giving higher weight to documents with closer term matches.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Matchany">
+            <summary>
+            Matches any term in the document without additional relevance weighting, useful for broad matches.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Fieldmask">
+            <summary>
+            Uses a field mask for ranking, optimizing relevance based on specific indexed fields.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Sph04">
+            <summary>
+            SPH04 algorithm-based ranking, a custom Manticore ranking model for balancing relevance with term distribution.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Expr">
+            <summary>
+            Allows for custom ranking expressions, enabling fine-grained control over ranking based on document fields.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.RankerOption.Export">
+            <summary>
+            Exports ranking results, primarily used for testing and debugging scoring results.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.SortMethod">
+            <summary>
+            Specifies sorting methods available for ManticoreSearch, used to optimize query results sorting.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SortMethod.Pq">
+            <summary>
+            Priority queue sorting, efficient for small to moderate result sets by prioritizing top results.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.SortMethod.Kbuffer">
+            <summary>
+            K-buffer sorting, suitable for handling larger result sets by maintaining a buffer of top K elements.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.JoinType">
+            <summary>
+            Specifies the type of join to be performed in a database query.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.JoinType.Inner">
+            <summary>
+            Represents an inner join.
+            Only returns rows where there is a match in both tables.
+            </summary>
+        </member>
+        <member name="F:ManticoreSearch.Provider.Models.Requests.JoinType.Left">
+            <summary>
+            Represents a left join.
+            Returns all rows from the left table, and the matched rows from the right table.
+            If there is no match, the result is NULL on the right side.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.KnnOptions">
+            <summary>
+            Represents options for configuring k-nearest neighbors (KNN) search queries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.KnnOptions.Field">
+            <summary>
+            The field in the index to perform the KNN search on.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.KnnOptions.QueryVector">
+            <summary>
+            The query vector used to find the nearest neighbors.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.KnnOptions.K">
+            <summary>
+            The number of nearest neighbors to retrieve.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.KnnOptions.Ef">
+            <summary>
+            The size of the dynamic candidate list. Higher values may improve recall but increase query time.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.KnnOptions.DocId">
+            <summary>
+            The document ID to focus the search on a specific document.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.KnnOptions.Filter">
+            <summary>
+            A filter query to narrow down the KNN search results.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.OptionDetails">
+            <summary>
+            Represents the options for search queries with additional configuration details.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.AccurateAggregation">
+            <summary>
+            Controls whether to perform more accurate aggregations at the cost of performance.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.AgentQueryTimeout">
+            <summary>
+            Sets the timeout duration (in milliseconds) for agent-based query execution.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.BooleanSimplify">
+            <summary>
+            Enables simplified evaluation of boolean expressions within queries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Comment">
+            <summary>
+            Adds a comment to the query for identification and debugging purposes.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Cutoff">
+            <summary>
+            Limits the number of matching documents processed for efficiency.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.DistinctPrecisionTreshold">
+            <summary>
+            Sets the threshold for precision in distinct queries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.ExpandKeywords">
+            <summary>
+            Expands keywords using fuzzy or synonym expansion techniques.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.FieldWeights">
+            <summary>
+            Specifies weights for fields to prioritize during ranking.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.GlobalIdf">
+            <summary>
+            Determines whether to use global inverse document frequency (IDF) values for term weighting.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Idf">
+            <summary>
+            Sets the IDF (Inverse Document Frequency) computation flags, adjusting the method used for term weighting in ranking.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.JiebaMode">
+            <summary>
+            Specifies the segmentation mode for Jieba tokenizer, optimizing for various search scenarios in Chinese language processing.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.IndexWeights">
+            <summary>
+            Assigns weights to specific indexes for ranking purposes, allowing fine-tuning of relevance across indexed fields.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.LocalDf">
+            <summary>
+            Uses local document frequency for ranking calculations rather than a global collection, enhancing relevance in localized searches.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.LowPriority">
+            <summary>
+            Sets the query to a lower priority, reducing the load impact on the server during execution.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.MaxMatches">
+            <summary>
+            Limits the maximum number of matched documents returned, enhancing performance and focusing on the most relevant results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.MaxMatchesIncreaseTreshold">
+            <summary>
+            Increases the threshold for the maximum number of matches considered, allowing the search to handle broader queries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.MaxQueryTime">
+            <summary>
+            Specifies the maximum query execution time in milliseconds, terminating any query that exceeds this limit.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.MaxPredictedTime">
+            <summary>
+            Sets the maximum predicted time for query execution, allowing early termination if the predicted time exceeds this limit.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Morphology">
+            <summary>
+            Defines the morphological transformation applied to query terms,
+            such as stemming or exact matching, based on the specified option.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.NotTermsOnlyAllowed">
+            <summary>
+            Specifies whether queries containing only negation terms are permitted,
+            allowing for results to be excluded without required terms.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Ranker">
+            <summary>
+            Sets the ranking strategy to prioritize relevance within search results
+            according to the selected ranking method.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.RandSeed">
+            <summary>
+            Provides a seed for randomization processes within queries,
+            enabling reproducibility of randomized result sets.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.RetryCount">
+            <summary>
+            Specifies the number of retries for a query in case of temporary issues,
+            improving reliability of query execution.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.RetryDelay">
+            <summary>
+            Defines the delay interval, in milliseconds, between retry attempts
+            when a query fails, controlling retry pacing.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.SortMethod">
+            <summary>
+            Specifies the sorting method used for result ordering,
+            allowing custom prioritization of output records.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Threads">
+            <summary>
+            Sets the number of threads used to process the query,
+            enabling parallelization for performance optimization.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.TokenFilter">
+            <summary>
+            Specifies the filter applied to query tokens for targeted term inclusion,
+            refining search precision by limiting valid tokens.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.ExpansionLimit">
+            <summary>
+            Sets a limit on the number of expanded terms allowed, controlling
+            the breadth of keyword expansion during query processing.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Fuzzy">
+            <summary>
+            Indicates whether fuzzy matching is enabled for the search query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Layouts">
+            <summary>
+            A list of country codes defining the layouts to be used in the search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Distance">
+            <summary>
+            (Optional) The distance parameter for proximity searches, which defines the allowable distance for matches.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Preserve">
+            <summary>
+            (Optional) The number of characters to preserve in proximity search matches.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.OptionDetails.Scroll">
+            <summary>
+            (Optional) A value indicating whether to enable scrolling for the search.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.HighlightOptions">
+            <summary>
+            Represents the options for configuring highlighting in search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.BeforeMatch">
+            <summary>
+            (Optional) A string to be added before each match in the highlight output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.AfterMatch">
+            <summary>
+            (Optional) A string to be added after each match in the highlight output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.Limit">
+            <summary>
+            (Optional) The maximum number of highlighted fragments to return.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.LimitWords">
+            <summary>
+            (Optional) The maximum number of words per highlighted snippet.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.LimitSnippets">
+            <summary>
+            (Optional) The maximum number of snippets to return for each field.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.LimitsPerField">
+            <summary>
+            (Optional) The limit for the number of snippets per field.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.Around">
+            <summary>
+            (Optional) The number of surrounding words to include around each match.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.UseBoundaries">
+            <summary>
+            (Optional) A flag indicating whether to use snippet boundaries.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.WeightOrder">
+            <summary>
+            (Optional) The weight order for highlighted matches.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.ForceAllWords">
+            <summary>
+            (Optional) A flag indicating whether to force highlighting of all words.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.StartSnippetId">
+            <summary>
+            (Optional) The ID of the first snippet to start highlighting from.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.HtmlStripMode">
+            <summary>
+            (Optional) The mode for stripping HTML tags from highlighted text.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.AllowEmpty">
+            <summary>
+            (Optional) A flag indicating whether to allow empty highlights.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.SnippetBoundary">
+            <summary>
+            (Optional) Specifies the boundary for snippets in the highlight output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.EmitZones">
+            <summary>
+            (Optional) A flag indicating whether to emit zones in the highlight output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.ForceSnippets">
+            <summary>
+            (Optional) A flag indicating whether to force the inclusion of snippets.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.SnippetSeparator">
+            <summary>
+            (Optional) A string used to separate snippets in the highlight output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.FieldSeparator">
+            <summary>
+            (Optional) A string used to separate fields in the highlight output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.Fields">
+            <summary>
+            (Optional) A list of fields to be highlighted.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.Encoder">
+            <summary>
+            (Optional) The encoder to be used for processing highlighted text.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.HighlightQuery">
+            <summary>
+            (Optional) A custom query to determine the highlights in the search results.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.PreTags">
+            <summary>
+            (Optional) The tags to be used before highlighted terms in the output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.PostTags">
+            <summary>
+            (Optional) The tags to be used after highlighted terms in the output.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.NoMatchSize">
+            <summary>
+            (Optional) The size of the highlighted text to return when there are no matches.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.Order">
+            <summary>
+            (Optional) The order of highlighted snippets.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.FragmentSize">
+            <summary>
+            (Optional) The size of the highlighted fragments.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.HighlightOptions.NumberOfFragments">
+            <summary>
+            (Optional) The number of highlighted fragments to return.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.SearchJoin">
+            <summary>
+            Represents a join operation in a search query, allowing for the combination of results from multiple tables.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchJoin.Type">
+            <summary>
+            The type of join to be performed (e.g., INNER JOIN, LEFT JOIN).
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchJoin.Table">
+            <summary>
+            The name of the table to be joined with the main query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchJoin.On">
+            <summary>
+            A list of conditions specifying how the join should be performed, including the fields to join on.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.SearchJoin.Query">
+            <summary>
+            (Optional) A query to filter the results of the joined table.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.JoinOn">
+            <summary>
+            Represents a specific condition for joining tables, including the fields and operator used in the join.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.JoinOn.Left">
+            <summary>
+            The left side of the join condition, specifying the table and field to match against.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.JoinOn.Right">
+            <summary>
+            The right side of the join condition, specifying the table and field to match against.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:ManticoreSearch.Provider.Models.Requests.JoinOn.Operator" -->
+        <member name="T:ManticoreSearch.Provider.Models.Requests.Side">
+            <summary>
+            Represents a side of the join condition, defining the table and field involved.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Side.Table">
+            <summary>
+            The name of the table that contains the field for this side of the join.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Side.Field">
+            <summary>
+            The name of the field in the specified table to be used in the join condition.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.Side.Type">
+            <summary>
+            (Optional) The type of the field, providing additional context for the join operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1">
+            <summary>
+            Represents a request to update a document in a table.
+            </summary>
+            <typeparam name="TDocument">The type of document to be updated in the table. Must be inherited from <see cref="T:ManticoreSearch.Provider.ManticoreDocument"/>.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.Table">
+            <summary>
+            The name of the table to update documents in.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.Id">
+            <summary>
+            The ID of the document to update.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.Document">
+            <summary>
+            The document data to update.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.Query">
+            <summary>
+            A query to identify documents to be updated if the ID is not provided.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.Cluster">
+            <summary>
+            The name of the cluster to use for the request.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1"/> class.
+            </summary>
+        </member>
+        <member name="M:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1.#ctor(System.String,`0,System.Int64,ManticoreSearch.Provider.Models.Requests.Query,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ManticoreSearch.Provider.Models.Requests.UpdateRequest`1"/> class.
+            </summary>
+            <param name="table">The name of the table to update documents in.</param>
+            <param name="document">The document data to update.</param>
+            <param name="id">The ID of the document to update.</param>
+            <param name="query">The query to identify documents to be updated if the ID is not provided.</param>
+            <param name="cluster">The name of the cluster to use for the request.</param>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.AutocompleteSuccess">
+            <summary>
+            Represents the successful response from an autocomplete query in ManticoreSearch.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.AutocompleteSuccess.Total">
+            <summary>
+            The total number of results returned from the autocomplete query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.AutocompleteSuccess.Error">
+            <summary>
+            (Optional) An error message, if any error occurred during the request.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.AutocompleteSuccess.Warning">
+            <summary>
+            (Optional) A warning message, if any issue occurred that does not prevent the request from succeeding.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.AutocompleteSuccess.Columns">
+            <summary>
+            A list of columns that describe the structure of the returned data.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.AutocompleteSuccess.Data">
+            <summary>
+            (Optional) A list of data items containing the queries returned from the autocomplete request.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.Column">
+            <summary>
+            Represents a column in the autocomplete response, defining its structure and query type.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Column.Query">
+            <summary>
+            The type of query associated with this column.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.QueryType">
+            <summary>
+            Represents the type of a query in the autocomplete response.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.QueryType.Type">
+            <summary>
+            The specific type of query as a string.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.DataItem">
+            <summary>
+            Represents an individual data item returned from the autocomplete query, containing the query string.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DataItem.Query">
+            <summary>
+            The query string that was returned as part of the autocomplete suggestions.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.BulkError">
+            <summary>
+            Represents the error details returned from a bulk operation in ManticoreSearch.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkError.Total">
+            <summary>
+            The total number of errors encountered during the bulk operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkError.Error">
+            <summary>
+            An error message detailing the nature of the error encountered.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkError.Warning">
+            <summary>
+            (Optional) A warning message providing additional context about the error, if applicable.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.BulkSuccess">
+            <summary>
+            Represents the successful response of a bulk operation in ManticoreSearch.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkSuccess.Items">
+            <summary>
+            A list of individual items processed during the bulk operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkSuccess.CurrentLine">
+            <summary>
+            The current line number being processed in the bulk request.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkSuccess.SkippedLines">
+            <summary>
+            The number of lines skipped during the bulk operation due to errors or other issues.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkSuccess.Errors">
+            <summary>
+            Indicates whether any errors occurred during the bulk operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkSuccess.Error">
+            <summary>
+            An error message detailing the nature of the error, if any occurred.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.BulkItem">
+            <summary>
+            Represents an individual item in the bulk operation response, containing details about the operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkItem.Bulk">
+            <summary>
+            The details of the bulk operation for this item.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.BulkDetails">
+            <summary>
+            Represents the details of an individual item processed during a bulk operation in Manticore Search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Table">
+            <summary>
+            The name of the table associated with the bulk operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Id">
+            <summary>
+            The unique identifier for the document that was processed.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Created">
+            <summary>
+            Indicates the creation status of the document: 1 if created, 0 if not created.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Deleted">
+            <summary>
+            Indicates the deletion status of the document: 1 if deleted, 0 if not deleted.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Updated">
+            <summary>
+            Indicates the update status of the document: 1 if updated, 0 if not updated.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Result">
+            <summary>
+            The result of the bulk operation, indicating success or failure.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.BulkDetails.Status">
+            <summary>
+            The HTTP status code returned from the bulk operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.DeleteResponse">
+            <summary>
+            Represents the response structure for delete operations in ManticoreSearch API.
+            Inherits from <see cref="T:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2"/> to handle both success and error responses.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteResponse.ResponseIfQuery">
+            <summary>
+            Contains the details of the response if the delete operation was performed via a query.
+            This is optional and may be null if the operation was not a query-based deletion.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.DeleteSuccess">
+            <summary>
+            Represents the details of a successful delete operation in ManticoreSearch.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteSuccess.Table">
+            <summary>
+            The name of the table from which the record was deleted.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteSuccess.Found">
+            <summary>
+            Indicates whether the specified record was found and deleted.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteSuccess.Id">
+            <summary>
+            The unique identifier of the deleted record.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteSuccess.Result">
+            <summary>
+            The result message of the delete operation, indicating the status of the deletion.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.DeleteByQuerySuccess">
+            <summary>
+            Represents the details of a successful delete operation performed via a query in ManticoreSearch.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteByQuerySuccess.Table">
+            <summary>
+            The name of the table from which records were deleted using a query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.DeleteByQuerySuccess.Deleted">
+            <summary>
+            The total number of records that were deleted as a result of the query.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.ErrorMessage">
+            <summary>
+            Represents an error message returned by the Manticore Search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ErrorMessage.Message">
+            <summary>
+            The error message detailing the issue encountered during the operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.ErrorResponse">
+            <summary>
+            Represents the error response returned by the Manticore Search server.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ErrorResponse.Error">
+            <summary>
+            Contains detailed information about the error, including its type and reason.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ErrorResponse.Status">
+            <summary>
+            The HTTP status code returned with the error response.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.ErrorDetails">
+            <summary>
+            Contains detailed information about an error returned by the Manticore Search server.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ErrorDetails.Type">
+            <summary>
+            The type of the error, indicating the general category of the issue.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ErrorDetails.Reason">
+            <summary>
+            A descriptive reason for the error, providing context for the issue encountered.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ErrorDetails.Table">
+            <summary>
+            The name of the table associated with the error, if applicable.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.HttpResponse">
+            <summary>
+            Represents an HTTP response from a web request.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.HttpResponse.Response">
+            <summary>
+            Gets or sets the response content as a string.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.HttpResponse.IsSuccessStatusCode">
+            <summary>
+            Gets or sets a value indicating whether the HTTP response status code indicates success.
+            True if the status code is in the range of 200-299; otherwise, false.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2">
+            <summary>
+            Represents a generic response structure from Manticore Search API, encapsulating both successful responses and errors.
+            </summary>
+            <typeparam name="TResponse">The type of the successful response data.</typeparam>
+            <typeparam name="TError">The type of the error details in case of a failed response.</typeparam>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2.Response">
+            <summary>
+            The successful response data returned from the Manticore Search server.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2.Error">
+            <summary>
+            The error details returned from the Manticore Search server if the request was unsuccessful.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2.Timestamp">
+            <summary>
+            The timestamp indicating when the response was generated, in UTC format.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2.IsSuccess">
+            <summary>
+            Indicates whether the response was successful or not.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2.RawResponse">
+            <summary>
+            The raw response string received from the Manticore Search server, useful for logging and debugging purposes.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.MappingSuccess">
+            <summary>
+            Represents the successful response of a mapping operation in Manticore Search server.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.MappingSuccess.Total">
+            <summary>
+            Gets or sets the total number of successful mappings.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.MappingSuccess.Error">
+            <summary>
+            Gets or sets any error message that occurred during the mapping process.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.MappingSuccess.Warning">
+            <summary>
+            Gets or sets any warning message that may be relevant to the mapping operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.ModificationSuccess">
+            <summary>
+            Represents the successful response of a modification operation in Manticore Search server.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ModificationSuccess.Table">
+            <summary>
+            Gets or sets the name of the table where the modification occurred.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ModificationSuccess.Id">
+            <summary>
+            Gets or sets the unique identifier of the modified record.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ModificationSuccess.Created">
+            <summary>
+            Gets or sets a value indicating whether the record was created during the modification process.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ModificationSuccess.Result">
+            <summary>
+            Gets or sets the result message of the modification operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ModificationSuccess.Status">
+            <summary>
+            Gets or sets the status code of the modification operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.PercolateResponse">
+            <summary>
+            Represents the response from a percolate operation in Manticore Search server.
+            Inherits from <see cref="T:ManticoreSearch.Provider.Models.Responses.ManticoreResponse`2"/> to provide details about the operation's success or error.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.PercolateResponse.ResponseIfSearch">
+            <summary>
+            Gets or sets the response containing search success details, if applicable.
+            This property will be populated when a search operation is performed alongside percolation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.PercolateSuccess">
+            <summary>
+            Represents the successful response of a percolate operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.PercolateSuccess.Table">
+            <summary>
+            Gets or sets the name of the table associated with the percolation operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.PercolateSuccess.Type">
+            <summary>
+            Gets or sets the type of the percolation result.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.PercolateSuccess.Id">
+            <summary>
+            Gets or sets the unique identifier of the percolate rule that matched.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.PercolateSuccess.Result">
+            <summary>
+            Gets or sets the result message of the percolation operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.SearchSuccess">
+            <summary>
+            Represents the successful response from a search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.SearchSuccess.Took">
+            <summary>
+            Gets or sets the time taken to execute the search, in milliseconds.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.SearchSuccess.TimedOut">
+            <summary>
+            Gets or sets a value indicating whether the search operation timed out.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.SearchSuccess.Hits">
+            <summary>
+            Gets or sets the object containing the hits returned by the search.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.SearchSuccess.Profile">
+            <summary>
+            Gets or sets the profile information for the search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.SearchSuccess.Scroll">
+            <summary>
+            Gets or sets the scroll ID for the search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.SearchSuccess.Aggregations">
+            <summary>
+            Gets or sets the aggregations for the search operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.Profile">
+            <summary>
+            Represents the profile information for a search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Profile.Query">
+            <summary>
+            Gets or sets the query for the search operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.ProfileQuery">
+            <summary>
+            Represents the query profile information for a search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ProfileQuery.Status">
+            <summary>
+            Describes the specific state where the time was spent.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ProfileQuery.Duration">
+            <summary>
+            Shows the wall clock time, in seconds.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ProfileQuery.Switches">
+            <summary>
+            Displays the number of times the query engine changed to the given state.
+            These are merely logical engine state switches and not any OS level context switches or function calls (although some sections might actually map to function calls), and they do not have any direct effect on performance.
+            In a sense, the number of switches is just the number of times the respective instrumentation point was hit.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.ProfileQuery.Percent">
+            <summary>
+            Shows the percentage of time spent in this state.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.HitsObject">
+            <summary>
+            Represents the collection of hits returned by a search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.HitsObject.Hits">
+            <summary>
+            Gets or sets the individual hits returned by the search.
+            This property is a collection of <see cref="P:ManticoreSearch.Provider.Models.Responses.HitsObject.Hits"/> that match the search criteria.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.HitsObject.Total">
+            <summary>
+            Gets or sets the total number of hits that matched the search criteria.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.HitsObject.TotalRelation">
+            <summary>
+            Gets or sets the relationship of the total hits to the hits returned.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.Hit">
+            <summary>
+            Represents an individual hit returned from a search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Hit.Id">
+            <summary>
+            Gets or sets the unique identifier of the document that was matched.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Hit.Score">
+            <summary>
+            Gets or sets the score of the hit, indicating its relevance to the search query.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Hit.Source">
+            <summary>
+            Gets or sets the source document associated with the hit.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Hit.Highlight">
+            <summary>
+            Gets or sets the highlight details returned from a search operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.Hit.KnnDistance">
+            <summary>
+            Gets or sets the KNN distance of the hit.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Models.Responses.UpdateSuccess">
+            <summary>
+            Represents the successful response from an update operation.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.UpdateSuccess.Table">
+            <summary>
+            Gets or sets the name of the table where the update occurred.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.UpdateSuccess.Id">
+            <summary>
+            Gets or sets the unique identifier of the record that was updated.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Models.Responses.UpdateSuccess.Result">
+            <summary>
+            Gets or sets the result of the update operation.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Resources.ExceptionError">
+            <summary>
+              Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.ResourceManager">
+            <summary>
+              Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.Culture">
+            <summary>
+              Перезаписывает свойство CurrentUICulture текущего потока для всех
+              обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.AutocompleteError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while attempting to execute the autocomplete request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.BaseAddressNullError">
+            <summary>
+              Ищет локализованную строку, похожую на The address passed to the constructor parameters cannot be empty or null..
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.BulkError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while executing the bulk request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.DeleteError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while attempting to execute the delete request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.InsertError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while executing the insert request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.MappingError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while attempting to execute the mapping request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.PercolateError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while executing the percolate request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.ReplaceError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while executing the replace request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.SearchError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while executing the search request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.SqlError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while trying to execute the SQL query: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ExceptionError.UpdateError">
+            <summary>
+              Ищет локализованную строку, похожую на An error occurred while executing the update request: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="T:ManticoreSearch.Provider.Resources.ProviderError">
+            <summary>
+              Класс ресурса со строгой типизацией для поиска локализованных строк и т.д.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ProviderError.ResourceManager">
+            <summary>
+              Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ProviderError.Culture">
+            <summary>
+              Перезаписывает свойство CurrentUICulture текущего потока для всех
+              обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ProviderError.ArgumentNull">
+            <summary>
+              Ищет локализованную строку, похожую на Argument named &apos;{0}&apos; has a null value..
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ProviderError.DocumentCount">
+            <summary>
+              Ищет локализованную строку, похожую на The number of elements in a document cannot be zero..
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ProviderError.DocumentsNull">
+            <summary>
+              Ищет локализованную строку, похожую на Documents cannot be null..
+            </summary>
+        </member>
+        <member name="P:ManticoreSearch.Provider.Resources.ProviderError.SqlNull">
+            <summary>
+              Ищет локализованную строку, похожую на SQL query cannot be null..
+            </summary>
+        </member>
+    </members>
+</doc>
