@@ -2,7 +2,7 @@
 
 [Manticore Search](https://manticoresearch.com/) – easy-to-use open-source fast database for search 
 
-Initial release of `ManticoreSearch.Provider` providing API integration with `ManticoreSearch` for .NET applications. This version includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify `ManticoreSearch` integration in .NET projects.
+Initial release of `ManticoreSearch.Provider` providing API integration with **Manticore Search** server for .NET applications. This version includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify `ManticoreSearch` integration in .NET projects.
 
 **Note:** If you find errors or bugs in the library, please write in the `issues` section
 
@@ -56,7 +56,7 @@ var request = new ModificationRequest<TestIndex>
         Content = "This is a test content" ,
         Price = 19.99f,
     }
-};
+}; // where TestIndex : ManticoreDocument
 
 var result = await provider.InsertAsync(request);
 ```
@@ -355,6 +355,31 @@ var request = new MappingRequest
 };
 
 var result = await provider.UseMappingAsync(request, "training");
+```
+
+## Usage In ASP.NET
+To use `ManticoreProvider` in your Web API, register the provider in the DI container:
+```csharp
+builder.Services.AddManticoreSearchProvider();
+```
+Next, you can get the `IManticoreProvider` from the DI container. Example:
+```csharp
+[ApiController]
+[Route("[controller]")]
+public class ManticoreController(IManticoreProvider manticoreProvider) : Controller
+{
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateAsync([FromBody] TestIndex testIndex)
+    {
+        await manticoreProvider.InsertAsync(new ModificationRequest<TestIndex>
+        {
+            Table = "test_index",
+            Document = testIndex
+        });
+
+        return Ok();
+    }
+}
 ```
 
 ## Exceptions
