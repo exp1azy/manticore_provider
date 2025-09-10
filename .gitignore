@@ -17,3 +17,10 @@ ManticoreSearch.Provider.Test/obj/
 /ManticoreSearch.Provider.Test/UpdateTests.cs
 /ManticoreSearch.Provider.Test/TestIndex.cs
 /ManticoreSearch.Provider.Test/Products.cs
+/ManticoreSearch.WebApi/ManticoreSearch.WebApi.csproj
+/ManticoreSearch.WebApi/Properties/launchSettings.json
+/ManticoreSearch.WebApi/Controllers/ManticoreController.cs
+/ManticoreSearch.WebApi/appsettings.json
+/ManticoreSearch.WebApi/ManticoreSearch.WebApi.http
+/ManticoreSearch.WebApi/Program.cs
+/ManticoreSearch.WebApi/TestIndex.cs
