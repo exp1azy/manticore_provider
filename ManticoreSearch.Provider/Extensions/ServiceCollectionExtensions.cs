@@ -13,9 +13,9 @@ namespace ManticoreSearch.Provider.Extensions
         /// </summary>
         /// <param name="collection">The service collection to add the provider to.</param>
         /// <param name="timeout">The timeout for HTTP requests. Default is 30 seconds if not specified.</param>
-        public static void AddManticoreSearchProvider(this IServiceCollection collection, TimeSpan timeout = default)
+        public static void AddManticoreProvider(this IServiceCollection collection, TimeSpan timeout = default)
         {
-            RegisterManticoreSearch(collection, null, timeout);
+            collection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(timeout));
         }
 
         /// <summary>
@@ -24,17 +24,20 @@ namespace ManticoreSearch.Provider.Extensions
         /// <param name="collection">The service collection to add the provider to.</param>
         /// <param name="url">The base URL of the Manticore Search API server.</param>
         /// <param name="timeout">The timeout for HTTP requests. Default is 30 seconds if not specified.</param>
-        public static void AddManticoreSearchProvider(this IServiceCollection collection, string url, TimeSpan timeout = default)
+        public static void AddManticoreProvider(this IServiceCollection collection, string url, TimeSpan timeout = default)
         {
-            RegisterManticoreSearch(collection, url, timeout);
+            collection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(url, timeout));
         }
 
-        private static void RegisterManticoreSearch(IServiceCollection serviceCollection, string? url = null, TimeSpan timeout = default)
+        /// <summary>
+        /// Registers the Manticore Search provider with a specified instance of <see cref="HttpClient"/>.
+        /// </summary>
+        /// <param name="collection">The service collection to add the provider to.</param>
+        /// <param name="httpClient">An instance of <see cref="HttpClient"/>.</param>
+        /// <param name="disposeHttpClient"><c>true</c>, if the specified instance of <see cref="HttpClient"/> need to be disposed; otherwise, <c>false</c>.</param>
+        public static void AddManticoreProvider(this IServiceCollection collection, HttpClient httpClient, bool disposeHttpClient = false)
         {
-            if (string.IsNullOrEmpty(url))
-                serviceCollection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(timeout));
-            else
-                serviceCollection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(url, timeout));
+            collection.AddSingleton<IManticoreProvider, ManticoreProvider>(_ => new ManticoreProvider(httpClient, disposeHttpClient));
         }
     }
 }

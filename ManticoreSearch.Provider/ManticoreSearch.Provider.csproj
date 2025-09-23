@@ -12,12 +12,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/exp1azy/ManticoreSearch.Api</RepositoryUrl>
     <PackageTags>manticore;search;fulltext;text;autocomplete;database;opensource;nosql</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>the ability to pass an instance of HttpClient to the constructor</PackageReleaseNotes>
     <PackAsTool>False</PackAsTool>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageLicenseFile>LICENCE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>

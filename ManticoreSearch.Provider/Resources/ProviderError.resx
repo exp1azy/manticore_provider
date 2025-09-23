@@ -129,4 +129,7 @@
   <data name="DocumentsNull" xml:space="preserve">
     <value>Documents cannot be null.</value>
   </data>
+  <data name="HttpClientNotInitialized" xml:space="preserve">
+    <value>HttpClient is not initialized.</value>
+  </data>
 </root>
