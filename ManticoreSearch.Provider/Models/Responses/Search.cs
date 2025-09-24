@@ -53,39 +53,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// Gets or sets the query for the search operation.
         /// </summary>
         [JsonProperty("query")]
-        public ProfileQuery[]? Query { get; set; }
-    }
-
-    /// <summary>
-    /// Represents the query profile information for a search operation.
-    /// </summary>
-    public class ProfileQuery
-    {
-        /// <summary>
-        /// Describes the specific state where the time was spent.
-        /// </summary>
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
-        /// <summary>
-        /// Shows the wall clock time, in seconds.
-        /// </summary>
-        [JsonProperty("duration")]
-        public double Duration { get; set; }
-
-        /// <summary>
-        /// Displays the number of times the query engine changed to the given state.
-        /// These are merely logical engine state switches and not any OS level context switches or function calls (although some sections might actually map to function calls), and they do not have any direct effect on performance.
-        /// In a sense, the number of switches is just the number of times the respective instrumentation point was hit.
-        /// </summary>
-        [JsonProperty("switches")]
-        public int Switches { get; set; }
-
-        /// <summary>
-        /// Shows the percentage of time spent in this state.
-        /// </summary>
-        [JsonProperty("percent")]
-        public float Percent { get; set; }
+        public object Query { get; set; }
     }
 
     /// <summary>
