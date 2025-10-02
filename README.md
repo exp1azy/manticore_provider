@@ -18,7 +18,7 @@ var provider = new ManticoreProvider("http://your-manticore-address");
 
 ### Executing SQL Queries
 
-To execute an SQL query, use the `Sql` method or its asynchronous variant `SqlAsync`:
+To execute an SQL query, use the `SqlAsync` method:
 ```csharp
 string result = provider.Sql("SELECT * FROM your_index");
 // or
@@ -44,7 +44,7 @@ internal class TestIndex : ManticoreDocument
 
 ### Inserting Documents
 
-To insert documents into the index, use the `Insert` method or `InsertAsync`:
+To insert documents into the index, use the `InsertAsync` method:
 ```csharp
 var request = new ModificationRequest<TestIndex>
 {
@@ -63,7 +63,7 @@ var result = await provider.InsertAsync(request);
 
 ### Bulking Documents
 
-To perform bulk upload of documents use `Bulk` method or `BulkAsync`:
+To perform bulk upload of documents use the `BulkAsync` method:
 ```csharp
 var bulkRequests = new List<BulkInsertRequest<TestIndex>>
 {
@@ -96,7 +96,7 @@ var result = await provider.BulkAsync(bulkRequests);
 
 ### Replacement of Documents
 
-To replace documents, use `Replace` method or `ReplaceAsync`:
+To replace documents, use the `ReplaceAsync` method:
 ```csharp
 var replaceRequest = new ModificationRequest<TestIndex>
 {
@@ -115,7 +115,7 @@ var result = await provider.ReplaceAsync(replaceRequest);
 
 ### Bulk Replacement of Documents
 
-To perform a bulk document replacement, use `BulkReplace` method or `BulkReplaceAsync`:
+To perform a bulk document replacement, use the `BulkReplaceAsync` method:
 ```csharp
 var bulkRequests = new List<BulkReplaceRequest<TestIndex>>
 {
@@ -150,7 +150,7 @@ var result = await provider.BulkReplaceAsync(bulkRequests);
 
 ### Updating Documents
 
-To update documents, use `Update` method or `UpdateAsync`:
+To update documents, use the `UpdateAsync` method:
 ```csharp
 var doc = new UpdateRequest<Products>
 {
@@ -173,7 +173,7 @@ var result = provider.Update(doc);
 
 ### Bulk Updating Documents
 
-To update documents, use `BulkUpdate` method or `BulkUpdateAsync`:
+To update documents, use the `BulkUpdateAsync` method:
 ```csharp
 var insertRequest = new ModificationRequest<TestIndex>
 {
@@ -212,7 +212,7 @@ var result = await provider.BulkUpdateAsync(bulkRequests);
 
 ### Search by Documents
 
-To search documents, use `Search` method or `SearchAsync`:
+To search documents and get full information about the search results, use the `SearchAsync` method:
 ```csharp
 var searchRequest = new SearchRequest(
     index: "test_index",
@@ -249,9 +249,41 @@ var searchRequest = new SearchRequest(
 var result = await provider.SearchAsync(searchRequest);
 ```
 
+To search documents and get information about hits based on specified documents, use the `SearchAsync<TDocument>` method:
+```csharp
+var searchRequest = new SearchRequest(
+    index: "test_index",
+    query: new Query
+    {
+        Range = new Dictionary<string, RangeFilter>
+        {
+            { "price", new RangeFilter() { Lte = 10 } }
+        }
+    }
+);
+
+var result = await apiInstance.SearchAsync<TestIndex>(searchRequest);
+```
+
+To search documents and get raw JSON data, use the `SearchRawAsync` method:
+```csharp
+var searchRequest = new SearchRequest(
+    index: "test_index",
+    query: new Query
+    {
+        Range = new Dictionary<string, RangeFilter>
+        {
+            { "price", new RangeFilter() { Lte = 10 } }
+        }
+    }
+);
+
+var result = await apiInstance.SearchRawAsync(searchRequest);
+```
+
 ### Deleting Documents
 
-To delete documents, use `Delete` method or `DeleteAsync`:
+To delete documents, use the `DeleteAsync` method:
 ```csharp
 var request = new DeleteRequest
 {
@@ -270,7 +302,7 @@ var result = await provider.DeleteAsync(doc);
 
 ### Bulk Deletion of Documents
 
-To perform bulk deletion of documents use `BulkDelete` method or `BulkDeleteAsync`:
+To perform bulk deletion of documents use the `BulkDeleteAsync` method:
 ```csharp
 var request = new List<BulkDeleteRequest>
 {
@@ -301,7 +333,7 @@ var result = await provider.BulkDeleteAsync(request);
 
 ### Working with Percolators
 
-To index and search using percolators, use the `IndexPercolate`, `Percolate`, `GetPercolate` and `UpdatePercolate` methods and their asynchronous versions:
+To index and search using percolators, use the `IndexPercolateAsync`, `PercolateAsync`, `GetPercolateAsync` and `UpdatePercolateAsync` methods:
 ```csharp
 var percolate = new PercolateRequest<Products>
 {
@@ -329,7 +361,7 @@ var result = await provider.PercolateAsync(percolate, "mypq");
 
 ### Autocomplete request
 
-Retrieves autocomplete suggestions based on the provided autocomplete query. Use the `Autocomplete` or `AutocompleteAsync` methods:
+Retrieves autocomplete suggestions based on the provided autocomplete query. Use the `AutocompleteAsync` methods:
 ```csharp
 var request = new AutocompleteRequest
 {
@@ -342,7 +374,7 @@ var result = await provider.AutocompleteAsync(request);
 
 ### Mapping request
 
- Defines a new table structure in Manticore search engine using the specified mapping properties, mimicking Elasticsearch-like table definitions. Use the `UseMapping` or `UseMappingAsync` methods:
+ Defines a new table structure in Manticore search engine using the specified mapping properties, mimicking Elasticsearch-like table definitions. Use the `UseMappingAsync` methods:
 ```csharp
 var request = new MappingRequest
 {

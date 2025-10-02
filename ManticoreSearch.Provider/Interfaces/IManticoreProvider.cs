@@ -40,7 +40,7 @@ namespace ManticoreSearch.Provider.Interfaces
         /// <returns>Task representing the asynchronous bulk operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+        public Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument;
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace ManticoreSearch.Provider.Interfaces
         /// <returns>Task representing the asynchronous bulk replace operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk replace operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync<TDocument>(List<BulkReplaceRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+        public Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkReplaceAsync<TDocument>(List<BulkReplaceRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument;
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace ManticoreSearch.Provider.Interfaces
         /// <returns>Task representing the asynchronous bulk update operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk update operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync<TDocument>(List<BulkUpdateRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+        public Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkUpdateAsync<TDocument>(List<BulkUpdateRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument;
 
         /// <summary>
@@ -96,10 +96,32 @@ namespace ManticoreSearch.Provider.Interfaces
         /// </summary>
         /// <param name="searchRequest">The search request containing query parameters and options.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
-        /// <returns>Task representing the asynchronous search operation.</returns>
+        /// <returns>Task representing the asynchronous search operation with full information in the response.</returns>
         /// <exception cref="SearchException">Thrown when an error occurs during the search operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public Task<ManticoreResponse<SearchSuccess, ErrorMessage>> SearchAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default);
+        public Task<ManticoreResponse<FullSearchResponse, ErrorMessage>> SearchAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Executes a search query against the Manticore Search table asynchronously.
+        /// </summary>
+        /// <typeparam name="TDocument">The type of document to return in search results. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+        /// <param name="searchRequest">The search request containing query parameters and options.</param>
+        /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+        /// <returns>Task representing the asynchronous search operation with hits based on specified documents <typeparamref name="TDocument"/>.</returns>
+        /// <exception cref="SearchException">Thrown when an error occurs during the search operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
+        public Task<ManticoreResponse<SearchResult<TDocument>, ErrorMessage>> SearchAsync<TDocument>(SearchRequest searchRequest, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument;
+
+        /// <summary>
+        /// Executes a search query against the Manticore Search table asynchronously.
+        /// </summary>
+        /// <param name="searchRequest">The search request containing query parameters and options.</param>
+        /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+        /// <returns>Task representing the asynchronous search operation with raw JSON string response.</returns>
+        /// <exception cref="SearchException">Thrown when an error occurs during the search operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
+        public Task<string> SearchRawAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes documents from the table asynchronously based on the provided criteria.
@@ -119,7 +141,7 @@ namespace ManticoreSearch.Provider.Interfaces
         /// <returns>Task representing the asynchronous bulk delete operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk delete operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkDeleteAsync(List<BulkDeleteRequest> bulkRequests, CancellationToken cancellationToken = default);
+        public Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkDeleteAsync(List<BulkDeleteRequest> bulkRequests, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Submits a percolate request asynchronously to match a document against existing percolation queries.
@@ -178,7 +200,7 @@ namespace ManticoreSearch.Provider.Interfaces
         /// <returns>Task representing the asynchronous retrieval operation.</returns>
         /// <exception cref="PercolateException">Thrown when an error occurs during the retrieval operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public Task<ManticoreResponse<SearchSuccess, ErrorMessage>> GetPercolateAsync(string index, int id, CancellationToken cancellationToken = default);
+        public Task<ManticoreResponse<FullSearchResponse, ErrorMessage>> GetPercolateAsync(string index, int id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves autocomplete suggestions asynchronously based on the provided request.

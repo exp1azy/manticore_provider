@@ -5,7 +5,7 @@ namespace ManticoreSearch.Provider.Models.Responses
     /// <summary>
     /// Represents the successful response from a search operation.
     /// </summary>
-    public class SearchSuccess
+    public class FullSearchResponse
     {
         /// <summary>
         /// Gets or sets the time taken to execute the search, in milliseconds.

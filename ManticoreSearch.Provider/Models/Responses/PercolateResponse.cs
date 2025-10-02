@@ -12,7 +12,7 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// Gets or sets the response containing search success details, if applicable.
         /// This property will be populated when a search operation is performed alongside percolation.
         /// </summary>
-        public SearchSuccess? ResponseIfSearch { get; set; }
+        public FullSearchResponse? ResponseIfSearch { get; set; }
     }
 
     /// <summary>

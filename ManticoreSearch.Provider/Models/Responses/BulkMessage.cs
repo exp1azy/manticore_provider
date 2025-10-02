@@ -3,9 +3,9 @@
 namespace ManticoreSearch.Provider.Models.Responses
 {
     /// <summary>
-    /// Represents the successful response of a bulk operation in ManticoreSearch.
+    /// Represents the response message for a bulk operation in Manticore Search.
     /// </summary>
-    public class BulkSuccess
+    public class BulkMessage
     {
         /// <summary>
         /// A list of individual items processed during the bulk operation.
@@ -47,7 +47,67 @@ namespace ManticoreSearch.Provider.Models.Responses
         /// The details of the bulk operation for this item.
         /// </summary>
         [JsonProperty("bulk")]
-        public BulkDetails Bulk { get; set; }
+        public BulkDetails? Bulk { get; set; }
+
+        /// <summary>
+        /// Details of an insert operation result for this item.
+        /// </summary>
+        [JsonProperty("insert")]
+        public BulkErrorItem? Insert { get; set; }
+        
+        /// <summary>
+        /// Details of a replace operation result for this item.
+        /// </summary>
+        [JsonProperty("replace")]
+        public BulkErrorItem? Replace { get; set; }
+
+        /// <summary>
+        /// Details of an update operation result for this item.
+        /// </summary>
+        [JsonProperty("update")]
+        public BulkErrorItem? Update { get; set; }
+
+        /// <summary>
+        /// Details of a delete operation result for this item.
+        /// </summary>
+        [JsonProperty("delete")]
+        public BulkErrorItem? Delete { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the result of an individual bulk operation item with error details.
+    /// </summary>
+    public class BulkErrorItem
+    {
+        /// <summary>
+        /// Error details for the bulk operation item.
+        /// </summary>
+        [JsonProperty("error")]
+        public BulkErrorDetails Error { get; set; }
+
+        /// <summary>
+        /// HTTP status code for the operation.
+        /// </summary>
+        [JsonProperty("status")]
+        public int Status { get; set; }
+    }
+
+    /// <summary>
+    /// Represents detailed error information for a bulk operation item.
+    /// </summary>
+    public class BulkErrorDetails
+    {
+        /// <summary>
+        /// Type of error that occurred during the bulk operation.
+        /// </summary>
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        /// <summary>
+        /// Name of the table where the error occurred.
+        /// </summary>
+        [JsonProperty("table")]
+        public string Table { get; set; }
     }
 
     /// <summary>

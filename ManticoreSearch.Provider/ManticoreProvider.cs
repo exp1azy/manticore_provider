@@ -6,7 +6,6 @@ using ManticoreSearch.Provider.Resources;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-using System.Text;
 
 namespace ManticoreSearch.Provider
 {
@@ -16,24 +15,24 @@ namespace ManticoreSearch.Provider
     /// </summary>
     public sealed class ManticoreProvider : IManticoreProvider
     {
-        private HttpClient? _httpClient;
-        private JsonSerializerSettings _jsonSettings;
         private bool _disposed;
+        private HttpClientHelper? _httpHelper;
+        private JsonSerializerSettings _jsonSettings;
 
         private readonly bool _disposeHttpClient;
         private const string _baseAddress = "http://localhost:9308";
-        private const int _defaultTimeoutInSeconds = 30;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManticoreProvider"/> class with the default base address (http://localhost:9308).
         /// </summary>
         /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
-        public ManticoreProvider(TimeSpan timeout = default)
+        /// <param name="disposeHttpClient"><c>true</c>, if the specified instance of <see cref="HttpClient"/> need to be disposed; otherwise, <c>false</c>.</param>
+        public ManticoreProvider(TimeSpan timeout = default, bool disposeHttpClient = true)
         {
-            _disposeHttpClient = true;
+            InitializeJsonSettings();
 
-            InitializeHttpClient(_baseAddress, timeout);
-            ConfigureJsonSettings();
+            _httpHelper = new HttpClientHelper(_baseAddress, timeout);
+            _disposeHttpClient = disposeHttpClient;
         }
 
         /// <summary>
@@ -41,15 +40,16 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="address">The address of the Manticore Search server.</param>
         /// <param name="timeout">The timeout for HTTP requests, default is 30 seconds.</param>
-        public ManticoreProvider(string address, TimeSpan timeout = default)
+        /// <param name="disposeHttpClient"><c>true</c>, if the specified instance of <see cref="HttpClient"/> need to be disposed; otherwise, <c>false</c>.</param>
+        public ManticoreProvider(string address, TimeSpan timeout = default, bool disposeHttpClient = true)
         {
             if (string.IsNullOrEmpty(address))
                 throw new BaseAddressNullException(ExceptionError.BaseAddressNullError);
 
-            _disposeHttpClient = true;
+            InitializeJsonSettings();
 
-            InitializeHttpClient(address, timeout);
-            ConfigureJsonSettings();
+            _httpHelper = new HttpClientHelper(address, timeout);
+            _disposeHttpClient = disposeHttpClient;
         }
 
         /// <summary>
@@ -59,13 +59,15 @@ namespace ManticoreSearch.Provider
         /// <param name="disposeHttpClient"><c>true</c>, if the specified instance of <see cref="HttpClient"/> need to be disposed; otherwise, <c>false</c>.</param>
         public ManticoreProvider(HttpClient httpClient, bool disposeHttpClient = false)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            ArgumentNullException.ThrowIfNull(httpClient);
+
+            InitializeJsonSettings();
+
+            if (httpClient.BaseAddress == null)
+                httpClient.BaseAddress = new Uri(_baseAddress);
+
+            _httpHelper = new HttpClientHelper(httpClient);
             _disposeHttpClient = disposeHttpClient;
-
-            if (_httpClient.BaseAddress == null)
-                _httpClient.BaseAddress = new Uri(_baseAddress);
-
-            ConfigureJsonSettings();
         }
 
         /// <summary>
@@ -109,7 +111,7 @@ namespace ManticoreSearch.Provider
         /// <returns>Task representing the asynchronous bulk operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+        public async Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkAsync<TDocument>(List<BulkInsertRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument => await ProcessBulkAsync(bulkRequests, cancellationToken).ConfigureAwait(false);
 
         /// <summary>
@@ -133,7 +135,7 @@ namespace ManticoreSearch.Provider
         /// <returns>Task representing the asynchronous bulk replace operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk replace operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkReplaceAsync<TDocument>(List<BulkReplaceRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+        public async Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkReplaceAsync<TDocument>(List<BulkReplaceRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument => await ProcessBulkAsync(bulkRequests, cancellationToken).ConfigureAwait(false);
 
         /// <summary>
@@ -157,7 +159,7 @@ namespace ManticoreSearch.Provider
         /// <returns>Task representing the asynchronous bulk update operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk update operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkUpdateAsync<TDocument>(List<BulkUpdateRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
+        public async Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkUpdateAsync<TDocument>(List<BulkUpdateRequest<TDocument>> bulkRequests, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument => await ProcessBulkAsync(bulkRequests, cancellationToken).ConfigureAwait(false);
 
         /// <summary>
@@ -165,11 +167,34 @@ namespace ManticoreSearch.Provider
         /// </summary>
         /// <param name="searchRequest">The search request containing query parameters and options.</param>
         /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
-        /// <returns>Task representing the asynchronous search operation.</returns>
+        /// <returns>Task representing the asynchronous search operation with full information in the response.</returns>
         /// <exception cref="SearchException">Thrown when an error occurs during the search operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public async Task<ManticoreResponse<SearchSuccess, ErrorMessage>> SearchAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<FullSearchResponse, ErrorMessage>> SearchAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default) =>
             await ProcessSearchAsync(searchRequest, cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Executes a search query against the Manticore Search table asynchronously.
+        /// </summary>
+        /// <typeparam name="TDocument">The type of document to return in search results. Must be inherited from <see cref="ManticoreDocument"/>.</typeparam>
+        /// <param name="searchRequest">The search request containing query parameters and options.</param>
+        /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+        /// <returns>Task representing the asynchronous search operation with hits based on specified documents <typeparamref name="TDocument"/>.</returns>
+        /// <exception cref="SearchException">Thrown when an error occurs during the search operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
+        public async Task<ManticoreResponse<SearchResult<TDocument>, ErrorMessage>> SearchAsync<TDocument>(SearchRequest searchRequest, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument => await ProcessSearchAsync<TDocument>(searchRequest, cancellationToken).ConfigureAwait(false);
+
+        /// <summary>
+        /// Executes a search query against the Manticore Search table asynchronously.
+        /// </summary>
+        /// <param name="searchRequest">The search request containing query parameters and options.</param>
+        /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+        /// <returns>Task representing the asynchronous search operation with raw JSON string response.</returns>
+        /// <exception cref="SearchException">Thrown when an error occurs during the search operation.</exception>
+        /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
+        public async Task<string> SearchRawAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default) =>
+            await ProcessRawSearchAsync(searchRequest, cancellationToken).ConfigureAwait(false);
 
         /// <summary>
         /// Deletes documents from the table asynchronously based on the provided criteria.
@@ -190,7 +215,7 @@ namespace ManticoreSearch.Provider
         /// <returns>Task representing the asynchronous bulk delete operation.</returns>
         /// <exception cref="BulkException">Thrown when an error occurs during the bulk delete operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> BulkDeleteAsync(List<BulkDeleteRequest> bulkRequests, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<BulkMessage, List<BulkError>>> BulkDeleteAsync(List<BulkDeleteRequest> bulkRequests, CancellationToken cancellationToken = default) =>
             await ProcessBulkAsync(bulkRequests, cancellationToken).ConfigureAwait(false);
 
         /// <summary>
@@ -253,7 +278,7 @@ namespace ManticoreSearch.Provider
         /// <returns>Task representing the asynchronous retrieval operation.</returns>
         /// <exception cref="PercolateException">Thrown when an error occurs during the retrieval operation.</exception>
         /// <exception cref="OperationCanceledException">Thrown when the operation is canceled.</exception>
-        public async Task<ManticoreResponse<SearchSuccess, ErrorMessage>> GetPercolateAsync(string index, int id, CancellationToken cancellationToken = default) =>
+        public async Task<ManticoreResponse<FullSearchResponse, ErrorMessage>> GetPercolateAsync(string index, int id, CancellationToken cancellationToken = default) =>
             await ProcessGetPercolateAsync(index, id, cancellationToken).ConfigureAwait(false);
 
         /// <summary>
@@ -279,43 +304,32 @@ namespace ManticoreSearch.Provider
         public async Task<ManticoreResponse<List<MappingSuccess>, ErrorMessage>> UseMappingAsync(MappingRequest mappingRequest, string index, CancellationToken cancellationToken = default) =>
             await ProcessMappingAsync(mappingRequest, index, cancellationToken).ConfigureAwait(false);
 
+        private void InitializeJsonSettings()
+        {
+            _jsonSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
+                NullValueHandling = NullValueHandling.Ignore
+            };
+        }
+
         private void Dispose(bool disposing)
         {
             if (!_disposed)
             {
-                if (disposing && _httpClient != null && _disposeHttpClient)
+                if (disposing && _httpHelper != null && _disposeHttpClient)
                 {
-                    _httpClient.Dispose();
-                    _httpClient = null;
+                    _httpHelper.Dispose();
+                    _httpHelper = null;
                 }
 
                 _disposed = true;
             }
         }
 
-        private StringContent CreateStringContent(object data, string contentType)
+        private void CheckDisposed()
         {
-            var json = JsonConvert.SerializeObject(data, _jsonSettings);
-            return new StringContent(json, Encoding.UTF8, contentType);
-        }
-
-        private async Task<HttpResponse> SendAsync(string endpoint, HttpMethod method, StringContent? content = null, CancellationToken cancellationToken = default)
-        {
-            if (_httpClient == null)
-                throw new InvalidOperationException(ProviderError.HttpClientNotInitialized);
-
-            using var request = new HttpRequestMessage(method, endpoint);
-
-            if (content != null)
-                request.Content = content;
-
-            var response = await _httpClient.SendAsync(request, cancellationToken);
-
-            return new HttpResponse
-            {
-                Response = await response.Content.ReadAsStringAsync(cancellationToken),
-                IsSuccessStatusCode = response.IsSuccessStatusCode
-            };
+            ObjectDisposedException.ThrowIf(_httpHelper == null, _httpHelper);
         }
 
         private async Task<ManticoreResponse<ModificationSuccess, ErrorResponse>> ProcessModificationAsync<TDocument>(ModificationRequest<TDocument> request, string endpoint, CancellationToken cancellationToken = default)
@@ -326,11 +340,13 @@ namespace ManticoreSearch.Provider
                 throw new ModificationException(string.Format(ProviderError.ArgumentNull,
                     request == null ? nameof(request) : nameof(request.Document)));
             }
+            
+            CheckDisposed();
 
             try
             {
-                var content = CreateStringContent(request, "application/x-ndjson");
-                var response = await SendAsync(endpoint, HttpMethod.Post, content, cancellationToken);
+                var content = StringContentFactory.Create(request, "application/x-ndjson", _jsonSettings);
+                var response = await _httpHelper!.SendAsync(endpoint, HttpMethod.Post, content, cancellationToken);
 
                 var result = new ManticoreResponse<ModificationSuccess, ErrorResponse>()
                 {
@@ -367,11 +383,14 @@ namespace ManticoreSearch.Provider
             if (sql == null)
                 throw new SqlException(ProviderError.SqlNull);
 
+            CheckDisposed();
+
             try
             {
-                var content = new StringContent(sql);
+                var content = StringContentFactory.Create(sql);
+                var response = await _httpHelper!.SendAsync("/cli", HttpMethod.Post, content, cancellationToken);
 
-                return (await SendAsync("/cli", HttpMethod.Post, content, cancellationToken)).Response;
+                return response.Response;
             }
             catch (OperationCanceledException)
             {
@@ -383,18 +402,20 @@ namespace ManticoreSearch.Provider
             }
         }
 
-        private async Task<ManticoreResponse<BulkSuccess, List<BulkError>>> ProcessBulkAsync<TBulkRequest>(List<TBulkRequest> documents, CancellationToken cancellationToken = default)
+        private async Task<ManticoreResponse<BulkMessage, List<BulkError>>> ProcessBulkAsync<TBulkRequest>(List<TBulkRequest> documents, CancellationToken cancellationToken = default)
         {
             if (documents == null)
                 throw new BulkException(ProviderError.DocumentsNull);
 
+            CheckDisposed();
+
             try
             {
                 var json = string.Join("\n", documents.Select(d => JsonConvert.SerializeObject(d)));
-                var content = new StringContent(json, Encoding.UTF8, "application/x-ndjson");
-                var response = await SendAsync("/bulk", HttpMethod.Post, content, cancellationToken);
+                var content = StringContentFactory.Create(json, "application/x-ndjson");
+                var response = await _httpHelper!.SendAsync("/bulk", HttpMethod.Post, content, cancellationToken);
 
-                var result = new ManticoreResponse<BulkSuccess, List<BulkError>>
+                var result = new ManticoreResponse<BulkMessage, List<BulkError>>
                 {
                     RawResponse = response.Response
                 };
@@ -406,7 +427,7 @@ namespace ManticoreSearch.Provider
                 }
                 catch
                 {
-                    result.Response = JsonConvert.DeserializeObject<BulkSuccess>(response.Response, _jsonSettings);
+                    result.Response = JsonConvert.DeserializeObject<BulkMessage>(response.Response, _jsonSettings);
                     result.IsSuccess = true;
                 }
 
@@ -425,10 +446,12 @@ namespace ManticoreSearch.Provider
         private async Task<ManticoreResponse<UpdateSuccess, ErrorResponse>> ProcessUpdateAsync<TDocument>(UpdateRequest<TDocument> document, CancellationToken cancellationToken = default)
             where TDocument : ManticoreDocument
         {
+            CheckDisposed();
+
             try
             {
-                var content = CreateStringContent(document, "application/json");
-                var response = await SendAsync("/update", HttpMethod.Post, content, cancellationToken);
+                var content = StringContentFactory.Create(document, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync("/update", HttpMethod.Post, content, cancellationToken);
 
                 var result = new ManticoreResponse<UpdateSuccess, ErrorResponse>
                 {
@@ -458,21 +481,82 @@ namespace ManticoreSearch.Provider
             }
         }
 
-        private async Task<ManticoreResponse<SearchSuccess, ErrorMessage>> ProcessSearchAsync(SearchRequest request, CancellationToken cancellationToken = default)
+        private async Task<ManticoreResponse<FullSearchResponse, ErrorMessage>> ProcessSearchAsync(SearchRequest request, CancellationToken cancellationToken = default)
         {
+            CheckDisposed();
+
             try
             {
-                var content = CreateStringContent(request, "application/json");
-                var response = await SendAsync("/search", HttpMethod.Post, content, cancellationToken);
+                var content = StringContentFactory.Create(request, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync("/search", HttpMethod.Post, content, cancellationToken);
 
-                var result = new ManticoreResponse<SearchSuccess, ErrorMessage>
+                var result = new ManticoreResponse<FullSearchResponse, ErrorMessage>
                 {
                     RawResponse = response.Response
                 };
 
                 if (response.IsSuccessStatusCode)
                 {
-                    result.Response = JsonConvert.DeserializeObject<SearchSuccess>(response.Response, _jsonSettings);
+                    result.Response = JsonConvert.DeserializeObject<FullSearchResponse>(response.Response, _jsonSettings);
+                    result.IsSuccess = true;
+                }
+                else
+                {
+                    result.Error = JsonConvert.DeserializeObject<ErrorMessage>(response.Response, _jsonSettings);
+                    result.IsSuccess = false;
+                }
+
+                return result;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SearchException(ExceptionError.SearchError, ex);
+            }
+        }
+
+        private async Task<string> ProcessRawSearchAsync(SearchRequest searchRequest, CancellationToken cancellationToken = default)
+        {
+            CheckDisposed();
+
+            try
+            {
+                var content = StringContentFactory.Create(searchRequest, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync("/search", HttpMethod.Post, content, cancellationToken);
+
+                return response.Response;
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new SearchException(ExceptionError.SearchError, ex);
+            }
+        }
+
+        private async Task<ManticoreResponse<SearchResult<TDocument>, ErrorMessage>> ProcessSearchAsync<TDocument>(SearchRequest searchRequest, CancellationToken cancellationToken = default)
+            where TDocument : ManticoreDocument
+        {
+            CheckDisposed();
+
+            try
+            {
+                var content = StringContentFactory.Create(searchRequest, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync("/search", HttpMethod.Post, content, cancellationToken);
+
+                var result = new ManticoreResponse<SearchResult<TDocument>, ErrorMessage>
+                {
+                    RawResponse = response.Response
+                };
+
+                if (response.IsSuccessStatusCode)
+                {
+                    result.Response = JsonConvert.DeserializeObject<SearchResult<TDocument>>(response.Response, _jsonSettings);
                     result.IsSuccess = true;
                 }
                 else
@@ -495,10 +579,12 @@ namespace ManticoreSearch.Provider
 
         private async Task<DeleteResponse> ProcessDeleteAsync(DeleteRequest document, CancellationToken cancellationToken = default)
         {
+            CheckDisposed();
+
             try
             {
-                var content = CreateStringContent(document, "application/json");
-                var response = await SendAsync("/delete", HttpMethod.Post, content, cancellationToken);
+                var content = StringContentFactory.Create(document, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync("/delete", HttpMethod.Post, content, cancellationToken);
 
                 var result = new DeleteResponse
                 {
@@ -536,10 +622,12 @@ namespace ManticoreSearch.Provider
 
         private async Task<PercolateResponse> ProcessPercolateAsync<TPercolateRequest>(TPercolateRequest document, string endpoint, HttpMethod httpMethod, CancellationToken cancellationToken = default)
         {
+            CheckDisposed();
+
             try
             {
-                var content = CreateStringContent(document, "application/json");
-                var response = await SendAsync(endpoint, httpMethod, content, cancellationToken);
+                var content = StringContentFactory.Create(document, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync(endpoint, httpMethod, content, cancellationToken);
 
                 var result = new PercolateResponse()
                 {
@@ -554,7 +642,7 @@ namespace ManticoreSearch.Provider
                 }
                 else if (jsonResponse.ContainsKey("hits"))
                 {
-                    result.ResponseIfSearch = JsonConvert.DeserializeObject<SearchSuccess>(response.Response, _jsonSettings);
+                    result.ResponseIfSearch = JsonConvert.DeserializeObject<FullSearchResponse>(response.Response, _jsonSettings);
                     result.IsSuccess = true;
                 }
                 else
@@ -575,24 +663,26 @@ namespace ManticoreSearch.Provider
             }
         }
 
-        private async Task<ManticoreResponse<SearchSuccess, ErrorMessage>> ProcessGetPercolateAsync(string index, int id, CancellationToken cancellationToken = default)
+        private async Task<ManticoreResponse<FullSearchResponse, ErrorMessage>> ProcessGetPercolateAsync(string index, int id, CancellationToken cancellationToken = default)
         {
+            CheckDisposed();
+
             try
             {
-                var response = await SendAsync(
+                var response = await _httpHelper!.SendAsync(
                     endpoint: $"/pq/{index}/doc/{id}",
                     method: HttpMethod.Get,
                     cancellationToken: cancellationToken
                 );
 
-                var result = new ManticoreResponse<SearchSuccess, ErrorMessage>
+                var result = new ManticoreResponse<FullSearchResponse, ErrorMessage>
                 {
                     RawResponse = response.Response
                 };
 
                 if (response.IsSuccessStatusCode)
                 {
-                    result.Response = JsonConvert.DeserializeObject<SearchSuccess>(response.Response, _jsonSettings);
+                    result.Response = JsonConvert.DeserializeObject<FullSearchResponse>(response.Response, _jsonSettings);
                     result.IsSuccess = true;
                 }
                 else
@@ -615,10 +705,12 @@ namespace ManticoreSearch.Provider
 
         private async Task<ManticoreResponse<List<AutocompleteSuccess>, ErrorMessage>> ProcessAutocompleteAsync(AutocompleteRequest autocomplete, CancellationToken cancellationToken = default)
         {
+            CheckDisposed();
+
             try
             {
-                var stringContent = CreateStringContent(autocomplete, "application/json");
-                var response = await SendAsync("/autocomplete", HttpMethod.Post, stringContent, cancellationToken);
+                var stringContent = StringContentFactory.Create(autocomplete, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync("/autocomplete", HttpMethod.Post, stringContent, cancellationToken);
 
                 var result = new ManticoreResponse<List<AutocompleteSuccess>, ErrorMessage>
                 {
@@ -650,10 +742,12 @@ namespace ManticoreSearch.Provider
 
         private async Task<ManticoreResponse<List<MappingSuccess>, ErrorMessage>> ProcessMappingAsync(MappingRequest properties, string index, CancellationToken cancellationToken = default)
         {
+            CheckDisposed();
+
             try
             {
-                var stringContent = CreateStringContent(properties, "application/json");
-                var response = await SendAsync($"/{index}/_mapping", HttpMethod.Post, stringContent, cancellationToken);
+                var stringContent = StringContentFactory.Create(properties, "application/json", _jsonSettings);
+                var response = await _httpHelper!.SendAsync($"/{index}/_mapping", HttpMethod.Post, stringContent, cancellationToken);
 
                 var result = new ManticoreResponse<List<MappingSuccess>, ErrorMessage>
                 {
@@ -681,24 +775,6 @@ namespace ManticoreSearch.Provider
             {
                 throw new MappingException(ExceptionError.MappingError, ex);
             }
-        }
-
-        private void InitializeHttpClient(string uri, TimeSpan timeout = default)
-        {
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(uri),
-                Timeout = timeout == default ? TimeSpan.FromSeconds(_defaultTimeoutInSeconds) : timeout
-            };
-        }
-
-        private void ConfigureJsonSettings()
-        {
-            _jsonSettings = new JsonSerializerSettings
-            {
-                ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
-                NullValueHandling = NullValueHandling.Ignore
-            };
         }
     }
 }
