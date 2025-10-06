@@ -1,27 +1,25 @@
 # ManticoreProvider
 
-[Manticore Search](https://manticoresearch.com/) – easy-to-use open-source fast database for search 
+[Manticore Search](https://manticoresearch.com/) – easy-to-use open-source fast database for search.
 
-Initial release of `ManticoreSearch.Provider` providing API integration with **Manticore Search** server for .NET applications. This version includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify `ManticoreSearch` integration in .NET projects.
+The `ManticoreSearch.Provider` offers an API to interact with **Manticore Search** server using `.NET`. This library includes features for full-text search, autocomplete, fuzzy search, basic CRUD operations, support for custom queries and filters, and flexible indexing and query expansion options. Designed to simplify the integration of **Manticore Search** into `.NET` projects.
 
-**Note:** If you find errors or bugs in the library, please write in the `issues` section
+**Note:** If you find errors or bugs in the library, please write in the `issues` section.
 
 ## Usage
 ### Creating an Instance
 
-Create an instance of `ManticoreProvider`, specifying the base address of Manticore Search. If the address is not specified, http://localhost:9308 will be used by default.
+Create an instance of `ManticoreProvider` class, specifying the base address of Manticore Search server. If the address is not specified, `http://localhost:9308` will be used by default.
 ```csharp
 var provider = new ManticoreProvider(); // defaults to http://localhost:9308
 // or
-var provider = new ManticoreProvider("http://your-manticore-address");
+var provider = new ManticoreProvider("http://your-address");
 ```
 
 ### Executing SQL Queries
 
 To execute an SQL query, use the `SqlAsync` method:
 ```csharp
-string result = provider.Sql("SELECT * FROM your_index");
-// or
 string resultAsync = await provider.SqlAsync("SELECT * FROM your_index");
 ```
 
@@ -29,16 +27,15 @@ string resultAsync = await provider.SqlAsync("SELECT * FROM your_index");
 
 Manticore contains structured tables, so you need to declare a class that describes the table. The class must inherit from `ManticoreDocument`:
 ```csharp
-internal class TestIndex : ManticoreDocument
+public class TestIndex : ManticoreDocument
 {
     public string Title { get; set; }
+
     public string Content { get; set; }
+
     public float? Price { get; set; }
+
     public string Category { get; set; }
-    public string StringField { get; set; }
-    public int? IntField { get; set; }
-    public bool? BoolField { get; set; }
-    public TimeSpan? DatetimeField { get; set; }
 }
 ```
 
@@ -390,7 +387,7 @@ var result = await provider.UseMappingAsync(request, "training");
 ```
 
 ## Usage In ASP.NET
-To use `ManticoreProvider` in your Web API, register the provider in the DI container:
+To use `ManticoreProvider` in your ASP.NET project, register the provider in the DI container:
 ```csharp
 builder.Services.AddManticoreSearchProvider();
 ```
@@ -425,10 +422,3 @@ public class ManticoreController(IManticoreProvider manticoreProvider) : Control
 - `SearchException` — on Search request error.
 - `SqlException` — on SQL request error.
 - `UpdateException` — on Update request error.
-
-## Cleanup
-
-Remember to release resources by calling the `Dispose` method when you are done using `ManticoreProvider`.
-```csharp
-provider.Dispose();
-```
