@@ -5,7 +5,7 @@ namespace ManticoreSearch.Provider
 {
     internal class HttpClientHelper : IDisposable
     {
-        private bool _disposed = false;
+        private bool _disposed;
         private HttpClient? _httpClient;
         private const int _defaultTimeoutInSeconds = 30;
 

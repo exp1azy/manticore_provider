@@ -389,7 +389,7 @@ var result = await provider.UseMappingAsync(request, "training");
 ## Usage In ASP.NET
 To use `ManticoreProvider` in your ASP.NET project, register the provider in the DI container:
 ```csharp
-builder.Services.AddManticoreSearchProvider();
+builder.Services.AddManticoreProvider();
 ```
 Next, you can get the `IManticoreProvider` from the DI container. Example:
 ```csharp
