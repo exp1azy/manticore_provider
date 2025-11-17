@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -11,13 +11,13 @@
     <PackageProjectUrl>https://github.com/exp1azy/ManticoreSearch.Api</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/exp1azy/ManticoreSearch.Api</RepositoryUrl>
-    <PackageTags>manticore;search;fulltext;text;autocomplete;database;opensource;nosql</PackageTags>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>manticore;search;fulltext;text;autocomplete;database;db;opensource;nosql;es;elasticsearch</PackageTags>
+    <PackageReleaseNotes>.net10 support</PackageReleaseNotes>
     <PackAsTool>False</PackAsTool>
     <AnalysisLevel>latest</AnalysisLevel>
     <PackageLicenseFile>LICENCE.txt</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>2.0.2</Version>
+    <Version>2.0.3</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageIcon>c867d56c-afd3-4b89-9cfa-7c9840bdb74e.jpg</PackageIcon>
   </PropertyGroup>
